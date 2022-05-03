@@ -1,0 +1,17 @@
+#!/bin/bash
+
+CPU_VENDOR=`cat /proc/cpuinfo | grep vendor_id | grep -o ':.*' | sed 's/^: //' | uniq | head -1`
+if [[ "${CPU_VENDOR}" == "GenuineIntel" ]]; then
+    CPU_VENDOR=intel
+elif [[ "${CPU_VENDOR}" == "AuthenticAMD" ]]; then
+    CPU_VENDOR=amd
+else
+    echo "Unexpected CPU vendor ${CPU_VENDOR}!" >&2
+    exit 1
+fi
+
+if [ "${DEBUG}" != 0 ]; then
+    echo "CPU_VENDOR=$CPU_VENDOR"
+fi
+
+export CPU_VENDOR

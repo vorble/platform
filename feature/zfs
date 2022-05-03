@@ -1,0 +1,10 @@
+#!/bin/bash
+
+set -euo pipefail
+
+function pre_install_hook() {
+  # TODO: install zfs from backports.
+  exit 0
+}
+
+"${@}"

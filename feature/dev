@@ -1,0 +1,11 @@
+#!/bin/bash
+
+set -euo pipefail
+
+function list_apt_packages() {
+    echo "build-essential"
+    echo "gdb"
+    echo "valgrind"
+}
+
+"${@}"

@@ -1,0 +1,13 @@
+#!/bin/bash
+
+HAS_NVIDIA_GRAPHICS=0
+if lspci | grep 'VGA compatible controller' | grep -q NVIDIA; then
+    # 02:00.0 VGA compatible controller: NVIDIA Corporation GK106GL [Quadro K4000] (rev a1)
+    HAS_NVIDIA_GRAPHICS=1
+fi
+
+if [ "${DEBUG}" != 0 ]; then
+    echo "HAS_NVIDIA_GRAPHICS=$HAS_NVIDIA_GRAPHICS"
+fi
+
+export HAS_NVIDIA_GRAPHICS

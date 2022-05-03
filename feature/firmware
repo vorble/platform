@@ -1,0 +1,13 @@
+#!/bin/bash
+
+set -euo pipefail
+
+function list_apt_packages() {
+    if [[ "${CPU_VENDOR}" == "intel" ]]; then
+        echo "intel-microcode"
+    elif [[ "${CPU_VENDOR}" == "amd" ]]; then
+        echo "amd64-microcode"
+    fi
+}
+
+"${@}"

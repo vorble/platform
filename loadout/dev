@@ -1,0 +1,10 @@
+#!/bin/bash
+
+set -euo pipefail
+
+function list_features() {
+    echo "loadout/common"
+    echo "feature/dev"
+}
+
+"${@}"

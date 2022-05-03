@@ -1,0 +1,29 @@
+#!/bin/bash
+
+set -euo pipefail
+
+function list_apt_packages() {
+    # Administrative Tools
+    echo "build-essential"
+    echo "arping"
+    echo "iotop"
+    echo "ltrace"
+    echo "nmap"
+    echo "strace"
+    echo "sudo"
+    if [[ "${IS_METAL}" != "0" ]]; then
+        echo "smartmontools"
+    fi
+
+    # System Utilities
+    echo "curl"
+    echo "rsync"
+
+    # User Tools
+    echo "screen"
+    echo "silversearcher-ag"
+    echo "tmux"
+    echo "vim"
+}
+
+"${@}"
