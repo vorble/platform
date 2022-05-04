@@ -2,9 +2,7 @@
 
 # -e for exit on failed command.
 # -u for undefined variables are an error.
-# -o pipefail to fail when any part of a pipe chain fails.
 set -eu
-#set -o pipefail
 
 
 #LOADOUT="loadout/common"
