@@ -1,12 +1,12 @@
-#!/bin/bash
+#!/bin/sh
 
-set -euo pipefail
+set -eu
 
-function list_prerequisites() {
+list_prerequisites() {
     echo "feature/zfs"
 }
 
-function list_features() {
+list_features() {
     echo "feature/drivers"
     if [ "$IS_METAL" != "0" ]; then
         echo "feature/firmware"

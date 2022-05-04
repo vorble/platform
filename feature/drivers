@@ -1,13 +1,13 @@
-#!/bin/bash
+#!/bin/sh
 
-set -euo pipefail
+set -eu
 
-function list_apt_packages() {
-    if [[ "${HAS_NVIDIA_GRAPHICS}" != "0" ]]; then
+list_apt_packages() {
+    if [ "${HAS_NVIDIA_GRAPHICS}" != "0" ]; then
         echo "nvidia-driver"
     fi
 
-    if [[ "${HAS_AMD_GRAPHICS}" != "0" ]]; then
+    if [ "${HAS_AMD_GRAPHICS}" != "0" ]; then
         echo "firmware-amd-graphics"
     fi
 }

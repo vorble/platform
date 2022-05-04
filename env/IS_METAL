@@ -1,6 +1,6 @@
-#!/bin/bash
+#!/bin/sh
 
-set -euo pipefail
+set -eu
 
 IS_METAL=1
 if grep -q 'flags\s\+:.*\shypervisor\($\|\s\)' /proc/cpuinfo; then

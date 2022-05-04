@@ -1,8 +1,8 @@
-#!/bin/bash
+#!/bin/sh
 
-set -euo pipefail
+set -eu
 
-function list_apt_packages() {
+list_apt_packages() {
     # Administrative Tools
     echo "build-essential"
     echo "arping"
@@ -11,7 +11,7 @@ function list_apt_packages() {
     echo "nmap"
     echo "strace"
     echo "sudo"
-    if [[ "${IS_METAL}" != "0" ]]; then
+    if [ "${IS_METAL}" != "0" ]; then
         echo "smartmontools"
     fi
 

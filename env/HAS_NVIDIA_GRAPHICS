@@ -1,4 +1,6 @@
-#!/bin/bash
+#!/bin/sh
+
+set -eu
 
 HAS_NVIDIA_GRAPHICS=0
 if lspci | grep 'VGA compatible controller' | grep -q NVIDIA; then
