@@ -4,7 +4,6 @@ set -eu
 
 list_apt_packages() {
     # Administrative Tools
-    echo "build-essential"
     echo "arping"
     echo "iotop"
     echo "ltrace"
