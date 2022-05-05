@@ -16,13 +16,13 @@ if [ "$DEBUG" != "0" ]; then
     echo "DEBUG=$DEBUG"
 fi
 
-if [ "${CUSTOM_ENV+x}" = "x" ]; then
-    export CUSTOM_ENV="${CUSTOM_ENV}"
+if [ "${ENV_DIR+x}" = "x" ]; then
+    export ENV_DIR="${ENV_DIR}"
 else
-    export CUSTOM_ENV=
+    export ENV_DIR=
 fi
 if [ "$DEBUG" != "0" ]; then
-    echo "CUSTOM_ENV=$CUSTOM_ENV"
+    echo "ENV_DIR=$ENV_DIR"
 fi
 
 if [ "${DRY_RUN+x}" = "x" ]; then
@@ -32,6 +32,15 @@ else
 fi
 if [ "$DEBUG" != "0" ]; then
     echo "DRY_RUN=$DRY_RUN"
+fi
+
+if [ "${HOOK_DIR+x}" = "x" ]; then
+    export HOOK_DIR="${HOOK_DIR}"
+else
+    export HOOK_DIR=
+fi
+if [ "$DEBUG" != "0" ]; then
+    echo "HOOK_DIR=$HOOK_DIR"
 fi
 
 if [ "${LOADOUT+x}" = "x" ]; then
@@ -72,13 +81,17 @@ fi
 . env/HAS_AMD_GRAPHICS
 . env/HAS_NVIDIA_GRAPHICS
 
-# TODO: Would a custom ENV dir be better? Include all scripts from the dir?
-# TODO: A custom hooks dir would be good too.
-set +e
-if [ -n "$CUSTOM_ENV" ]; then
-    . $CUSTOM_ENV
+if [ -n "$ENV_DIR" ]; then
+    for ENV_FILE in $ENV_DIR/*; do
+        . $ENV_FILE
+    done
 fi
-set -e
+
+HOOKS="hook/*"
+if [ -n "$HOOK_DIR" ]; then
+    HOOKS="$HOOKS $HOOK_DIR/*"
+fi
+
 
 . include/install_packages
 
@@ -154,10 +167,9 @@ setup_features() {
     done
 }
 
-
 FEATURES=`list_features ${LOADOUT} | sort -su`
 
-for HOOK in hook/*; do
+for HOOK in $HOOKS; do
     if feature_has_function ${HOOK} on_start; then
         "${HOOK}" on_start
     fi
@@ -165,7 +177,7 @@ done
 
 setup_features ${FEATURES}
 
-for HOOK in hook/*; do
+for HOOK in $HOOKS; do
     if feature_has_function ${HOOK} on_finish; then
         "${HOOK}" on_finish
     fi
