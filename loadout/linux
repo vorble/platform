@@ -1,0 +1,9 @@
+#!/bin/sh
+
+set -eu
+
+list_prerequisites() {
+    echo "feature/zfs"
+}
+
+"${@}"
