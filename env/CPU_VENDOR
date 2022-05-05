@@ -5,7 +5,7 @@ set -eu
 if [ -f /proc/cpuinfo ]; then
     CPU_VENDOR=`cat /proc/cpuinfo | grep vendor_id | grep -o ':.*' | sed 's/^: //' | uniq | head -1`
 elif [ -x /sbin/sysctl ]; then
-    CPU_VENDOR=`sysctl -n machdep.cpuvendor`
+    CPU_VENDOR=`/sbin/sysctl -n machdep.cpuvendor`
 else
     echo "Unable to determine CPU vendor!" >&2
     exit 1
