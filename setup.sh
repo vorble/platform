@@ -13,12 +13,14 @@ else
 fi
 
 export PLATFORM_VERSION=0.0.3
-export DEBUG=0
-#export DEBUG=1
+#export DEBUG=0
+export DEBUG=1
 . env/CPU_VENDOR
 . env/HAS_AMD_GRAPHICS
 . env/HAS_NVIDIA_GRAPHICS
+. env/IS_LINUX
 . env/IS_METAL
+. env/IS_OPENBSD
 export DEBUG=0
 
 

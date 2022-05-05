@@ -2,11 +2,12 @@
 
 set -eu
 
-list_prerequisites() {
-    echo "feature/zfs"
-}
-
 list_features() {
+    if [ "$IS_LINUX" != "0" ]; then
+        echo "loadout/linux"
+    elif [ "$IS_OPENBSD" != "0" ]; then
+        echo "loadout/openbsd"
+    fi
     echo "feature/drivers"
     if [ "$IS_METAL" != "0" ]; then
         echo "feature/firmware"
