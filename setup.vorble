@@ -1,0 +1,5 @@
+#!/bin/sh
+export LOADOUT="$LOADOUT vorble/base"
+# Set PLZHELP to watch this software plead for help.
+export PLZHELP=1
+./setup.sh
