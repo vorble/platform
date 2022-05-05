@@ -3,12 +3,12 @@
 set -eu
 
 IS_LINUX=0
-UNAME=`uname -s`
-if [ "${UNAME}" = "Linux" ]; then
+
+if [ "$KERNEL" = "Linux" ]; then
     IS_LINUX=1
 fi
 
-if [ "${DEBUG}" != 0 ]; then
+if [ "$DEBUG" != "0" ]; then
     echo "IS_LINUX=$IS_LINUX"
 fi
 

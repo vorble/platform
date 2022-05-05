@@ -3,9 +3,18 @@
 set -eu
 
 HAS_AMD_GRAPHICS=0
-if lspci | grep 'VGA compatible controller' | grep -q AMD; then
-    # 0a:00.0 VGA compatible controller: Advanced Micro Devices, Inc. [AMD/ATI] Navi 23 (rev c1)
-    HAS_AMD_GRAPHICS=1
+
+if [ "$KERNEL" = "Linux" ]; then
+    if lspci | grep 'VGA compatible controller' | grep -q AMD; then
+        # Please list example matched lines here for various card models.
+        # TODO: What was Navi 23 again? Find the Radeon card name.
+        # 0a:00.0 VGA compatible controller: Advanced Micro Devices, Inc. [AMD/ATI] Navi 23 (rev c1)
+        HAS_AMD_GRAPHICS=1
+    fi
+else
+    if [ "$PLZHELP" != "0" ]; then
+        echo "PLZHELP: env/HAS_AMD_GRAPHICS is not implemented for KERNEL=$KERNEL!"
+    fi
 fi
 
 if [ "${DEBUG}" != 0 ]; then

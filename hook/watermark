@@ -3,8 +3,14 @@
 set -eu
 
 on_finish() {
-    echo $PLATFORM_VERSION $LOADOUT > "${PATH_ETC}/platform"
-    echo `date` $PLATFORM_VERSION $LOADOUT >> "${PATH_ETC}/setup.log"
+    local PLATFORM_STRING="$PLATFORM_VERSION $LOADOUT"
+    local SETUP_STRING="`date` $PLATFORM_STRING"
+    echo ${PATH_ETC}/platform: $PLATFORM_STRING
+    echo ${PATH_ETC}/setup.log: $SETUP_STRING
+    if [ "$DRY_RUN" = "0" ]; then
+        echo $PLATFORM_STRING > "${PATH_ETC}/platform"
+        echo $SETUP_STRING >> "${PATH_ETC}/setup.log"
+    fi
 }
 
 "${@}"

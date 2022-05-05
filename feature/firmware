@@ -2,11 +2,15 @@
 
 set -eu
 
-list_apt_packages() {
-    if [ "${CPU_VENDOR}" = "intel" ]; then
-        echo "intel-microcode"
-    elif [ "${CPU_VENDOR}" = "amd" ]; then
-        echo "amd64-microcode"
+. include/install_packages
+
+list_packages() {
+    if [ "$KERNEL" = "Linux" -a "$DISTRO" = "Debian" ]; then
+        if [ "${CPU_VENDOR}" = "intel" ]; then
+            echo "intel-microcode"
+        elif [ "${CPU_VENDOR}" = "amd" ]; then
+            echo "amd64-microcode"
+        fi
     fi
 }
 

@@ -2,4 +2,7 @@
 
 set -eu
 
+list_features() {
+}
+
 "${@}"

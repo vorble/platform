@@ -3,8 +3,8 @@
 set -eu
 
 IS_OPENBSD=0
-UNAME=`uname -s`
-if [ "${UNAME}" = "OpenBSD" ]; then
+
+if [ "$KERNEL" = "OpenBSD" ]; then
     IS_OPENBSD=1
 fi
 

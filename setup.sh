@@ -4,25 +4,86 @@
 # -u for undefined variables are an error.
 set -eu
 
-export LOADOUT="loadout/common"
+export PLATFORM_VERSION=0.0.3
+
+# DEBUG must come first.
+if [ "${DEBUG+x}" = "x" ]; then
+    export DEBUG="${DEBUG}"
+else
+    export DEBUG=0
+fi
+if [ "$DEBUG" != "0" ]; then
+    echo "DEBUG=$DEBUG"
+fi
+
+if [ "${CUSTOM_ENV+x}" = "x" ]; then
+    export CUSTOM_ENV="${CUSTOM_ENV}"
+else
+    export CUSTOM_ENV=
+fi
+if [ "$DEBUG" != "0" ]; then
+    echo "CUSTOM_ENV=$CUSTOM_ENV"
+fi
+
+if [ "${DRY_RUN+x}" = "x" ]; then
+    export DRY_RUN="${DRY_RUN}"
+else
+    export DRY_RUN=0
+fi
+if [ "$DEBUG" != "0" ]; then
+    echo "DRY_RUN=$DRY_RUN"
+fi
+
+if [ "${LOADOUT+x}" = "x" ]; then
+    export LOADOUT="${LOADOUT}"
+else
+    export LOADOUT="loadout/base"
+fi
+if [ "$DEBUG" != "0" ]; then
+    echo "LOADOUT=$LOADOUT"
+fi
 
 if [ "${PATH_ETC+x}" = "x" ]; then
     export PATH_ETC="${PATH_ETC}"
 else
     export PATH_ETC=/usr/local/etc
 fi
+if [ "$DEBUG" != "0" ]; then
+    echo "PATH_ETC=$PATH_ETC"
+fi
 
-export PLATFORM_VERSION=0.0.3
-#export DEBUG=0
-export DEBUG=1
+if [ "${PLZHELP+x}" = "x" ]; then
+    export PLZHELP="${PLZHELP}"
+else
+    export PLZHELP=0
+fi
+if [ "$DEBUG" != "0" ]; then
+    echo "PLZHELP=$PLZHELP"
+fi
+
+
 . env/CPU_VENDOR
+. env/DISTRO
+. env/DISTRO_VERSION
+. env/IS_METAL
+. env/KERNEL
+. env/PACKAGE_MANAGER
+# The following envs have dependencies on the previous.
+. env/IS_LINUX
+. env/IS_OPENBSD
+# The following envs have dependencies on the previous.
 . env/HAS_AMD_GRAPHICS
 . env/HAS_NVIDIA_GRAPHICS
-. env/IS_LINUX
-. env/IS_METAL
-. env/IS_OPENBSD
-export DEBUG=0
 
+# TODO: Would a custom ENV dir be better? Include all scripts from the dir?
+# TODO: A custom hooks dir would be good too.
+set +e
+if [ -n "$CUSTOM_ENV" ]; then
+    . $CUSTOM_ENV
+fi
+set -e
+
+. include/install_packages
 
 feature_exists() {
     local FEATURE
@@ -37,7 +98,9 @@ feature_exists() {
 feature_has_function() {
     local FEATURE=$1
     local FUNCTION=$2
+    # For bash.
     #"${FEATURE}" declare -F "${FUNCTION}" > /dev/null
+    # For POSIX shell.
     "${FEATURE}" type "${FUNCTION}" > /dev/null 2> /dev/null
 }
 
@@ -57,11 +120,11 @@ list_features() {
     done
 }
 
-list_apt_packages() {
+list_packages() {
     local FEATURE PKGS PKG
     for FEATURE in ${@}; do
-        if feature_has_function ${FEATURE} list_apt_packages; then
-            PKGS=`"${FEATURE}" list_apt_packages`
+        if feature_has_function ${FEATURE} list_packages; then
+            PKGS=`"${FEATURE}" list_packages`
             for PKG in ${PKGS}; do
                 echo $PKG
             done
@@ -83,10 +146,9 @@ setup_features() {
             "${FEATURE}" pre_install_hook
         fi
     done
-    PKGS=`list_apt_packages ${FEATURES} | sort -su`
+    PKGS=`list_packages ${FEATURES} | sort -su`
     if [ "${PKGS}" != "" ]; then
-        # TODO - actually do the install
-        echo apt-get install --yes ${PKGS}
+        install_packages ${PKGS}
     fi
     for FEATURE in ${FEATURES}; do
         if feature_has_function ${FEATURE} post_install_hook; then

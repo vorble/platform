@@ -1,0 +1,22 @@
+#!/bin/sh
+
+set -eu
+
+DISTRO=""
+
+if [ -f /etc/os-release ]; then
+    if grep -q 'NAME="Debian GNU/Linux"' /etc/os-release; then
+      DISTRO="Debian"
+    fi
+fi
+
+if [ "$DISTRO" = "" ]; then
+    echo "env/DISTRO: Unable to determine distro." >&2
+    exit 1
+fi
+
+if [ "$DEBUG" != "0" ]; then
+    echo "DISTRO=$DISTRO"
+fi
+
+export DISTRO

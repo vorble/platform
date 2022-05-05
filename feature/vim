@@ -1,0 +1,14 @@
+#!/bin/sh
+
+set -eu
+
+list_packages() {
+    if [ "$KERNEL" = "Linux" -a "$DISTRO" = "Debian" ]; then
+        echo "vim"
+    else
+        echo "feature/vim: list_packages() is not implemented for KERNEL=$KERNEL DISTRO=$DISTRO" >&2
+        exit 1
+    fi
+}
+
+"${@}"

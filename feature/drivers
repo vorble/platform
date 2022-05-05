@@ -2,13 +2,15 @@
 
 set -eu
 
-list_apt_packages() {
-    if [ "${HAS_NVIDIA_GRAPHICS}" != "0" ]; then
-        echo "nvidia-driver"
-    fi
+list_packages() {
+    if [ "$KERNEL" = "Linux" -a "$DISTRO" = "Debian" ]; then
+        if [ "${HAS_NVIDIA_GRAPHICS}" != "0" ]; then
+            echo "nvidia-driver"
+        fi
 
-    if [ "${HAS_AMD_GRAPHICS}" != "0" ]; then
-        echo "firmware-amd-graphics"
+        if [ "${HAS_AMD_GRAPHICS}" != "0" ]; then
+            echo "firmware-amd-graphics"
+        fi
     fi
 }
 

@@ -1,0 +1,22 @@
+#!/bin/sh
+
+set -eu
+
+DISTRO_VERSION=""
+
+if [ -f /etc/os-release ]; then
+    if grep -q 'NAME="Debian GNU/Linux 10 (buster)"' /etc/os-release; then
+      DISTRO_VERSION="10"
+    fi
+fi
+
+if [ "$DISTRO_VERSION" = "" ]; then
+    echo "env/DISTRO_VERSION: Unable to determine distro version." >&2
+    exit 1
+fi
+
+if [ "$DEBUG" != "0" ]; then
+    echo "DISTRO_VERSION=$DISTRO_VERSION"
+fi
+
+export DISTRO_VERSION

@@ -3,9 +3,16 @@
 set -eu
 
 HAS_NVIDIA_GRAPHICS=0
-if lspci | grep 'VGA compatible controller' | grep -q NVIDIA; then
-    # 02:00.0 VGA compatible controller: NVIDIA Corporation GK106GL [Quadro K4000] (rev a1)
-    HAS_NVIDIA_GRAPHICS=1
+
+if [ "$KERNEL" = "Linux" ]; then
+    if lspci | grep 'VGA compatible controller' | grep -q NVIDIA; then
+        # 02:00.0 VGA compatible controller: NVIDIA Corporation GK106GL [Quadro K4000] (rev a1)
+        HAS_NVIDIA_GRAPHICS=1
+    fi
+else
+    if [ "$PLZHELP" != "0" ]; then
+        echo "PLZHELP: env/HAS_NVIDIA_GRAPHICS is not implemented for KERNEL=$KERNEL!"
+    fi
 fi
 
 if [ "${DEBUG}" != 0 ]; then

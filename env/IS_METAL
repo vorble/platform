@@ -7,7 +7,7 @@ if grep -q 'flags\s\+:.*\shypervisor\($\|\s\)' /proc/cpuinfo; then
     IS_METAL=0
 fi
 
-if [ "${DEBUG}" != 0 ]; then
+if [ "$DEBUG" != "0" ]; then
     echo "IS_METAL=$IS_METAL"
 fi
 

@@ -1,0 +1,20 @@
+#!/bin/sh
+
+set -eu
+
+PACKAGE_MANAGER=""
+
+if which apt-get > /dev/null; then
+    PACKAGE_MANAGER="apt"
+elif which pkgadd > /dev/null; then
+    PACKAGE_MANAGER="pkgadd"
+else
+    echo "env/PACKAGE_MANAGER: Unable to determine package manager." >&2
+    exit 1
+fi
+
+if [ "$DEBUG" != "0" ]; then
+    echo "PACKAGE_MANAGER=$PACKAGE_MANAGER"
+fi
+
+export PACKAGE_MANAGER

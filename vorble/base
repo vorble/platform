@@ -1,0 +1,11 @@
+#!/bin/sh
+
+set -eu
+
+list_features() {
+  echo "feature/drivers"
+  echo "feature/firmware"
+  echo "feature/vim"
+}
+
+"${@}"
