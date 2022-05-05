@@ -1,0 +1,10 @@
+#!/bin/sh
+
+set -eu
+
+on_finish() {
+    echo $PLATFORM_VERSION $LOADOUT > "${PATH_ETC}/platform"
+    echo `date` $PLATFORM_VERSION $LOADOUT >> "${PATH_ETC}/setup.log"
+}
+
+"${@}"

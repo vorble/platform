@@ -4,10 +4,13 @@
 # -u for undefined variables are an error.
 set -eu
 
+export LOADOUT="loadout/common"
 
-#LOADOUT="loadout/common"
-LOADOUT="loadout/dev"
-
+if [ "${PATH_ETC+x}" = "x" ]; then
+    export PATH_ETC="${PATH_ETC}"
+else
+    export PATH_ETC=/usr/local/etc
+fi
 
 export PLATFORM_VERSION=0.0.3
 export DEBUG=0
@@ -90,5 +93,19 @@ setup_features() {
     done
 }
 
+
 FEATURES=`list_features ${LOADOUT} | sort -su`
+
+for HOOK in hook/*; do
+    if feature_has_function ${HOOK} on_start; then
+        "${HOOK}" on_start
+    fi
+done
+
 setup_features ${FEATURES}
+
+for HOOK in hook/*; do
+    if feature_has_function ${HOOK} on_finish; then
+        "${HOOK}" on_finish
+    fi
+done
