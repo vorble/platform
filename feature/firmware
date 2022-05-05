@@ -2,8 +2,6 @@
 
 set -eu
 
-. include/install_packages
-
 list_packages() {
     if [ "$KERNEL" = "Linux" -a "$DISTRO" = "Debian" ]; then
         if [ "${CPU_VENDOR}" = "intel" ]; then

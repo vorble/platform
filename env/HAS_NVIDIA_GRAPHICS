@@ -15,7 +15,7 @@ else
     fi
 fi
 
-if [ "${DEBUG}" != 0 ]; then
+if [ "$DEBUG" != "0" ]; then
     echo "HAS_NVIDIA_GRAPHICS=$HAS_NVIDIA_GRAPHICS"
 fi
 

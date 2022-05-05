@@ -69,9 +69,6 @@ fi
 . env/KERNEL
 . env/PACKAGE_MANAGER
 # The following envs have dependencies on the previous.
-. env/IS_LINUX
-. env/IS_OPENBSD
-# The following envs have dependencies on the previous.
 . env/HAS_AMD_GRAPHICS
 . env/HAS_NVIDIA_GRAPHICS
 
