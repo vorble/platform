@@ -17,8 +17,11 @@
 
 set -e
 
+export VORBLE_VERSION=0.0.1
+
 export LOADOUT="$LOADOUT vorble/loadout/base"
 export PLZHELP=1
+export HOOK_DIR="vorble/hook"
 
 # Custom options for vorble platform:
 export USERS=root keith
