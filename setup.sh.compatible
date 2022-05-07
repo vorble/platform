@@ -15,17 +15,11 @@
 # You should have received a copy of the GNU General Public License
 # along with this program.  If not, see <http://www.gnu.org/licenses/>.
 
+# This script will attempt to convert any historically used options and
+# arguments to the form used by the current version of the software.
+# When this occurs, a notice is displayed for the developer. If conversion
+# is not possible, then this script will fail.
+
 set -eu
 
-on_finish() {
-    local PLATFORM_STRING="$PLATFORM_VERSION $LOADOUT"
-    local SETUP_STRING="`date` $PLATFORM_STRING"
-    echo ${PATH_ETC}/platform: $PLATFORM_STRING
-    echo ${PATH_ETC}/setup.log: $SETUP_STRING
-    if [ "$DRY_RUN" = "0" ]; then
-        echo $PLATFORM_STRING > "${PATH_ETC}/platform"
-        echo $SETUP_STRING >> "${PATH_ETC}/setup.log"
-    fi
-}
-
-"${@}"
+`dirname $0`/setup.sh

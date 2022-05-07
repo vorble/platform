@@ -1,75 +1,34 @@
 #!/bin/sh
 
+# Copyright (C) 2022 Keith "vorble"
+#
+# This program is free software: you can redistribute it and/or modify
+# it under the terms of the GNU General Public License as published by
+# the Free Software Foundation, either version 3 of the License, or
+# (at your option) any later version.
+#
+# This program is distributed in the hope that it will be useful,
+# but WITHOUT ANY WARRANTY; without even the implied warranty of
+# MERCHANTABILITY or FITNESS FOR A PARTICULAR PURPOSE.  See the
+# GNU General Public License for more details.
+#
+# You should have received a copy of the GNU General Public License
+# along with this program.  If not, see <http://www.gnu.org/licenses/>.
+
 # -e for exit on failed command.
 # -u for undefined variables are an error.
 set -eu
 
+cd `dirname $0`
+
 export PLATFORM_VERSION=0.0.3
 
 # DEBUG must come first.
-if [ "${DEBUG+x}" = "x" ]; then
-    export DEBUG="${DEBUG}"
-else
-    export DEBUG=0
-fi
-if [ "$DEBUG" != "0" ]; then
-    echo "DEBUG=$DEBUG"
-fi
-
-if [ "${ENV_DIR+x}" = "x" ]; then
-    export ENV_DIR="${ENV_DIR}"
-else
-    export ENV_DIR=
-fi
-if [ "$DEBUG" != "0" ]; then
-    echo "ENV_DIR=$ENV_DIR"
-fi
-
-if [ "${DRY_RUN+x}" = "x" ]; then
-    export DRY_RUN="${DRY_RUN}"
-else
-    export DRY_RUN=0
-fi
-if [ "$DEBUG" != "0" ]; then
-    echo "DRY_RUN=$DRY_RUN"
-fi
-
-if [ "${HOOK_DIR+x}" = "x" ]; then
-    export HOOK_DIR="${HOOK_DIR}"
-else
-    export HOOK_DIR=
-fi
-if [ "$DEBUG" != "0" ]; then
-    echo "HOOK_DIR=$HOOK_DIR"
-fi
-
-if [ "${LOADOUT+x}" = "x" ]; then
-    export LOADOUT="${LOADOUT}"
-else
-    export LOADOUT="loadout/base"
-fi
-if [ "$DEBUG" != "0" ]; then
-    echo "LOADOUT=$LOADOUT"
-fi
-
-if [ "${PATH_ETC+x}" = "x" ]; then
-    export PATH_ETC="${PATH_ETC}"
-else
-    export PATH_ETC=/usr/local/etc
-fi
-if [ "$DEBUG" != "0" ]; then
-    echo "PATH_ETC=$PATH_ETC"
-fi
-
-if [ "${PLZHELP+x}" = "x" ]; then
-    export PLZHELP="${PLZHELP}"
-else
-    export PLZHELP=0
-fi
-if [ "$DEBUG" != "0" ]; then
-    echo "PLZHELP=$PLZHELP"
-fi
-
+. option/DEBUG
+. option/ENV_DIR
+. option/DRY_RUN
+. option/HOOK_DIR
+. option/PATH_ETC
 
 . env/CPU_VENDOR
 . env/DISTRO

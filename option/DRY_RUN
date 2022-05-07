@@ -17,15 +17,14 @@
 
 set -eu
 
-on_finish() {
-    local PLATFORM_STRING="$PLATFORM_VERSION $LOADOUT"
-    local SETUP_STRING="`date` $PLATFORM_STRING"
-    echo ${PATH_ETC}/platform: $PLATFORM_STRING
-    echo ${PATH_ETC}/setup.log: $SETUP_STRING
-    if [ "$DRY_RUN" = "0" ]; then
-        echo $PLATFORM_STRING > "${PATH_ETC}/platform"
-        echo $SETUP_STRING >> "${PATH_ETC}/setup.log"
-    fi
-}
+if [ "${DRY_RUN+x}" = "x" ]; then
+    export DRY_RUN="${DRY_RUN}"
+else
+    export DRY_RUN=0
+fi
 
-"${@}"
+if [ "$DEBUG" != "0" ]; then
+    echo "DRY_RUN=$DRY_RUN"
+fi
+
+export DRY_RUN

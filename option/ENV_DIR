@@ -17,15 +17,14 @@
 
 set -eu
 
-on_finish() {
-    local PLATFORM_STRING="$PLATFORM_VERSION $LOADOUT"
-    local SETUP_STRING="`date` $PLATFORM_STRING"
-    echo ${PATH_ETC}/platform: $PLATFORM_STRING
-    echo ${PATH_ETC}/setup.log: $SETUP_STRING
-    if [ "$DRY_RUN" = "0" ]; then
-        echo $PLATFORM_STRING > "${PATH_ETC}/platform"
-        echo $SETUP_STRING >> "${PATH_ETC}/setup.log"
-    fi
-}
+if [ "${ENV_DIR+x}" = "x" ]; then
+    export ENV_DIR="${ENV_DIR}"
+else
+    export ENV_DIR=
+fi
 
-"${@}"
+if [ "$DEBUG" != "0" ]; then
+    echo "ENV_DIR=$ENV_DIR"
+fi
+
+export ENV_DIR

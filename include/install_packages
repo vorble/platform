@@ -1,5 +1,20 @@
 #!/bin/sh
 
+# Copyright (C) 2022 Keith "vorble"
+#
+# This program is free software: you can redistribute it and/or modify
+# it under the terms of the GNU General Public License as published by
+# the Free Software Foundation, either version 3 of the License, or
+# (at your option) any later version.
+#
+# This program is distributed in the hope that it will be useful,
+# but WITHOUT ANY WARRANTY; without even the implied warranty of
+# MERCHANTABILITY or FITNESS FOR A PARTICULAR PURPOSE.  See the
+# GNU General Public License for more details.
+#
+# You should have received a copy of the GNU General Public License
+# along with this program.  If not, see <http://www.gnu.org/licenses/>.
+
 set -eu
 
 install_packages() {
@@ -11,7 +26,7 @@ install_packages() {
         INSTALL_COMMAND="apt-get install --yes ${@}"
         echo $INSTALL_COMMAND
         if [ "$DRY_RUN" = "0" ]; then
-            "${INSTALL_COMMAND}"
+            ${INSTALL_COMMAND}
         fi
     else
         echo "include/install_packages: install_packages() is not implemented for PACKAGE_MANAGER=$PACKAGE_MANAGER!" >&2
