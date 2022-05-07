@@ -110,8 +110,12 @@ setup_features() {
             setup_features ${PREREQS}
         fi
     done
+    if [ "$DEBUG" != "0" ]; then
+        echo "Setting up features: ${FEATURES}"
+    fi
     for FEATURE in ${FEATURES}; do
         if feature_has_function ${FEATURE} pre_install_hook; then
+            echo "pre_install_hook ${FEATURE}"
             "${FEATURE}" pre_install_hook
         fi
     done

@@ -17,15 +17,13 @@
 
 set -eu
 
-export VORBLE_VERSION=0.0.1
+list_packages() {
+    if [ "$KERNEL" = "Linux" -a "$DISTRO" = "Debian" ]; then
+        echo "screen"
+    else
+        echo "feature/screen: list_packages() is not implemented for KERNEL=$KERNEL DISTRO=$DISTRO" >&2
+        exit 1
+    fi
+}
 
-set +u
-export LOADOUT="$LOADOUT vorble/loadout/base"
-set -u
-export PLZHELP=1
-export HOOK_DIR="vorble/hook"
-
-# Custom options for vorble platform:
-export USERS="keith root vorble"
-
-`dirname $0`/setup.sh.compatible
+"${@}"

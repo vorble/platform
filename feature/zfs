@@ -1,0 +1,60 @@
+#!/bin/sh
+
+# Copyright (C) 2022 Keith "vorble"
+#
+# This program is free software: you can redistribute it and/or modify
+# it under the terms of the GNU General Public License as published by
+# the Free Software Foundation, either version 3 of the License, or
+# (at your option) any later version.
+#
+# This program is distributed in the hope that it will be useful,
+# but WITHOUT ANY WARRANTY; without even the implied warranty of
+# MERCHANTABILITY or FITNESS FOR A PARTICULAR PURPOSE.  See the
+# GNU General Public License for more details.
+#
+# You should have received a copy of the GNU General Public License
+# along with this program.  If not, see <http://www.gnu.org/licenses/>.
+
+set -eu
+
+. include/debian
+
+pre_install_hook() {
+    if [ "$KERNEL" != "Linux" -o "$DISTRO" != "Debian" ]; then
+        echo "feature/zfs: Feature is currently only supported on Debian GNU/Linux." >&2
+        exit 1
+    fi
+
+    local CURRENT_REPO
+    CURRENT_REPO=`grep '^deb http' /etc/apt/sources.list | grep " ${DEBIAN_CODENAME} " | grep -o 'https\?:\/\/[^ ]\+'`
+    if [ ! -f /etc/apt/sources.list.d/${DEBIAN_CODENAME}-backports.list ]; then
+        echo "feature/zfs: Creating /etc/apt/sources.list.d/${DEBIAN_CODENAME}-backports.list"
+        if [ "$DRY_RUN" = "0" ]; then
+            cat > /etc/apt/sources.list.d/${DEBIAN_CODENAME}-backports.list <<EOF
+deb ${CURRENT_REPO} ${DEBIAN_CODENAME}-backports main contrib non-free
+deb-src ${CURRENT_REPO} ${DEBIAN_CODENAME}-backports main contrib non-free
+EOF
+        fi
+    fi
+}
+
+list_packages() {
+    echo "linux-headers-amd64"
+}
+
+post_install_hook() {
+    echo apt-get update
+    if [ "$DRY_RUN" = "0" ]; then
+        apt-get update
+    fi
+    echo apt-get install --yes --target-release=${DEBIAN_CODENAME}-backports zfsutils-linux
+    if [ "$DRY_RUN" = "0" ]; then
+        apt-get install --yes --target-release=${DEBIAN_CODENAME}-backports zfsutils-linux
+    fi
+    echo modprobe zfs
+    if [ "$DRY_RUN" = "0" ]; then
+        modprobe zfs
+    fi
+}
+
+"${@}"

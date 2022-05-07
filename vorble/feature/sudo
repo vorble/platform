@@ -17,15 +17,19 @@
 
 set -eu
 
-export VORBLE_VERSION=0.0.1
+list_features() {
+    echo "feature/sudo"
+}
 
-set +u
-export LOADOUT="$LOADOUT vorble/loadout/base"
-set -u
-export PLZHELP=1
-export HOOK_DIR="vorble/hook"
+post_install_hook() {
+    for USER in $USERS; do
+        if [ "$USER" != "root" ]; then
+            echo usermod -a -G sudo "$USER"
+            if [ "$DRY_RUN" = "0" ]; then
+                usermod -a -G sudo "$USER"
+            fi
+        fi
+    done
+}
 
-# Custom options for vorble platform:
-export USERS="keith root vorble"
-
-`dirname $0`/setup.sh.compatible
+"${@}"

@@ -18,10 +18,26 @@
 set -eu
 
 list_features() {
+  echo "feature/curl"
+  echo "feature/dev"
   echo "feature/drivers"
   echo "feature/firmware"
-
+  echo "feature/gdb"
+  echo "feature/iotop"
+  echo "feature/ltrace"
+  echo "feature/rsync"
+  echo "feature/screen"
+  echo "feature/silversearcher"
+  echo "feature/smartmontools"
+  echo "feature/strace"
+  echo "vorble/feature/sudo"
+  echo "feature/tmux"
+  echo "feature/valgrind"
   echo "vorble/feature/vim"
+
+  if [ "$IS_METAL" != "0" -a "$KERNEL" = "Linux" -a "$DISTRO" = "Debian" ]; then
+    echo "feature/zfs" # WARNING: Sets up the system for non-free software.
+  fi
 }
 
 "${@}"

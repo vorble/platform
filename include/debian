@@ -17,15 +17,9 @@
 
 set -eu
 
-export VORBLE_VERSION=0.0.1
-
-set +u
-export LOADOUT="$LOADOUT vorble/loadout/base"
-set -u
-export PLZHELP=1
-export HOOK_DIR="vorble/hook"
-
-# Custom options for vorble platform:
-export USERS="keith root vorble"
-
-`dirname $0`/setup.sh.compatible
+if [ "$KERNEL" = "Linux" -a "$DISTRO" = "Debian" ]; then
+    # buster, bullseye
+    DEBIAN_CODENAME=`lsb_release -s -c`
+else
+    DEBIAN_CODENAME=""
+fi
