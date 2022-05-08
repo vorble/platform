@@ -22,7 +22,7 @@ list_packages() {
         echo "silversearcher-ag"
     else
         echo "feature/silversearcher: list_packages() is not implemented for KERNEL=$KERNEL DISTRO=$DISTRO" >&2
-        return 1
+        exit 1
     fi
 }
 

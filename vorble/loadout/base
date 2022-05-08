@@ -18,26 +18,31 @@
 set -eu
 
 list_features() {
-  echo "feature/curl"
-  echo "feature/dev"
-  echo "feature/drivers"
-  echo "feature/firmware"
-  echo "feature/gdb"
-  echo "feature/iotop"
-  echo "feature/ltrace"
-  echo "feature/rsync"
-  echo "feature/screen"
-  echo "feature/silversearcher"
-  echo "feature/smartmontools"
-  echo "feature/strace"
-  echo "vorble/feature/sudo"
-  echo "feature/tmux"
-  echo "feature/valgrind"
-  echo "vorble/feature/vim"
+    echo "feature/curl"
+    echo "feature/dev"
+    echo "feature/drivers"
+    echo "feature/firmware"
+    echo "feature/gdb"
+    echo "feature/rsync"
+    echo "feature/screen"
+    echo "feature/tmux"
+    echo "vorble/feature/vim"
 
-  if [ "$IS_METAL" != "0" -a "$KERNEL" = "Linux" -a "$DISTRO" = "Debian" ]; then
-    echo "feature/zfs" # WARNING: Sets up the system for non-free software.
-  fi
+    if [ "$KERNEL" = "Linux" ]; then
+        echo "feature/iotop"
+        echo "feature/ltrace"
+        echo "feature/silversearcher"
+        echo "feature/smartmontools"
+        echo "feature/strace"
+        echo "vorble/feature/sudo"
+        echo "feature/valgrind"
+    fi
+
+    # TODO: Make a flag, something for the common implementation, that controls whether non-free software
+    # can be used at all.
+    if [ "$IS_METAL" != "0" -a "$KERNEL" = "Linux" -a "$DISTRO" = "Debian" ]; then
+        echo "feature/zfs" # WARNING: Sets up the system for non-free software.
+    fi
 }
 
 "${@}"

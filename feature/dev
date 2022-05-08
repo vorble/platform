@@ -22,11 +22,11 @@ list_packages() {
         echo "build-essential"
     elif [ "$KERNEL" = "OpenBSD" ]; then
         if [ "$PLZHELP" != "0" ]; then
-            echo "PLZHELP: feature/dev: list_packages() is implemented for OpenBSD, but no packages listed. Do any make sense?"
+            echo "PLZHELP: feature/dev: list_packages() is implemented for OpenBSD, but no packages listed. Do any make sense?" >&2
         fi
     else
         echo "feature/dev: list_packages() is not implemented for KERNEL=$KERNEL DISTRO=$DISTRO" >&2
-        return 1
+        exit 1
     fi
 }
 

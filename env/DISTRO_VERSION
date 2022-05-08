@@ -25,6 +25,10 @@ if [ -f /etc/os-release ]; then
     fi
 fi
 
+if uname -r -s | grep 'OpenBSD 7\.1' > /dev/null; then
+    DISTRO_VERSION="7.1"
+fi
+
 if [ "$DISTRO_VERSION" = "" ]; then
     echo "env/DISTRO_VERSION: Unable to determine distro version." >&2
     exit 1

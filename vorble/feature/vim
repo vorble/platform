@@ -22,14 +22,19 @@ list_features() {
 }
 
 post_install_hook() {
+    local USER HOMEDIR GROUP
     for USER in $USERS; do
         HOMEDIR="$( getent passwd "$USER" | cut -d: -f6 )"
         if [ -d "$HOMEDIR" ]; then
             echo cp vorble/files/vimrc "$HOMEDIR/.vimrc"
-            echo chown "$USER:$USER" "$HOMEDIR/.vimrc"
+            GROUP="$USER"
+            if [ "$USER" = "root" -a "$KERNEL" = "OpenBSD" ]; then
+                GROUP=wheel
+            fi
+            echo chown "$USER:$GROUP" "$HOMEDIR/.vimrc"
             if [ "$DRY_RUN" = "0" ]; then
                 cp vorble/files/vimrc "$HOMEDIR/.vimrc"
-                chown "$USER:$USER" "$HOMEDIR/.vimrc"
+                chown "$USER:$GROUP" "$HOMEDIR/.vimrc"
             fi
         fi
     done

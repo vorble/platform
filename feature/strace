@@ -22,7 +22,7 @@ list_packages() {
         echo "strace"
     else
         echo "feature/strace: list_packages() is not implemented for KERNEL=$KERNEL DISTRO=$DISTRO" >&2
-        return 1
+        exit 1
     fi
 }
 

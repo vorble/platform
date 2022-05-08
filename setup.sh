@@ -119,7 +119,8 @@ setup_features() {
             "${FEATURE}" pre_install_hook
         fi
     done
-    PKGS=`list_packages ${FEATURES} | sort -su`
+    PKGS=`list_packages ${FEATURES}`
+    PKGS="`echo $PKGS | sort -su`"
     if [ "${PKGS}" != "" ]; then
         install_packages ${PKGS}
     fi
@@ -130,7 +131,8 @@ setup_features() {
     done
 }
 
-FEATURES=`list_features ${LOADOUT} | sort -su`
+FEATURES=`list_features ${LOADOUT}`
+FEATURES="`echo $FEATURES | sort -su`"
 
 for HOOK in $HOOKS; do
     if feature_has_function ${HOOK} on_start; then
