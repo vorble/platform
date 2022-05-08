@@ -17,6 +17,10 @@
 
 set -eu
 
+show_watermark() {
+    echo "vorble $VORBLE_VERSION"
+}
+
 list_features() {
     echo "feature/curl"
     echo "feature/dev"

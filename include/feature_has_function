@@ -15,16 +15,11 @@
 # You should have received a copy of the GNU General Public License
 # along with this program.  If not, see <http://www.gnu.org/licenses/>.
 
-set -eu
-
-set +u
-export LOADOUT="$LOADOUT vorble/loadout/base"
-set -u
-export PLZHELP=1
-#export HOOK_DIR="vorble/hook"
-export ENV_DIR="vorble/env"
-
-# Custom options for vorble platform:
-export USERS="keith root vorble"
-
-`dirname $0`/setup.sh.compatible
+feature_has_function() {
+    local FEATURE=$1
+    local FUNCTION=$2
+    # For bash:
+    #"${FEATURE}" declare -F "${FUNCTION}" > /dev/null
+    # For POSIX shell:
+    "${FEATURE}" type "${FUNCTION}" > /dev/null 2> /dev/null
+}

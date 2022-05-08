@@ -17,15 +17,29 @@
 
 set -eu
 
+. include/feature_has_function
+
 on_finish() {
-    local PLATFORM_STRING="platform $PLATFORM_VERSION $LOADOUT"
-    local SETUP_STRING="`date`: $PLATFORM_STRING"
+    local PLATFORM_STRING="platform $PLATFORM_VERSION"
+    local FEATURE
+    local WATERMARK
     echo ${PATH_ETC}/platform: $PLATFORM_STRING
-    echo ${PATH_ETC}/setup.log: $SETUP_STRING
     if [ "$DRY_RUN" = "0" ]; then
         echo $PLATFORM_STRING > "${PATH_ETC}/platform"
-        echo $SETUP_STRING >> "${PATH_ETC}/setup.log"
     fi
+    for FEATURE in $LOADOUT; do
+        if feature_has_function "${FEATURE}" show_watermark; then
+            WATERMARK=`"${FEATURE}" show_watermark`
+            echo ${PATH_ETC}/platform: $WATERMARK
+            if [ "$DRY_RUN" = "0" ]; then
+                echo $WATERMARK >> "${PATH_ETC}/platform"
+            fi
+        fi
+        echo ${PATH_ETC}/platform: $LOADOUT
+        if [ "$DRY_RUN" = "0" ]; then
+            echo $LOADOUT >> "${PATH_ETC}/platform"
+        fi
+    done
 }
 
 "${@}"

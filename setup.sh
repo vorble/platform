@@ -53,6 +53,7 @@ fi
 
 
 . include/install_packages
+. include/feature_has_function
 
 feature_exists() {
     local FEATURE
@@ -62,15 +63,6 @@ feature_exists() {
             return 1
         fi
     done
-}
-
-feature_has_function() {
-    local FEATURE=$1
-    local FUNCTION=$2
-    # For bash.
-    #"${FEATURE}" declare -F "${FUNCTION}" > /dev/null
-    # For POSIX shell.
-    "${FEATURE}" type "${FUNCTION}" > /dev/null 2> /dev/null
 }
 
 # List the dependencies of the feature and then the feature itself. Use this to
@@ -115,7 +107,6 @@ setup_features() {
     fi
     for FEATURE in ${FEATURES}; do
         if feature_has_function ${FEATURE} pre_install_hook; then
-            echo "pre_install_hook ${FEATURE}"
             "${FEATURE}" pre_install_hook
         fi
     done

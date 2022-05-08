@@ -15,17 +15,8 @@
 # You should have received a copy of the GNU General Public License
 # along with this program.  If not, see <http://www.gnu.org/licenses/>.
 
-set -eu
+export VORBLE_VERSION=0.0.1
 
-on_finish() {
-    local PLATFORM_STRING="vorble $VORBLE_VERSION $LOADOUT"
-    local SETUP_STRING="`date`: $PLATFORM_STRING"
-    echo ${PATH_ETC}/platform.vorble: $PLATFORM_STRING
-    echo ${PATH_ETC}/setup.log: $SETUP_STRING
-    if [ "$DRY_RUN" = "0" ]; then
-        echo $PLATFORM_STRING > "${PATH_ETC}/platform.vorble"
-        echo $SETUP_STRING >> "${PATH_ETC}/setup.log"
-    fi
-}
-
-"${@}"
+if [ "$DEBUG" != "0" ]; then
+    echo "VORBLE_VERSION=$VORBLE_VERSION"
+fi
