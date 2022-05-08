@@ -17,16 +17,20 @@
 
 set -eu
 
+. include/user_exists
+
 list_features() {
     echo "feature/sudo"
 }
 
 post_install_hook() {
     for USER in $USERS; do
-        if [ "$USER" != "root" ]; then
-            echo usermod -a -G sudo "$USER"
-            if [ "$DRY_RUN" = "0" ]; then
-                usermod -a -G sudo "$USER"
+        if user_exists "$USER"; then
+            if [ "$USER" != "root" ]; then
+                echo usermod -a -G sudo "$USER"
+                if [ "$DRY_RUN" = "0" ]; then
+                    usermod -a -G sudo "$USER"
+                fi
             fi
         fi
     done
