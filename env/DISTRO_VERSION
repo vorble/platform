@@ -20,6 +20,8 @@ DISTRO_VERSION=""
 if [ -f /etc/os-release ]; then
     if grep -q 'NAME="Debian GNU/Linux 10 (buster)"' /etc/os-release; then
       DISTRO_VERSION="10"
+    elif grep -q 'NAME="Debian GNU/Linux 11 (bullseye)"' /etc/os-release; then
+      DISTRO_VERSION="11"
     fi
 fi
 
