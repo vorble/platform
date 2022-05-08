@@ -59,7 +59,7 @@ feature_exists() {
     for FEATURE in ${@}; do
         if [ ! -x "${FEATURE}" ]; then
             echo "Feature ${FEATURE} is not an executable file." 1>&2
-            exit 1
+            return 1
         fi
     done
 }

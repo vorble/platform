@@ -15,8 +15,6 @@
 # You should have received a copy of the GNU General Public License
 # along with this program.  If not, see <http://www.gnu.org/licenses/>.
 
-set -eu
-
 IS_METAL=1
 if grep -q 'flags\s\+:.*\shypervisor\($\|\s\)' /proc/cpuinfo; then
     IS_METAL=0

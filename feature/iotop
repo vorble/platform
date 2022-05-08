@@ -22,7 +22,7 @@ list_packages() {
         echo "iotop"
     else
         echo "feature/iotop: list_packages() is not implemented for KERNEL=$KERNEL DISTRO=$DISTRO" >&2
-        exit 1
+        return 1
     fi
 }
 

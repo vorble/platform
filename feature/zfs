@@ -22,7 +22,7 @@ set -eu
 pre_install_hook() {
     if [ "$KERNEL" != "Linux" -o "$DISTRO" != "Debian" ]; then
         echo "feature/zfs: Feature is currently only supported on Debian GNU/Linux." >&2
-        exit 1
+        return 1
     fi
 
     local CURRENT_REPO
