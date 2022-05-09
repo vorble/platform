@@ -21,7 +21,7 @@ list_packages() {
     if [ "$KERNEL" = "Linux" -a "$DISTRO" = "Debian" ]; then
         echo "rsync"
     elif [ "$KERNEL" = "OpenBSD" ]; then
-        echo "rsync"
+        echo "rsync--"
     else
         echo "feature/rsync: list_packages() is not implemented for KERNEL=$KERNEL DISTRO=$DISTRO" >&2
         exit 1

@@ -16,9 +16,11 @@
 # along with this program.  If not, see <http://www.gnu.org/licenses/>.
 
 IS_METAL=1
-if grep -q 'flags\s\+:.*\shypervisor\($\|\s\)' /proc/cpuinfo; then
+if grep -q 'flags\s\+:.*\shypervisor\($\|\s\)' /proc/cpuinfo 2> /dev/null; then
     IS_METAL=0
 fi
+
+# TODO: Add check for OpenBSD
 
 if [ "$DEBUG" != "0" ]; then
     echo "IS_METAL=$IS_METAL"

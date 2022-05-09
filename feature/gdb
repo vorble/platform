@@ -21,7 +21,7 @@ list_packages() {
     if [ "$KERNEL" = "Linux" -a "$DISTRO" = "Debian" ]; then
         echo "gdb"
     elif [ "$KERNEL" = "OpenBSD" ]; then
-        echo "gdb"
+        echo "gdb--"
     else
         echo "feature/gdb: list_packages() is not implemented for KERNEL=$KERNEL DISTRO=$DISTRO" >&2
         exit 1

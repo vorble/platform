@@ -21,7 +21,7 @@ list_packages() {
     if [ "$KERNEL" = "Linux" -a "$DISTRO" = "Debian" ]; then
         echo "vim"
     elif [ "$KERNEL" = "OpenBSD" ]; then
-        echo "vim"
+        echo "vim--no_x11"
     else
         echo "feature/vim: list_packages() is not implemented for KERNEL=$KERNEL DISTRO=$DISTRO" >&2
         exit 1

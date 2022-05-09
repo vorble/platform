@@ -21,7 +21,15 @@ list_packages() {
     if [ "$KERNEL" = "Linux" -a "$DISTRO" = "Debian" ]; then
         echo "tmux"
     elif [ "$KERNEL" = "OpenBSD" ]; then
-        echo "tmux"
+        # RESEARCH: Did tmux always come in OpenBSD?
+        # Comes by default in 7, don't know about prior versions.
+        # If version is less than 7, add tmux as a package just in case.
+        if ! $( exit `echo "$DISTRO_VERSION < 7" | bc` ); then
+            if [ "$PLZHELP" != "0" ]; then
+                echo "PLZHELP: feature/tmux: list_packages(): Does tmux come by default on OpenBSD prior to 7?" >&2
+            fi
+            echo "tmux"
+        fi
     else
         echo "feature/tmux: list_packages() is not implemented for KERNEL=$KERNEL DISTRO=$DISTRO" >&2
         exit 1

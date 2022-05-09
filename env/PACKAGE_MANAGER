@@ -17,9 +17,9 @@
 
 PACKAGE_MANAGER=""
 
-if which apt-get > /dev/null; then
+if which apt-get > /dev/null 2> /dev/null; then
     PACKAGE_MANAGER="apt"
-elif which pkg_add > /dev/null; then
+elif which pkg_add > /dev/null 2> /dev/null; then
     PACKAGE_MANAGER="pkg_add"
 else
     echo "env/PACKAGE_MANAGER: Unable to determine package manager." >&2

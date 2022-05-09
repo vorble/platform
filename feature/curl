@@ -21,7 +21,7 @@ list_packages() {
     if [ "$KERNEL" = "Linux" -a "$DISTRO" = "Debian" ]; then
         echo "curl"
     elif [ "$KERNEL" = "OpenBSD" ]; then
-        echo "curl"
+        echo "curl--"
     else
         echo "feature/curl: list_packages() is not implemented for KERNEL=$KERNEL DISTRO=$DISTRO" >&2
         exit 1

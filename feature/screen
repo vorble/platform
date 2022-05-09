@@ -21,7 +21,7 @@ list_packages() {
     if [ "$KERNEL" = "Linux" -a "$DISTRO" = "Debian" ]; then
         echo "screen"
     elif [ "$KERNEL" = "OpenBSD" ]; then
-        echo "screen"
+        echo "screen--"
     else
         echo "feature/screen: list_packages() is not implemented for KERNEL=$KERNEL DISTRO=$DISTRO" >&2
         exit 1
