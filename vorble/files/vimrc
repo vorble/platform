@@ -1,1 +1,169 @@
+" This configuration is part of a platform setup which may be overwritten by
+" subsequent redeployments. Additional configuration may be added to
+" .vimrc.local which is loaded at the end of this file.
+
+" -----------------------------------------------------------------------------
+" Plugins
+" -----------------------------------------------------------------------------
+
+" Use the Pathogen runtime path manager.
+" https://github.com/tpope/vim-pathogen
+try
+    execute pathogen#infect()
+catch
+    " You don't have pathogen.
+endtry
+
+
+" -----------------------------------------------------------------------------
+" Typing Experience
+" -----------------------------------------------------------------------------
+
+" Backspace can delete indentation, delete over line breaks, and delete past
+" the place where insert mode started.
+set backspace=indent,eol,start
+
+" Allow movement between lines with the left and right arrow keys in both
+" normal/visual and insert/replace modes.
+set whichwrap+=<,>,[,]
+
+" Do not jump to matching brackets while typing.
+set noshowmatch
+
+" Set the word list file for spell checking. See help for spellfile and related
+" commands like zg and zw.
+set spellfile=~/.vim/spell/en.utf-8.add
+
+" Do not automatically continue comments.
+autocmd FileType * setlocal formatoptions-=c formatoptions-=r formatoptions-=o
+
+
+" -----------------------------------------------------------------------------
+" Indentation
+" -----------------------------------------------------------------------------
+
+set tabstop=4
+set softtabstop=4
+set shiftwidth=4
+set expandtab
+set autoindent
+set smarttab
+
+
+" -----------------------------------------------------------------------------
+" User Interface
+" -----------------------------------------------------------------------------
+
+" Use the Ron color scheme.
+colorscheme ron
+
+" Format the status line.
+"   %< - Truncate the left side of the line if it is too long.
+"   %y - Type of file in the buffer, e.g., "[vim]".  See 'filetype'.
+"   %F - Full path to the file in the buffer.
+"   %O - Offset from start of file (with one added) in hexadecimal.
+"   %h - Help buffer flag, text is "[help]".
+"   %m - Modified flag, text is "[+]"; "[-]" if 'modifiable' is off.
+"   %r - Readonly flag, text is "[RO]".
+"   %l - Line number.
+"   %c - Column number.
+"   %V - Virtual column number as -{num}.  Not displayed if equal to 'c'.
+"   %P - Percentage through file of displayed window.
+set statusline=%<%y\ %F+0x%O\ %(%h%m%r%)%=0x%B\ %l,%c%V\ %P
+
+" Always show the status line.
+set laststatus=2
+
+" Highlight all matches of the search pattern. :nohls will stop highlighting
+" until the next search command is issued.
+set hlsearch
+
+" Do not highlight matches of the search pattern as it is typed.
+set noincsearch
+
+" Enable syntax highlighting for structured files (e.g. source code).
+syntax enable
+
+" When typing commands and using tab completion, show the possible completions
+" above the command line.
+set wildmenu
+
+" Disable mouse functionality provided by vim.
 set mouse=
+set ttymouse=
+
+" Disable the audible bell when vim reports errors. This enables the visual
+" bell, which flashes the screen, but clears the ANSI control code (stored in
+" t_vb) that actually causes the terminal (or emulator) to flash. The net
+" result is no bells and no flashes.
+set visualbell t_vb=
+
+
+" -----------------------------------------------------------------------------
+" Performance
+" -----------------------------------------------------------------------------
+
+" Prefer to keep parts of the swap file in memory (instead of syncing it to
+" disk) at the potential cost of losing work.
+set swapsync=
+
+" Always flush the file to disk after writing at the potential cost slower
+" writes.
+set fsync
+
+
+" -----------------------------------------------------------------------------
+" Other Tunings
+" -----------------------------------------------------------------------------
+
+" Keep a large history of commands
+set history=10000
+
+
+" -----------------------------------------------------------------------------
+" Overrides
+" -----------------------------------------------------------------------------
+
+augroup Overrides
+    autocmd!
+    " Makefile syntax requires indentation to be hard tabs.
+    autocmd FileType make set noexpandtab
+    " Use 2-space tabs for common web files to match the community.
+    autocmd Filetype html,javascript,markdown,typescrypt setlocal tabstop=2 softtabstop=2 shiftwidth=2
+augroup end
+
+
+" -----------------------------------------------------------------------------
+" Custom Commands
+" -----------------------------------------------------------------------------
+
+" Enable/disable word processing mode.
+:command Word set linebreak spell
+:command NoWord set nolinebreak nospell
+
+
+" -----------------------------------------------------------------------------
+" Highlighting
+" -----------------------------------------------------------------------------
+
+" Highlight tab characters.
+if &t_Co == 256
+    highlight Tabs ctermbg=234
+else
+    highlight Tabs ctermbg=DarkGray
+endif
+call matchadd('Tabs', '\t', -1)
+
+" Highlight trailing spaces.
+highlight TrailingSpaces ctermbg=DarkRed
+call matchadd('TrailingSpaces', '\s\+$', -1)
+
+
+" -----------------------------------------------------------------------------
+" Extra
+" -----------------------------------------------------------------------------
+
+" Additional customization may be added in .vimrc.local.
+if filereadable($HOME . "/.vimrc.local")
+  source ~/.vimrc.local
+endif
