@@ -19,11 +19,12 @@ set -eu
 
 set +u
 export LOADOUT="$LOADOUT vorble/loadout/base"
+export PATH_ENV="$PATH_ENV:vorble/env"
+export PATH_HOOK="$PATH_HOOK:vorble/hook"
+#export PLZHELP=1
 set -u
-export PLZHELP=1
-export PATH_ENV="vorble/env"
 
-# Custom options for vorble platform:
+# vorble platform sets up the following users if they are present.
 export USERS="keith root vorble"
 
 `dirname $0`/setup.sh.compatible

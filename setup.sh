@@ -40,7 +40,6 @@ cd `dirname $0`
 # DEBUG must come first.
 . option/DEBUG
 . option/DRY_RUN
-. option/HOOK_DIR
 . option/PATH_ENV
 . option/PATH_ETC
 . option/PATH_HOOK
