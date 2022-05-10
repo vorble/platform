@@ -21,6 +21,12 @@ show_watermark() {
     echo "vorble $VORBLE_VERSION"
 }
 
+list_prerequisites() {
+    if [ "$ALLOW_NONFREE" != "0" ]; then
+        echo "feature/non-free"
+    fi
+}
+
 list_features() {
     echo "feature/curl"
     echo "feature/dev"
@@ -42,10 +48,10 @@ list_features() {
         echo "feature/valgrind"
     fi
 
-    # TODO: Make a flag, something for the common implementation, that controls whether non-free software
-    # can be used at all.
-    if [ "$IS_METAL" != "0" -a "$KERNEL" = "Linux" -a "$DISTRO" = "Debian" ]; then
-        echo "feature/zfs" # WARNING: Sets up the system for non-free software.
+    if [ "$ALLOW_NONFREE" != "0" ]; then
+        if [ "$IS_METAL" != "0" -a "$KERNEL" = "Linux" -a "$DISTRO" = "Debian" ]; then
+            echo "feature/zfs"
+        fi
     fi
 }
 

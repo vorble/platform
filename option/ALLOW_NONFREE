@@ -15,18 +15,21 @@
 # You should have received a copy of the GNU General Public License
 # along with this program.  If not, see <http://www.gnu.org/licenses/>.
 
-set -eu
+# ALLOW_NONFREE
+#
+# This flag controls whether non-free software may be installed.
+#
+# 0 - Non-free software is NOT allowed (the default).
+# 1 - Non-free software is allowed.
 
-list_packages() {
-    if [ "$KERNEL" = "Linux" -a "$DISTRO" = "Debian" ]; then
-        if [ "$HAS_NVIDIA_GRAPHICS" != "0" -a "$ALLOW_NONFREE" != "0" ]; then
-            echo "nvidia-driver"
-        fi
+if [ "${ALLOW_NONFREE+x}" = "x" ]; then
+    export ALLOW_NONFREE="${ALLOW_NONFREE}"
+else
+    export ALLOW_NONFREE=0
+fi
 
-        if [ "$HAS_AMD_GRAPHICS" != "0" -a "$ALLOW_NONFREE" != "0" ]; then
-            echo "firmware-amd-graphics"
-        fi
-    fi
-}
+if [ "$DEBUG" != "0" ]; then
+    echo "ALLOW_NONFREE=$ALLOW_NONFREE"
+fi
 
-"${@}"
+export ALLOW_NONFREE

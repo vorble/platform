@@ -19,6 +19,12 @@ set -eu
 
 . include/feature_has_function
 
+# TODO: Some work is needed for watermarking.
+# * Where is a good place to put the water mark on OpenBSD?
+# * It would be nice if all used features get a chance to make a mark, not just
+#   those in the loadout.
+# * PATH_ETC is not the variable I want to decide where the watermark goes.
+
 on_finish() {
     local PLATFORM_STRING="platform $PLATFORM_VERSION"
     local FEATURE

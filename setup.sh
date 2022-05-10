@@ -39,6 +39,7 @@ cd `dirname $0`
 
 # DEBUG must come first.
 . option/DEBUG
+. option/ALLOW_NONFREE
 . option/DRY_RUN
 . option/PATH_ENV
 . option/PATH_ETC
