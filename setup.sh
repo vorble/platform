@@ -68,11 +68,9 @@ list_envs_for_glob() {
     echo $PATH_ENV | tr ':' '\n' | while read -r PATH_ENV_PART; do
         # Since echo always prints a line, it might be blank.
         if [ -n "$PATH_ENV_PART" ]; then
-            if [ ! -d "$PATH_ENV_PART" ]; then
-                echo "ERROR: PATH_ENV entry $PATH_ENV_PART is not a directory." >&2
-                exit 1
+            if [ -d "$PATH_ENV_PART" ]; then
+                echo "$PATH_ENV_PART/*"
             fi
-            echo "$PATH_ENV_PART/*"
         fi
     done
 }

@@ -29,17 +29,15 @@ list_hooks_with_function() {
     echo $PATH_HOOK | tr ':' '\n' | while read -r PATH_HOOK_PART; do
         # Since echo always prints a line, it might be blank.
         if [ -n "$PATH_HOOK_PART" ]; then
-            if [ ! -d "$PATH_HOOK_PART" ]; then
-                echo "ERROR: PATH_HOOK entry $PATH_HOOK_PART is not a directory." >&2
-                exit 1
-            fi
-            for FNAME in $PATH_HOOK_PART/*; do
-                if [ -f "$FNAME" ]; then
-                    if feature_has_function "$HOOK" "$1"; then
-                        echo "$HOOK"
+            if [ -d "$PATH_HOOK_PART" ]; then
+                for FNAME in $PATH_HOOK_PART/*; do
+                    if [ -f "$FNAME" ]; then
+                        if feature_has_function "$HOOK" "$1"; then
+                            echo "$HOOK"
+                        fi
                     fi
-                fi
-            done
+                done
+            fi
         fi
     done
 }
