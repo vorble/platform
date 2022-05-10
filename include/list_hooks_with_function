@@ -1,0 +1,45 @@
+#!/bin/sh
+
+# Copyright (C) 2022 Keith "vorble"
+#
+# This program is free software: you can redistribute it and/or modify
+# it under the terms of the GNU General Public License as published by
+# the Free Software Foundation, either version 3 of the License, or
+# (at your option) any later version.
+#
+# This program is distributed in the hope that it will be useful,
+# but WITHOUT ANY WARRANTY; without even the implied warranty of
+# MERCHANTABILITY or FITNESS FOR A PARTICULAR PURPOSE.  See the
+# GNU General Public License for more details.
+#
+# You should have received a copy of the GNU General Public License
+# along with this program.  If not, see <http://www.gnu.org/licenses/>.
+
+list_hooks_with_function() {
+    local FNAME
+    local HOOK
+    local PATH_HOOK_PART
+    for HOOK in hook/*; do
+        if [ -f "$HOOK" ]; then
+            if feature_has_function "$HOOK" "$1"; then
+                echo "$HOOK"
+            fi
+        fi
+    done
+    echo $PATH_HOOK | tr ':' '\n' | while read -r PATH_HOOK_PART; do
+        # Since echo always prints a line, it might be blank.
+        if [ -n "$PATH_HOOK_PART" ]; then
+            if [ ! -d "$PATH_HOOK_PART" ]; then
+                echo "ERROR: PATH_HOOK entry $PATH_HOOK_PART is not a directory." >&2
+                exit 1
+            fi
+            for FNAME in $PATH_HOOK_PART/*; do
+                if [ -f "$FNAME" ]; then
+                    if feature_has_function "$HOOK" "$1"; then
+                        echo "$HOOK"
+                    fi
+                fi
+            done
+        fi
+    done
+}

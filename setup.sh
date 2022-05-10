@@ -15,13 +15,27 @@
 # You should have received a copy of the GNU General Public License
 # along with this program.  If not, see <http://www.gnu.org/licenses/>.
 
+# -----------------------------------------------------------------------------
+# Start
+# -----------------------------------------------------------------------------
+
+export PLATFORM_VERSION=0.0.3
+
 # -e for exit on failed command.
 # -u for undefined variables are an error.
 set -eu
 
+# Feature and other scripts are executed by the name listed in the loadout and
+# other feature scripts. The current directory must be the root of this bundle
+# of scripts for everything to work properly.
+# TODO: It would be nice to be able to completely separate a loadout from the
+# platform code base.
 cd `dirname $0`
 
-export PLATFORM_VERSION=0.0.3
+
+# -----------------------------------------------------------------------------
+# Options
+# -----------------------------------------------------------------------------
 
 # DEBUG must come first.
 . option/DEBUG
@@ -29,6 +43,12 @@ export PLATFORM_VERSION=0.0.3
 . option/HOOK_DIR
 . option/PATH_ENV
 . option/PATH_ETC
+. option/PATH_HOOK
+
+
+# -----------------------------------------------------------------------------
+# Environment
+# -----------------------------------------------------------------------------
 
 . env/CPU_VENDOR
 . env/DISTRO
@@ -40,74 +60,61 @@ export PLATFORM_VERSION=0.0.3
 . env/HAS_AMD_GRAPHICS
 . env/HAS_NVIDIA_GRAPHICS
 
-# Load additional env from PATH_ENV directories.
-echo $PATH_ENV | tr ':' '\n' | while read -r PATH_ENV_PART; do
-    if [ -n "$PATH_ENV_PART" ]; then
-        if [ ! -d "$PATH_ENV_PART" ]; then
-            echo "ERROR: PATH_ENV entry $PATH_ENV_PART is not a directory." >&2
-            exit 1
-        fi
-        for FNAME in $PATH_ENV_PART/*; do
-            if [ -f "$FNAME" ]; then
-                . "$FNAME"
+# Load additional env from PATH_ENV directories. This function checks PATH_ENV
+# to ensure it consists of directories. It outputs a glob pattern suitable for
+# matching files in the directory. E.g. PATH_ENV=a:b produces output:
+# a/*
+# b/*
+list_envs_for_glob() {
+    echo $PATH_ENV | tr ':' '\n' | while read -r PATH_ENV_PART; do
+        # Since echo always prints a line, it might be blank.
+        if [ -n "$PATH_ENV_PART" ]; then
+            if [ ! -d "$PATH_ENV_PART" ]; then
+                echo "ERROR: PATH_ENV entry $PATH_ENV_PART is not a directory." >&2
+                exit 1
             fi
-        done
+            echo "$PATH_ENV_PART/*"
+        fi
+    done
+}
+
+for FNAME in $( list_envs_for_glob ); do
+    # An env directory could be empty, so you might get an unmatched glob, so
+    # ensure the listed item is a file before including it.
+    if [ -f "$FNAME" ]; then
+        . "$FNAME"
     fi
 done
 
-HOOKS="hook/*"
-if [ -n "$HOOK_DIR" ]; then
-    HOOKS="$HOOKS $HOOK_DIR/*"
-fi
 
+# -----------------------------------------------------------------------------
+# Includes
+# -----------------------------------------------------------------------------
 
 . include/install_packages
 . include/feature_has_function
+. include/feature_exists
+. include/list_features
+. include/list_hooks_with_function
+. include/list_packages
 
-feature_exists() {
-    local FEATURE
-    for FEATURE in ${@}; do
-        if [ ! -x "${FEATURE}" ]; then
-            echo "Feature ${FEATURE} is not an executable file." 1>&2
-            return 1
-        fi
-    done
-}
 
-# List the dependencies of the feature and then the feature itself. Use this to
-# build the dependency tree.
-list_features() {
-    local FEATURE DEP DEPS
-    for FEATURE in ${@}; do
-        feature_exists ${FEATURE}
-        if feature_has_function ${FEATURE} list_features; then
-            DEPS=`"${FEATURE}" list_features`
-            for DEP in ${DEPS}; do
-                list_features ${DEP}
-            done
-        fi
-        echo ${FEATURE}
-    done
-}
+# -----------------------------------------------------------------------------
+# Main Process
+# -----------------------------------------------------------------------------
 
-list_packages() {
-    local FEATURE PKGS PKG
-    for FEATURE in ${@}; do
-        if feature_has_function ${FEATURE} list_packages; then
-            PKGS=`"${FEATURE}" list_packages`
-            for PKG in ${PKGS}; do
-                echo $PKG
-            done
-        fi
-    done
-}
+# The setup process is recursive: any feature listed in a list_prerequisites
+# will be run through setup_features first, WITHOUT being expanded via
+# list_features.
 
 setup_features() {
     local FEATURES FEATURE PREREQS PKGS
     FEATURES="${@}"
     for FEATURE in ${FEATURES}; do
         if feature_has_function ${FEATURE} list_prerequisites; then
+            # NOT expanded via list_features
             PREREQS=`"${FEATURE}" list_prerequisites`
+            # Recursive.
             setup_features ${PREREQS}
         fi
     done
@@ -134,16 +141,12 @@ setup_features() {
 FEATURES=`list_features ${LOADOUT}`
 FEATURES="`echo $FEATURES | tr ' ' '\n' | sort -su`"
 
-for HOOK in $HOOKS; do
-    if feature_has_function ${HOOK} on_start; then
-        "${HOOK}" on_start
-    fi
+list_hooks_with_function on_start | while read -r HOOK; do
+    "$HOOK" on_start
 done
 
 setup_features ${FEATURES}
 
-for HOOK in $HOOKS; do
-    if feature_has_function ${HOOK} on_finish; then
-        "${HOOK}" on_finish
-    fi
+list_hooks_with_function on_finish | while read -r HOOK; do
+    "$HOOK" on_finish
 done

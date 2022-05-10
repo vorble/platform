@@ -1,0 +1,34 @@
+#!/bin/sh
+
+# Copyright (C) 2022 Keith "vorble"
+#
+# This program is free software: you can redistribute it and/or modify
+# it under the terms of the GNU General Public License as published by
+# the Free Software Foundation, either version 3 of the License, or
+# (at your option) any later version.
+#
+# This program is distributed in the hope that it will be useful,
+# but WITHOUT ANY WARRANTY; without even the implied warranty of
+# MERCHANTABILITY or FITNESS FOR A PARTICULAR PURPOSE.  See the
+# GNU General Public License for more details.
+#
+# You should have received a copy of the GNU General Public License
+# along with this program.  If not, see <http://www.gnu.org/licenses/>.
+
+# List the dependencies of the feature and then the feature itself. Use this to
+# build the dependency tree.
+list_features() {
+    local DEP
+    local DEPS
+    local FEATURE
+    for FEATURE in ${@}; do
+        feature_exists ${FEATURE}
+        if feature_has_function ${FEATURE} list_features; then
+            DEPS=`"${FEATURE}" list_features`
+            for DEP in ${DEPS}; do
+                list_features ${DEP}
+            done
+        fi
+        echo ${FEATURE}
+    done
+}
