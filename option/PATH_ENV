@@ -15,14 +15,19 @@
 # You should have received a copy of the GNU General Public License
 # along with this program.  If not, see <http://www.gnu.org/licenses/>.
 
-if [ "${ENV_DIR+x}" = "x" ]; then
-    export ENV_DIR="${ENV_DIR}"
+# PATH_ENV
+#
+# A colon separated list of paths holding environment scripts that should be
+# loaded.
+
+if [ "${PATH_ENV+x}" = "x" ]; then
+    export PATH_ENV="${PATH_ENV}"
 else
-    export ENV_DIR=
+    export PATH_ENV=
 fi
 
 if [ "$DEBUG" != "0" ]; then
-    echo "ENV_DIR=$ENV_DIR"
+    echo "PATH_ENV=$PATH_ENV"
 fi
 
-export ENV_DIR
+export PATH_ENV

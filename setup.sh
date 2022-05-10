@@ -25,9 +25,9 @@ export PLATFORM_VERSION=0.0.3
 
 # DEBUG must come first.
 . option/DEBUG
-. option/ENV_DIR
 . option/DRY_RUN
 . option/HOOK_DIR
+. option/PATH_ENV
 . option/PATH_ETC
 
 . env/CPU_VENDOR
@@ -40,11 +40,20 @@ export PLATFORM_VERSION=0.0.3
 . env/HAS_AMD_GRAPHICS
 . env/HAS_NVIDIA_GRAPHICS
 
-if [ -n "$ENV_DIR" ]; then
-    for ENV_FILE in $ENV_DIR/*; do
-        . $ENV_FILE
-    done
-fi
+# Load additional env from PATH_ENV directories.
+echo $PATH_ENV | tr ':' '\n' | while read -r PATH_ENV_PART; do
+    if [ -n "$PATH_ENV_PART" ]; then
+        if [ ! -d "$PATH_ENV_PART" ]; then
+            echo "ERROR: PATH_ENV entry $PATH_ENV_PART is not a directory." >&2
+            exit 1
+        fi
+        for FNAME in $PATH_ENV_PART/*; do
+            if [ -f "$FNAME" ]; then
+                . "$FNAME"
+            fi
+        done
+    fi
+done
 
 HOOKS="hook/*"
 if [ -n "$HOOK_DIR" ]; then

@@ -21,8 +21,7 @@ set +u
 export LOADOUT="$LOADOUT vorble/loadout/base"
 set -u
 export PLZHELP=1
-#export HOOK_DIR="vorble/hook"
-export ENV_DIR="vorble/env"
+export PATH_ENV="vorble/env"
 
 # Custom options for vorble platform:
 export USERS="keith root vorble"
