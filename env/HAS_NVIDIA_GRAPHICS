@@ -18,8 +18,10 @@
 HAS_NVIDIA_GRAPHICS=0
 
 if [ "$KERNEL" = "Linux" ]; then
+    # Please list example matched lines here for various card models.
+    # Nvidia Quadro K4000
+    #   02:00.0 VGA compatible controller: NVIDIA Corporation GK106GL [Quadro K4000] (rev a1)
     if lspci | grep 'VGA compatible controller' | grep -q NVIDIA; then
-        # 02:00.0 VGA compatible controller: NVIDIA Corporation GK106GL [Quadro K4000] (rev a1)
         HAS_NVIDIA_GRAPHICS=1
     fi
 else
