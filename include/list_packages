@@ -17,14 +17,9 @@
 
 list_packages() {
     local FEATURE
-    local PKG
-    local PKGS
     for FEATURE in ${@}; do
-        if feature_has_function ${FEATURE} list_packages; then
-            PKGS=`"${FEATURE}" list_packages`
-            for PKG in ${PKGS}; do
-                echo $PKG
-            done
+        if feature_has_function "$FEATURE" list_packages; then
+            "$FEATURE" list_packages
         fi
     done
 }

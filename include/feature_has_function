@@ -19,7 +19,7 @@ feature_has_function() {
     local FEATURE=$1
     local FUNCTION=$2
     # For bash:
-    #"${FEATURE}" declare -F "${FUNCTION}" > /dev/null
+    #"$FEATURE" declare -F "$FUNCTION" > /dev/null
     # For POSIX shell:
-    "${FEATURE}" type "${FUNCTION}" > /dev/null 2> /dev/null
+    "$FEATURE" type "$FUNCTION" > /dev/null 2> /dev/null
 }

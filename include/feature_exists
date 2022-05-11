@@ -18,9 +18,9 @@
 feature_exists() {
     local FEATURE
     for FEATURE in "${@}"; do
-        if [ ! -x "${FEATURE}" ]; then
-            echo "Feature ${FEATURE} is not an executable file." 1>&2
-            return 1
+        if [ ! -x "$FEATURE" ]; then
+            echo "Feature $FEATURE is not an executable file." 1>&2
+            exit 1
         fi
     done
 }

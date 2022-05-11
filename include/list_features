@@ -21,16 +21,14 @@
 # build the dependency tree.
 list_features() {
     local DEP
-    local DEPS
     local FEATURE
-    for FEATURE in ${@}; do
-        feature_exists ${FEATURE}
-        if feature_has_function ${FEATURE} list_features; then
-            DEPS=`"${FEATURE}" list_features`
-            for DEP in ${DEPS}; do
-                list_features ${DEP}
+    for FEATURE in "${@}"; do
+        feature_exists "$FEATURE"
+        if feature_has_function "$FEATURE" list_features; then
+            for DEP in $( "$FEATURE" list_features ); do
+                list_features "$DEP"
             done
         fi
-        echo ${FEATURE}
+        echo "$FEATURE"
     done
 }
