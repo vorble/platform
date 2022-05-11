@@ -19,7 +19,7 @@
 #
 # A colon separated list of paths holding hook scripts that should be run.
 
-if [ "${PATH_HOOK+x}" != "x" ]; then
+if [ "${PATH_HOOK+defined}" != "defined" ]; then
     PATH_HOOK=
 fi
 

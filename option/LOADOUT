@@ -19,7 +19,7 @@
 #
 # A space-separated list of features to be set up.
 
-if [ "${LOADOUT+x}" != "x" ]; then
+if [ "${LOADOUT+defined}" != "defined" ]; then
     LOADOUT="loadout/base"
 fi
 

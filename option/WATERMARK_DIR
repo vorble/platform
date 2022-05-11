@@ -21,7 +21,7 @@
 # the versions used or other information depending on the loadout. See the
 # include/watermark function.
 
-if [ "${WATERMARK_DIR+x}" != "x" ]; then
+if [ "${WATERMARK_DIR+defined}" != "defined" ]; then
     WATERMARK_DIR=/usr/local/etc/platform
 fi
 

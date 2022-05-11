@@ -20,7 +20,7 @@
 # A colon separated list of paths holding environment scripts that should be
 # loaded.
 
-if [ "${PATH_ENV+x}" != "x" ]; then
+if [ "${PATH_ENV+defined}" != "defined" ]; then
     PATH_ENV=
 fi
 
