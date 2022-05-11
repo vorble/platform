@@ -22,8 +22,11 @@
 list_features() {
     local DEP
     local FEATURE
+    local DEPS
     for FEATURE in "${@}"; do
         feature_exists "$FEATURE"
+        # Exercise the fature so feature-level guards can cause a failure.
+        "$FEATURE"
         if feature_has_function "$FEATURE" list_features; then
             for DEP in $( "$FEATURE" list_features ); do
                 list_features "$DEP"

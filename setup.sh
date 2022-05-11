@@ -28,8 +28,6 @@ set -eu
 # Feature and other scripts are executed by the name listed in the loadout and
 # other feature scripts. The current directory must be the root of this bundle
 # of scripts for everything to work properly.
-# TODO: It would be nice to be able to completely separate a loadout from the
-# platform code base.
 cd `dirname $0`
 
 
@@ -42,8 +40,9 @@ cd `dirname $0`
 . option/ALLOW_NONFREE
 . option/DRY_RUN
 . option/PATH_ENV
-. option/PATH_ETC
 . option/PATH_HOOK
+. option/PLZHELP
+. option/WATERMARK_DIR
 
 
 # -----------------------------------------------------------------------------
@@ -101,9 +100,11 @@ done
 
 setup_features() {
     local FEATURE
+    local TEMP
     for FEATURE in "${@}"; do
         if feature_has_function "$FEATURE" list_prerequisites; then
-            setup_features $( "$FEATURE" list_prerequisites ) # Recursive!
+            TEMP="$( "$FEATURE" list_prerequisites )"
+            setup_features $TEMP # Recursive
         fi
     done
     if [ "$DEBUG" != "0" ]; then
@@ -114,7 +115,9 @@ setup_features() {
             "$FEATURE" pre_install_hook
         fi
     done
-    install_packages $( list_packages "${@}" | sort -u )
+    TEMP="$( list_packages "${@}" )"
+    TEMP="$( echo $TEMP | tr ' ' '\n' | sort -u )"
+    install_packages $TEMP
     for FEATURE in "${@}"; do
         if feature_has_function "$FEATURE" post_install_hook; then
             "$FEATURE" post_install_hook
@@ -126,7 +129,9 @@ list_hooks_with_function on_start | while read -r HOOK; do
     "$HOOK" on_start
 done
 
-setup_features $( list_features $LOADOUT | sort -u )
+TEMP="$( list_features $LOADOUT )"
+TEMP="$( echo $TEMP | tr ' ' '\n' | sort -u )"
+setup_features $TEMP
 
 list_hooks_with_function on_finish | while read -r HOOK; do
     "$HOOK" on_finish

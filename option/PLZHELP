@@ -15,10 +15,8 @@
 # You should have received a copy of the GNU General Public License
 # along with this program.  If not, see <http://www.gnu.org/licenses/>.
 
-if [ "${PLZHELP+x}" = "x" ]; then
-    export PLZHELP="${PLZHELP}"
-else
-    export PLZHELP=0
+if [ "${PLZHELP+x}" != "x" ]; then
+    PLZHELP=0
 fi
 
 if [ "$DEBUG" != "0" ]; then

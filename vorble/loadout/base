@@ -17,9 +17,7 @@
 
 set -eu
 
-show_watermark() {
-    echo "vorble $VORBLE_VERSION"
-}
+. include/watermark_add
 
 list_prerequisites() {
     if [ "$ALLOW_NONFREE" != "0" ]; then
@@ -53,6 +51,10 @@ list_features() {
             echo "feature/zfs"
         fi
     fi
+}
+
+post_install_hook() {
+    watermark_add "vorble $VORBLE_VERSION"
 }
 
 "${@}"

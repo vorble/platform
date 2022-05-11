@@ -15,12 +15,24 @@
 # You should have received a copy of the GNU General Public License
 # along with this program.  If not, see <http://www.gnu.org/licenses/>.
 
+# Assume we're on metal to start and detect virtualization to unset the flag.
 IS_METAL=1
+
+# Linux Check
 if grep -q 'flags\s\+:.*\shypervisor\($\|\s\)' /proc/cpuinfo 2> /dev/null; then
     IS_METAL=0
 fi
 
-# TODO: Add check for OpenBSD
+# OpenBSD Check
+if which sysctl > /dev/null 2> /dev/null; then
+    if [ "$( sysctl -n hw.vendor )" = "QEMU" ]; then
+        IS_METAL=0
+    else
+        if [ "$PLZHELP" != "0" ]; then
+            echo "PLZHELP: env/IS_METAL for OpenBSD has no implementation for hardware vendor $( sysctl -n hw.vendor ). Assuming IS_METAL=$IS_METAL."
+        fi
+    fi
+fi
 
 if [ "$DEBUG" != "0" ]; then
     echo "IS_METAL=$IS_METAL"

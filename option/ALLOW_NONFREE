@@ -22,10 +22,8 @@
 # 0 - Non-free software is NOT allowed (the default).
 # 1 - Non-free software is allowed.
 
-if [ "${ALLOW_NONFREE+x}" = "x" ]; then
-    export ALLOW_NONFREE="${ALLOW_NONFREE}"
-else
-    export ALLOW_NONFREE=0
+if [ "${ALLOW_NONFREE+x}" != "x" ]; then
+    ALLOW_NONFREE=0
 fi
 
 if [ "$DEBUG" != "0" ]; then

@@ -17,6 +17,11 @@
 
 set -eu
 
+if [ "$ALLOW_NONFREE" = "0" ]; then
+    echo "feature/zfs: ALLOW_NONFREE must be enabled for this feature." >&2
+    exit 1
+fi
+
 . include/debian
 . include/maybe
 
@@ -28,10 +33,10 @@ pre_install_hook() {
 
     local CURRENT_REPO
     CURRENT_REPO=`grep '^deb http' /etc/apt/sources.list | grep " ${DEBIAN_CODENAME} " | grep -o 'https\?:\/\/[^ ]\+'`
-    if [ ! -f /etc/apt/sources.list.d/${DEBIAN_CODENAME}-backports.list ]; then
+    if [ ! -f "/etc/apt/sources.list.d/${DEBIAN_CODENAME}-backports.list" ]; then
         echo "feature/zfs: Creating /etc/apt/sources.list.d/${DEBIAN_CODENAME}-backports.list"
         if [ "$DRY_RUN" = "0" ]; then
-            cat > /etc/apt/sources.list.d/${DEBIAN_CODENAME}-backports.list <<EOF
+            cat > "/etc/apt/sources.list.d/${DEBIAN_CODENAME}-backports.list" <<EOF
 deb ${CURRENT_REPO} ${DEBIAN_CODENAME}-backports main contrib non-free
 deb-src ${CURRENT_REPO} ${DEBIAN_CODENAME}-backports main contrib non-free
 EOF
@@ -45,7 +50,7 @@ list_packages() {
 
 post_install_hook() {
     maybe apt-get update
-    maybe apt-get install --yes --target-release=${DEBIAN_CODENAME}-backports zfsutils-linux
+    maybe apt-get install --yes "--target-release=${DEBIAN_CODENAME}-backports" zfsutils-linux
     maybe modprobe zfs
 }
 

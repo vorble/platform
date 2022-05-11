@@ -17,7 +17,7 @@
 
 list_packages() {
     local FEATURE
-    for FEATURE in ${@}; do
+    for FEATURE in "${@}"; do
         if feature_has_function "$FEATURE" list_packages; then
             "$FEATURE" list_packages
         fi

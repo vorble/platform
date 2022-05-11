@@ -12,7 +12,7 @@ The typical usage of this software involves writing a short setup script to set 
 export DEBUG=0
 export DRY_RUN=0
 export LOADOUT="loadout/base"
-export PLZHELP=1
+export PLZHELP=0
 
 `dirname $0`/setup.sh
 ```

@@ -15,14 +15,9 @@
 # You should have received a copy of the GNU General Public License
 # along with this program.  If not, see <http://www.gnu.org/licenses/>.
 
-if [ "${PATH_ETC+x}" = "x" ]; then
-    export PATH_ETC="${PATH_ETC}"
-else
-    export PATH_ETC=/usr/local/etc
-fi
-
-if [ "$DEBUG" != "0" ]; then
-    echo "PATH_ETC=$PATH_ETC"
-fi
-
-export PATH_ETC
+watermark_add() {
+    echo watermark: "${@}"
+    if [ "$DRY_RUN" = "0" ]; then
+        echo "${@}" >> "$WATERMARK_DIR/platform"
+    fi
+}

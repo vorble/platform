@@ -17,35 +17,19 @@
 
 set -eu
 
-. include/feature_has_function
+. include/maybe
+. include/watermark_add
 
-# TODO: Some work is needed for watermarking.
-# * Where is a good place to put the water mark on OpenBSD?
-# * It would be nice if all used features get a chance to make a mark, not just
-#   those in the loadout.
-# * PATH_ETC is not the variable I want to decide where the watermark goes.
+on_start() {
+    if [ -f "$WATERMARK_DIR/platform" ]; then
+        maybe rm "$WATERMARK_DIR/platform"
+    fi
+    maybe mkdir -p "$WATERMARK_DIR"
+    watermark_add "platform $PLATFORM_VERSION"
+}
 
 on_finish() {
-    local PLATFORM_STRING="platform $PLATFORM_VERSION"
-    local FEATURE
-    local WATERMARK
-    echo ${PATH_ETC}/platform: $PLATFORM_STRING
-    if [ "$DRY_RUN" = "0" ]; then
-        echo $PLATFORM_STRING > "${PATH_ETC}/platform"
-    fi
-    for FEATURE in $LOADOUT; do
-        if feature_has_function "${FEATURE}" show_watermark; then
-            WATERMARK=`"${FEATURE}" show_watermark`
-            echo ${PATH_ETC}/platform: $WATERMARK
-            if [ "$DRY_RUN" = "0" ]; then
-                echo $WATERMARK >> "${PATH_ETC}/platform"
-            fi
-        fi
-        echo ${PATH_ETC}/platform: $LOADOUT
-        if [ "$DRY_RUN" = "0" ]; then
-            echo $LOADOUT >> "${PATH_ETC}/platform"
-        fi
-    done
+    watermark_add "LOADOUT=\"$LOADOUT\""
 }
 
 "${@}"

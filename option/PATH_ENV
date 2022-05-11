@@ -20,10 +20,8 @@
 # A colon separated list of paths holding environment scripts that should be
 # loaded.
 
-if [ "${PATH_ENV+x}" = "x" ]; then
-    export PATH_ENV="${PATH_ENV}"
-else
-    export PATH_ENV=
+if [ "${PATH_ENV+x}" != "x" ]; then
+    PATH_ENV=
 fi
 
 if [ "$DEBUG" != "0" ]; then

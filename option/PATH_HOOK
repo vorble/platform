@@ -19,10 +19,8 @@
 #
 # A colon separated list of paths holding hook scripts that should be run.
 
-if [ "${PATH_HOOK+x}" = "x" ]; then
-    export PATH_HOOK="${PATH_HOOK}"
-else
-    export PATH_HOOK=
+if [ "${PATH_HOOK+x}" != "x" ]; then
+    PATH_HOOK=
 fi
 
 if [ "$DEBUG" != "0" ]; then

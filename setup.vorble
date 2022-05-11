@@ -18,9 +18,11 @@
 set -eu
 
 set +u
-export LOADOUT="$LOADOUT vorble/loadout/base"
-export PATH_ENV="$PATH_ENV:vorble/env"
-export PATH_HOOK="$PATH_HOOK:vorble/hook"
+# If LOADOUT is already set to something, append a space then the existing value
+# after the base loadout file.
+export LOADOUT="vorble/loadout/base${LOADOUT+ }${LOADOUT}"
+export PATH_ENV="${PATH_ENV}${PATH_ENV+:}vorble/env"
+export PATH_HOOK="${PATH_HOOK}${PATH_HOOK+:}vorble/hook"
 #export PLZHELP=1
 set -u
 

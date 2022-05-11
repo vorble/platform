@@ -19,10 +19,8 @@
 #
 # A space-separated list of features to be set up.
 
-if [ "${LOADOUT+x}" = "x" ]; then
-    export LOADOUT="${LOADOUT}"
-else
-    export LOADOUT="loadout/base"
+if [ "${LOADOUT+x}" != "x" ]; then
+    LOADOUT="loadout/base"
 fi
 
 if [ "$DEBUG" != "0" ]; then
