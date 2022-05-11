@@ -15,18 +15,20 @@
 # You should have received a copy of the GNU General Public License
 # along with this program.  If not, see <http://www.gnu.org/licenses/>.
 
-# LOADOUT
+# Print out the action to be performed and perform it. If DRY_RUN is set, the
+# action is not performed.
 #
-# A space-separated list of features to be set up.
+# Watch out! This is nice for conditionally executed activities, but it is
+# problematic when used with pipes since it prints additional text to stdout
+# when it goes and when it does not, it doesn't print any of the expected
+# output from the command.
+#
+# Watch out! If you pass options to maybe, it could interfere with the echo
+# it perform. E.g. maybe -n go
 
-if [ "${LOADOUT+x}" = "x" ]; then
-    export LOADOUT="${LOADOUT}"
-else
-    export LOADOUT="loadout/base"
-fi
-
-if [ "$DEBUG" != "0" ]; then
-    echo "LOADOUT=$LOADOUT"
-fi
-
-export LOADOUT
+maybe() {
+    echo "${@}"
+    if [ "$DRY_RUN" = "0" ]; then
+        "${@}"
+    fi
+}

@@ -15,6 +15,8 @@
 # You should have received a copy of the GNU General Public License
 # along with this program.  If not, see <http://www.gnu.org/licenses/>.
 
+. include/feature_exists
+
 # List the dependencies of the feature and then the feature itself. Use this to
 # build the dependency tree.
 list_features() {

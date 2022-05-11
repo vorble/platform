@@ -18,6 +18,7 @@
 set -eu
 
 . include/debian
+. include/maybe
 
 pre_install_hook() {
     if [ "$KERNEL" != "Linux" -o "$DISTRO" != "Debian" ]; then
@@ -43,18 +44,9 @@ list_packages() {
 }
 
 post_install_hook() {
-    echo apt-get update
-    if [ "$DRY_RUN" = "0" ]; then
-        apt-get update
-    fi
-    echo apt-get install --yes --target-release=${DEBIAN_CODENAME}-backports zfsutils-linux
-    if [ "$DRY_RUN" = "0" ]; then
-        apt-get install --yes --target-release=${DEBIAN_CODENAME}-backports zfsutils-linux
-    fi
-    echo modprobe zfs
-    if [ "$DRY_RUN" = "0" ]; then
-        modprobe zfs
-    fi
+    maybe apt-get update
+    maybe apt-get install --yes --target-release=${DEBIAN_CODENAME}-backports zfsutils-linux
+    maybe modprobe zfs
 }
 
 "${@}"

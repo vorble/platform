@@ -17,29 +17,18 @@
 
 set -eu
 
+. include/maybe
+
 pre_install_hook() {
     if [ "$KERNEL" != "Linux" -o "$DISTRO" != "Debian" ]; then
         echo "feature/non-free: Feature is currently only supported on Debian GNU/Linux." >&2
         exit 1
     fi
-
-    echo apt-get update
-    if [ "$DRY_RUN" = "0" ]; then
-        apt-get update
-    fi
-    echo apt-get install --yes software-properties-common
-    if [ "$DRY_RUN" = "0" ]; then
-        # This install provides the apt-add-repository binary.
-        apt-get install --yes software-properties-common
-    fi
-    echo apt-add-repository contrib
-    if [ "$DRY_RUN" = "0" ]; then
-        apt-add-repository contrib
-    fi
-    echo apt-add-repository non-free
-    if [ "$DRY_RUN" = "0" ]; then
-        apt-add-repository non-free
-    fi
+    maybe apt-get update
+    # This install provides the apt-add-repository binary.
+    maybe apt-get install --yes software-properties-common
+    maybe apt-add-repository contrib
+    maybe apt-add-repository non-free
 }
 
 "${@}"

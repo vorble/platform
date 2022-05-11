@@ -86,18 +86,6 @@ done
 
 
 # -----------------------------------------------------------------------------
-# Includes
-# -----------------------------------------------------------------------------
-
-. include/install_packages
-. include/feature_has_function
-. include/feature_exists
-. include/list_features
-. include/list_hooks_with_function
-. include/list_packages
-
-
-# -----------------------------------------------------------------------------
 # Main Process
 # -----------------------------------------------------------------------------
 
@@ -105,45 +93,40 @@ done
 # will be run through setup_features first, WITHOUT being expanded via
 # list_features.
 
+. include/install_packages
+. include/feature_has_function
+. include/list_features
+. include/list_hooks_with_function
+. include/list_packages
+
 setup_features() {
-    local FEATURES FEATURE PREREQS PKGS
-    FEATURES="${@}"
-    for FEATURE in ${FEATURES}; do
-        if feature_has_function ${FEATURE} list_prerequisites; then
-            # NOT expanded via list_features
-            PREREQS=`"${FEATURE}" list_prerequisites`
-            # Recursive.
-            setup_features ${PREREQS}
+    local FEATURE
+    for FEATURE in "${@}"; do
+        if feature_has_function "$FEATURE" list_prerequisites; then
+            setup_features $( "$FEATURE" list_prerequisites ) # Recursive!
         fi
     done
     if [ "$DEBUG" != "0" ]; then
-        echo "Setting up features: ${FEATURES}"
+        echo "Setting up features: ${@}"
     fi
-    for FEATURE in ${FEATURES}; do
-        if feature_has_function ${FEATURE} pre_install_hook; then
-            "${FEATURE}" pre_install_hook
+    for FEATURE in "${@}"; do
+        if feature_has_function "$FEATURE" pre_install_hook; then
+            "$FEATURE" pre_install_hook
         fi
     done
-    PKGS=`list_packages ${FEATURES}`
-    PKGS="`echo $PKGS | tr ' ' '\n' | sort -su`"
-    if [ "${PKGS}" != "" ]; then
-        install_packages ${PKGS}
-    fi
-    for FEATURE in ${FEATURES}; do
-        if feature_has_function ${FEATURE} post_install_hook; then
-            "${FEATURE}" post_install_hook
+    install_packages $( list_packages "${@}" | sort -u )
+    for FEATURE in "${@}"; do
+        if feature_has_function "$FEATURE" post_install_hook; then
+            "$FEATURE" post_install_hook
         fi
     done
 }
-
-FEATURES=`list_features ${LOADOUT}`
-FEATURES="`echo $FEATURES | tr ' ' '\n' | sort -su`"
 
 list_hooks_with_function on_start | while read -r HOOK; do
     "$HOOK" on_start
 done
 
-setup_features ${FEATURES}
+setup_features $( list_features $LOADOUT | sort -u )
 
 list_hooks_with_function on_finish | while read -r HOOK; do
     "$HOOK" on_finish
