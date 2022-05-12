@@ -37,6 +37,7 @@ list_features() {
     echo "vorble/feature/vim"
 
     if [ "$KERNEL" = "Linux" ]; then
+        echo "feature/exiftool"
         echo "feature/iotop"
         echo "feature/ltrace"
         echo "feature/silversearcher"
