@@ -1,6 +1,8 @@
 # Platform
 
-A tool that provides a quick method for setting up various types of Unix-like operating systems.
+*Version 0.1.0*
+
+Programmable system configuration process. Define a loadout and set of features for your Unix-like system and get your systems set up quick and consistently. 
 
 ## Usage
 
@@ -49,3 +51,7 @@ Permitted customization:
 * You may create new directories in the project root to hold custom env, hook, feature, loadout, and other related files. See directory [vorble](vorble) for an example.
 * You may package and distribute the combined software provided the copyright and license terms for the modifications are clearly indicated.
   - Please use, for example, files named "LICENSE-custom" and "COPYRIGHT-custom" if your new directory is named "custom".
+
+## More Information
+
+This software follows [Semantic Versioning 2.0.0](https://semver.org/) versioning scheme.

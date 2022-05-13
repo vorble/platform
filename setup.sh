@@ -19,7 +19,7 @@
 # Start
 # -----------------------------------------------------------------------------
 
-export PLATFORM_VERSION=0.0.3
+export PLATFORM_VERSION=0.1.0
 
 # -e for exit on failed command.
 # -u for undefined variables are an error.

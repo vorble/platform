@@ -16,20 +16,20 @@
 # along with this program.  If not, see <http://www.gnu.org/licenses/>.
 
 if [ -f /proc/cpuinfo ]; then
-    CPU_VENDOR=`cat /proc/cpuinfo | grep vendor_id | grep -o ':.*' | sed 's/^: //' | uniq | head -1`
+    CPU_VENDOR="$( cat /proc/cpuinfo | grep vendor_id | grep -o ':.*' | sed 's/^: //' | uniq | head -1 )"
 elif [ -x /sbin/sysctl ]; then
-    CPU_VENDOR=`/sbin/sysctl -n machdep.cpuvendor`
+    CPU_VENDOR="$( /sbin/sysctl -n machdep.cpuvendor )"
 else
     echo "Unable to determine CPU vendor!" >&2
     exit 1
 fi
 
-if [ "${CPU_VENDOR}" = "GenuineIntel" ]; then
+if [ "$CPU_VENDOR" = "GenuineIntel" ]; then
     CPU_VENDOR=intel
-elif [ "${CPU_VENDOR}" = "AuthenticAMD" ]; then
+elif [ "$CPU_VENDOR" = "AuthenticAMD" ]; then
     CPU_VENDOR=amd
 else
-    echo "Unexpected CPU vendor ${CPU_VENDOR}!" >&2
+    echo "Unexpected CPU vendor $CPU_VENDOR!" >&2
     exit 1
 fi
 
