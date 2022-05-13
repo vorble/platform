@@ -21,6 +21,7 @@ list_features() {
     echo "feature/tmux"
     echo "vorble/feature/vim"
 
+    # TODO: Find these on OpenBSD if possible!
     if [ "$KERNEL" = "Linux" ]; then
         echo "feature/exiftool"
         echo "feature/iotop"

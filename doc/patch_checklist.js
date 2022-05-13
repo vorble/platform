@@ -17,12 +17,5 @@
 
 'use struct'
 
-task('Bump Version')
-  .step('Bump Copyright Year in COPYRIGHT')
-  .step('Bump Copyright Year in vorble/COPYRIGHT')
-  .step('Bump Copyright Year in vorble/LICENSE')
-  .step('Bump Version in setup.sh')
-  .step('Bump Version in README.md')
-  .step('Write Release Notes in CHANGELOG.md')
-  .step('Tag Version (v1.0.6 style)')
-  .done(exit)
+task('Bump Copyright Year')
+  .step('Bump Copyright Year in All Modified Files')

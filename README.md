@@ -13,7 +13,7 @@ The typical usage of this software involves writing a short setup script to set 
 
 export DEBUG=0
 export DRY_RUN=0
-export LOADOUT="loadout/base"
+export LOADOUT="loadout/example"
 export PLZHELP=0
 
 `dirname $0`/setup.sh
@@ -30,12 +30,16 @@ You may run the [setup.sh.compatible](setup.sh.compatible) script instead of [se
 See [setup.vorble](setup.vorble) for a complete usage example.
 See [License](#License) and [Customization](#Customization) for information about packaging and distributing your changes with this software.
 
+## Documentation
+
+* [REFERENCE.md](REFERENCE.md)
+
 ## Target Operating Systems
 
 * Linux
   * Debian 10, Buster
   * Debian 11, Bullseye
-* OpenBSD
+* OpenBSD 7
 
 ## License
 
