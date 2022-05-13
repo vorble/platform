@@ -17,7 +17,24 @@
 
 set -eu
 
+list_prerequisites() {
+    :
+}
+
 list_features() {
+    :
+}
+
+pre_install_hook() {
+    :
+}
+
+list_packages() {
+    :
+}
+
+post_install_hook() {
+    :
 }
 
 "${@}"

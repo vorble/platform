@@ -24,7 +24,7 @@ if grep -q 'flags\s\+:.*\shypervisor\($\|\s\)' /proc/cpuinfo 2> /dev/null; then
 fi
 
 # OpenBSD Check
-if which sysctl > /dev/null 2> /dev/null; then
+if [ "$( uname -s )" = "OpenBSD" ]; then
     if [ "$( sysctl -n hw.vendor )" = "QEMU" ]; then
         IS_METAL=0
     else

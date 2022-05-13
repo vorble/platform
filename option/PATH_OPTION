@@ -15,16 +15,16 @@
 # You should have received a copy of the GNU General Public License
 # along with this program.  If not, see <http://www.gnu.org/licenses/>.
 
-# LOADOUT
+# PATH_OPTION
 #
-# A space-separated list of features to be set up.
+# A colon separated list of paths holding option scripts to be included.
 
-if [ "${LOADOUT+defined}" != "defined" ]; then
-    LOADOUT=""
+if [ "${PATH_OPTION+defined}" != "defined" ]; then
+    PATH_OPTION=
 fi
 
 if [ "$DEBUG" != "0" ]; then
-    echo "LOADOUT=$LOADOUT"
+    echo "PATH_OPTION=$PATH_OPTION"
 fi
 
-export LOADOUT
+export PATH_OPTION

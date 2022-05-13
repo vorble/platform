@@ -15,16 +15,12 @@
 # You should have received a copy of the GNU General Public License
 # along with this program.  If not, see <http://www.gnu.org/licenses/>.
 
-# LOADOUT
-#
-# A space-separated list of features to be set up.
-
-if [ "${LOADOUT+defined}" != "defined" ]; then
-    LOADOUT=""
+if [ "${FEATURE_FILE+defined}" != "defined" ]; then
+    FEATURE_FILE="$( mktemp /tmp/platform.features.XXXXXX )"
 fi
 
 if [ "$DEBUG" != "0" ]; then
-    echo "LOADOUT=$LOADOUT"
+    echo "FEATURE_FILE=$FEATURE_FILE"
 fi
 
-export LOADOUT
+export FEATURE_FILE

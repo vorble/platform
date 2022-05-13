@@ -21,7 +21,7 @@ list_packages() {
     if [ "$KERNEL" = "Linux" -a "$DISTRO" = "Debian" ]; then
         echo "exiftool"
     else
-        echo "feature/vim: list_packages() is not implemented for KERNEL=$KERNEL DISTRO=$DISTRO" >&2
+        echo "feature/exiftool: list_packages() is not implemented for KERNEL=$KERNEL DISTRO=$DISTRO" >&2
         exit 1
     fi
 }

@@ -39,10 +39,38 @@ cd `dirname $0`
 . option/DEBUG
 . option/ALLOW_NONFREE
 . option/DRY_RUN
+. option/FEATURE_FILE
+. option/LOADOUT
 . option/PATH_ENV
 . option/PATH_HOOK
+. option/PATH_OPTION
 . option/PLZHELP
 . option/WATERMARK_DIR
+
+# Load additional options from PATH_OPTION directories. This function checks
+# PATH_OPTION to ensure it consists of directories. It outputs a glob pattern
+# suitable for matching files in the directory. E.g. PATH_OPTION=a:b produces
+# output:
+# a/*
+# b/*
+list_options_for_glob() {
+    echo $PATH_OPTION | tr ':' '\n' | while read -r PATH_OPTION_PART; do
+        # Since echo always prints a line, it might be blank.
+        if [ -n "$PATH_OPTION_PART" ]; then
+            if [ -d "$PATH_OPTION_PART" ]; then
+                echo "$PATH_OPTION_PART/*"
+            fi
+        fi
+    done
+}
+
+for FNAME in $( list_options_for_glob ); do
+    # An option directory could be empty, so you might get an unmatched glob, so
+    # ensure the listed item is a file before including it.
+    if [ -f "$FNAME" ]; then
+        . "$FNAME"
+    fi
+done
 
 
 # -----------------------------------------------------------------------------
@@ -93,6 +121,8 @@ done
 # list_features.
 
 . include/install_packages
+. include/feature_file_add
+. include/feature_file_contains
 . include/feature_has_function
 . include/list_features
 . include/list_hooks_with_function
@@ -100,8 +130,16 @@ done
 
 setup_features() {
     local FEATURE
+    local FEATURES
+    local INCOMPLETE_FEATURES
     local TEMP
-    for FEATURE in "${@}"; do
+    FEATURES="$( list_features "${@}" )"
+    FEATURES="$( echo $FEATURES | tr ' ' '\n' | sort -u )"
+    # Prerequisites are set up first, but each feature with prerequisites is
+    # handled separately. If you have two features being set up, both with
+    # prerequisites, then the first feature will have its prerequisites set up
+    # before the second.
+    for FEATURE in $FEATURES; do
         if feature_has_function "$FEATURE" list_prerequisites; then
             TEMP="$( "$FEATURE" list_prerequisites )"
             setup_features $TEMP # Recursive
@@ -110,17 +148,33 @@ setup_features() {
     if [ "$DEBUG" != "0" ]; then
         echo "Setting up features: ${@}"
     fi
-    for FEATURE in "${@}"; do
+    INCOMPLETE_FEATURES=""
+    for FEATURE in $FEATURES; do
+        if ! feature_file_contains "$FEATURE"; then
+            INCOMPLETE_FEATURES="$INCOMPLETE_FEATURES${INCOMPLETE_FEATURES+ }$FEATURE"
+        fi
+    done
+    for FEATURE in $INCOMPLETE_FEATURES; do
         if feature_has_function "$FEATURE" pre_install_hook; then
             "$FEATURE" pre_install_hook
         fi
     done
-    TEMP="$( list_packages "${@}" )"
+    TEMP="$( list_packages $INCOMPLETE_FEATURES )"
     TEMP="$( echo $TEMP | tr ' ' '\n' | sort -u )"
     install_packages $TEMP
-    for FEATURE in "${@}"; do
+    for FEATURE in $INCOMPLETE_FEATURES; do
         if feature_has_function "$FEATURE" post_install_hook; then
             "$FEATURE" post_install_hook
+        fi
+    done
+    for FEATURE in $INCOMPLETE_FEATURES; do
+        feature_file_add "$FEATURE"
+    done
+    # Same behavior as prerequisite handling above (see commentary).
+    for FEATURE in $FEATURES; do
+        if feature_has_function "$FEATURE" list_postrequisites; then
+            TEMP="$( "$FEATURE" list_postrequisites )"
+            setup_features $TEMP # Recursive
         fi
     done
 }
@@ -129,9 +183,7 @@ list_hooks_with_function on_start | while read -r HOOK; do
     "$HOOK" on_start
 done
 
-TEMP="$( list_features $LOADOUT )"
-TEMP="$( echo $TEMP | tr ' ' '\n' | sort -u )"
-setup_features $TEMP
+setup_features $LOADOUT
 
 list_hooks_with_function on_finish | while read -r HOOK; do
     "$HOOK" on_finish

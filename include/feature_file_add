@@ -15,16 +15,6 @@
 # You should have received a copy of the GNU General Public License
 # along with this program.  If not, see <http://www.gnu.org/licenses/>.
 
-# LOADOUT
-#
-# A space-separated list of features to be set up.
-
-if [ "${LOADOUT+defined}" != "defined" ]; then
-    LOADOUT=""
-fi
-
-if [ "$DEBUG" != "0" ]; then
-    echo "LOADOUT=$LOADOUT"
-fi
-
-export LOADOUT
+feature_file_add() {
+    echo "${@}" >> "$FEATURE_FILE"
+}
