@@ -16,7 +16,6 @@
 # along with this program.  If not, see <http://www.gnu.org/licenses/>.
 
 list_hooks_with_function() {
-    local FNAME
     local HOOK
     local PATH_HOOK_PART
     for HOOK in hook/*; do
@@ -30,8 +29,8 @@ list_hooks_with_function() {
         # Since echo always prints a line, it might be blank.
         if [ -n "$PATH_HOOK_PART" ]; then
             if [ -d "$PATH_HOOK_PART" ]; then
-                for FNAME in $PATH_HOOK_PART/*; do
-                    if [ -f "$FNAME" ]; then
+                for HOOK in $PATH_HOOK_PART/*; do
+                    if [ -f "$HOOK" ]; then
                         if feature_has_function "$HOOK" "$1"; then
                             echo "$HOOK"
                         fi

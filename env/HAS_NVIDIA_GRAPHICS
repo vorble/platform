@@ -18,11 +18,17 @@
 HAS_NVIDIA_GRAPHICS=0
 
 if [ "$KERNEL" = "Linux" ]; then
-    # Please list example matched lines here for various card models.
-    # Nvidia Quadro K4000
-    #   02:00.0 VGA compatible controller: NVIDIA Corporation GK106GL [Quadro K4000] (rev a1)
-    if lspci | grep 'VGA compatible controller' | grep -q NVIDIA; then
-        HAS_NVIDIA_GRAPHICS=1
+    if which lspci > /dev/null 2> /dev/null; then
+        # Please list example matched lines here for various card models.
+        # Nvidia Quadro K4000
+        #   02:00.0 VGA compatible controller: NVIDIA Corporation GK106GL [Quadro K4000] (rev a1)
+        if lspci | grep 'VGA compatible controller' | grep -q NVIDIA; then
+            HAS_NVIDIA_GRAPHICS=1
+        fi
+    else
+        # TODO: CentOS. It doesn't come with lspci, so I would have to figure out how to check it from
+        # files in /sys or something.
+        echo "PLZHELP: env/HAS_NVIDIA_GRAPHICS is not implemented for DISTRO=$DISTRO!"
     fi
 else
     if [ "$PLZHELP" != "0" ]; then

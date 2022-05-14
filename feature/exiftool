@@ -17,9 +17,17 @@
 
 set -eu
 
+list_prerequisites() {
+    if [ "$KERNEL" = "Linux" -a "$DISTRO" = "CentOS" ]; then
+        echo "feature/centos/epel"
+    fi
+}
+
 list_packages() {
     if [ "$KERNEL" = "Linux" -a "$DISTRO" = "Debian" ]; then
-        echo "exiftool"
+        echo "libimage-exiftool-perl"
+    elif [ "$KERNEL" = "Linux" -a "$DISTRO" = "CentOS" ]; then
+        echo "perl-Image-ExifTool"
     else
         echo "feature/exiftool: list_packages() is not implemented for KERNEL=$KERNEL DISTRO=$DISTRO" >&2
         exit 1

@@ -20,6 +20,8 @@ set -eu
 list_packages() {
     if [ "$KERNEL" = "Linux" -a "$DISTRO" = "Debian" ]; then
         echo "vim"
+    elif [ "$KERNEL" = "Linux" -a "$DISTRO" = "CentOS" ]; then
+        echo "vim-enhanced"
     elif [ "$KERNEL" = "OpenBSD" ]; then
         echo "vim--no_x11"
     else

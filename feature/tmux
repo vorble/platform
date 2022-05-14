@@ -20,6 +20,8 @@ set -eu
 list_packages() {
     if [ "$KERNEL" = "Linux" -a "$DISTRO" = "Debian" ]; then
         echo "tmux"
+    elif [ "$KERNEL" = "Linux" -a "$DISTRO" = "CentOS" ]; then
+        echo "tmux"
     elif [ "$KERNEL" = "OpenBSD" ]; then
         # RESEARCH: Did tmux always come in OpenBSD?
         # Comes by default in 7, don't know about prior versions.

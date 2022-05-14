@@ -26,6 +26,8 @@ list_packages() {
                 echo "amd64-microcode"
             fi
         fi
+    elif [ "$KERNEL" = "Linux" -a "$DISTRO" = "CentOS" ]; then
+        echo "linux-firmware"
     fi
 }
 

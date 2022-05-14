@@ -19,7 +19,9 @@ DISTRO=""
 
 if [ -f /etc/os-release ]; then
     if grep -q 'NAME="Debian GNU/Linux"' /etc/os-release; then
-      DISTRO="Debian"
+        DISTRO="Debian"
+    elif grep -q 'NAME="CentOS Linux"' /etc/os-release; then
+        DISTRO="CentOS"
     fi
 fi
 

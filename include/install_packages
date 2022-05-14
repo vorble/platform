@@ -26,6 +26,8 @@ install_packages() {
         maybe apt-get install --yes "${@}"
     elif [ "$PACKAGE_MANAGER" = "pkg_add" ]; then
         maybe pkg_add "${@}"
+    elif [ "$PACKAGE_MANAGER" = "yum" ]; then
+        maybe yum install -y "${@}"
     else
         echo "include/install_packages: install_packages() is not implemented for PACKAGE_MANAGER=$PACKAGE_MANAGER!" >&2
         exit 1

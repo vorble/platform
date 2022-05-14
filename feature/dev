@@ -17,9 +17,19 @@
 
 set -eu
 
+. include/maybe
+
+pre_install_hook() {
+    if [ "$KERNEL" = "Linux" -a "$DISTRO" = "CentOS" ]; then
+        maybe yum -y groupinstall 'Development Tools'
+    fi
+}
+
 list_packages() {
     if [ "$KERNEL" = "Linux" -a "$DISTRO" = "Debian" ]; then
         echo "build-essential"
+    elif [ "$KERNEL" = "Linux" -a "$DISTRO" = "CentOS" ]; then
+        : # This is installed in pre_install_hook.
     elif [ "$KERNEL" = "OpenBSD" ]; then
         if [ "$PLZHELP" != "0" ]; then
             echo "PLZHELP: feature/dev: list_packages() is implemented for OpenBSD, but no packages listed. Do any make sense?" >&2

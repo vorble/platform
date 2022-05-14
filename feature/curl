@@ -20,6 +20,8 @@ set -eu
 list_packages() {
     if [ "$KERNEL" = "Linux" -a "$DISTRO" = "Debian" ]; then
         echo "curl"
+    elif [ "$KERNEL" = "Linux" -a "$DISTRO" = "CentOS" ]; then
+        echo "curl"
     elif [ "$KERNEL" = "OpenBSD" ]; then
         echo "curl--"
     else

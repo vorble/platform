@@ -20,6 +20,8 @@ set -eu
 list_packages() {
     if [ "$KERNEL" = "Linux" -a "$DISTRO" = "Debian" ]; then
         echo "screen"
+    elif [ "$KERNEL" = "Linux" -a "$DISTRO" = "CentOS" ]; then
+        echo "screen"
     elif [ "$KERNEL" = "OpenBSD" ]; then
         echo "screen--"
     else

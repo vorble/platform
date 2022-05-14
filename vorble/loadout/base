@@ -6,7 +6,9 @@ set -eu
 
 list_prerequisites() {
     if [ "$ALLOW_NONFREE" != "0" ]; then
-        echo "feature/non-free"
+        if [ "$KERNEL" = "Linux" -a "$DISTRO" = "Debian" ]; then
+            echo "feature/non-free"
+        fi
     fi
 }
 
