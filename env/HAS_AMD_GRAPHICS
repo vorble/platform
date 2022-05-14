@@ -20,8 +20,7 @@ HAS_AMD_GRAPHICS=0
 if [ "$KERNEL" = "Linux" ]; then
     # Please list example matched lines here for various card models.
     # AMD Radeon RX 6600 XT
-    #    TODO: Get this line without the -nn expansions.
-    #   0a:00.0 VGA compatible controller [0300]: Advanced Micro Devices, Inc. [AMD/ATI] Navi 23 [1002:73ff] (rev c1) (prog-if 00 [VGA controller])
+    #   0a:00.0 VGA compatible controller: Advanced Micro Devices, Inc. [AMD/ATI] Navi 23 (rev c1)
     if lspci | grep 'VGA compatible controller' | grep -q AMD; then
         HAS_AMD_GRAPHICS=1
     fi

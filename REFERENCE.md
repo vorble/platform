@@ -12,7 +12,7 @@
 
 ### "Features"
 
-The general idea of a "feature" applies to several types of scripts used for different purposes, but having the same essential functionality: loadouts, features, and hooks. These scripts share some common functionality. When implemented in POSIX shell (`#!/bin/sh`), the script should do no action when invoked with no arguments, but should run its arguments received as a command with the syntax `"${@}"`. The script may optionally define functions which are used in the setup process.
+The general idea of a "feature" applies to several types of scripts used for different purposes, but having similar layout: loadout, feature, and hook scripts. The scripts should perform no action when run with no arguments and, when implemented in POSIX shell (`#!/bin/sh`), should run its arguments received as a command with the syntax `"${@}"`. Any executable file will work as long as it does similar.
 
 #### Loadouts/Features
 
