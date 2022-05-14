@@ -24,6 +24,8 @@ if [ -f /etc/os-release ]; then
         DISTRO_VERSION="11"
     elif grep -q 'PRETTY_NAME="CentOS Linux 7 (Core)"' /etc/os-release; then
         DISTRO_VERSION="7"
+    elif grep -q 'VERSION_ID=35' /etc/os-release; then
+        DISTRO_VERSION="35"
     fi
 fi
 
