@@ -17,6 +17,10 @@
 
 'use struct'
 
+task('Documentation')
+  .step('Add New/Updated Envs to Reference')
+  .step('Add New/Updated Options to Reference')
+
 task('Bump Copyright Year')
   .step('Bump Copyright Year in All Modified Files')
   .step('Add New Contributors')
