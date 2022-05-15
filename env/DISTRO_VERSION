@@ -18,14 +18,16 @@
 DISTRO_VERSION=""
 
 if [ -f /etc/os-release ]; then
-    if grep -q 'PRETTY_NAME="Debian GNU/Linux 10 (buster)"' /etc/os-release; then
-        DISTRO_VERSION="10"
-    elif grep -q 'PRETTY_NAME="Debian GNU/Linux 11 (bullseye)"' /etc/os-release; then
-        DISTRO_VERSION="11"
-    elif grep -q 'PRETTY_NAME="CentOS Linux 7 (Core)"' /etc/os-release; then
-        DISTRO_VERSION="7"
-    elif grep -q 'VERSION_ID=35' /etc/os-release; then
-        DISTRO_VERSION="35"
+    # Comes before regular NAME="Debian GNU/Linux" check since it applies to testing/unstable also,
+    # which do not have a VERSION_ID in /etc/os-release.
+    if grep -q -F 'PRETTY_NAME="Debian GNU/Linux bookworm/sid"' /etc/os-release; then
+        DISTRO_VERSION="12"
+    elif grep -q -F 'NAME="Debian GNU/Linux"' /etc/os-release; then
+        DISTRO_VERSION="$( grep VERSION_ID= /etc/os-release | sed 's/VERSION_ID=//' | sed 's/"//g' )"
+    elif grep -q -F 'NAME="CentOS Linux"' /etc/os-release; then
+        DISTRO_VERSION="$( grep VERSION_ID= /etc/os-release | sed 's/VERSION_ID=//' | sed 's/"//g' )"
+    elif grep -q -F 'NAME="Fedora Linux"' /etc/os-release; then
+        DISTRO_VERSION="$( grep VERSION_ID= /etc/os-release | sed 's/VERSION_ID=//' | sed 's/"//g' )"
     fi
 fi
 
