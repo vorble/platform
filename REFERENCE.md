@@ -1,5 +1,7 @@
 # Platform Reference
 
+*Version 0.1.0*
+
 ## Index
 
 * "Features"

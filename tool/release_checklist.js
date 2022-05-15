@@ -25,6 +25,7 @@ task('Bump Copyright Year')
 task('Bump Version')
   .step('Bump Version in setup.sh')
   .step('Bump Version in README.md')
+  .step('Bump Version in REFERENCE.md')
   .step('Write Release Notes in CHANGELOG.md')
 
 task('Tag and Push')

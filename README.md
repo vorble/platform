@@ -2,7 +2,7 @@
 
 *Version 0.1.0*
 
-Programmable system configuration process. Define a loadout and set of features for your Unix-like system and get your systems set up quick and consistently. 
+Programmable system configuration process. Define a loadout and set of features for your UNIX-like system and get them set up quickly and consistently. 
 
 ## Usage
 
@@ -37,8 +37,9 @@ See [License](#License) and [Customization](#Customization) for information abou
 ## Target Operating Systems
 
 * Linux
-  * Debian 10, Buster
-  * Debian 11, Bullseye
+  * Debian 10/11
+  * CentOS 7/8/9
+  * Fedora 35
 * OpenBSD 7
 
 ## License
