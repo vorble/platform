@@ -20,10 +20,6 @@ set -eu
 . include/maybe
 
 pre_install_hook() {
-    if [ "$KERNEL" != "Linux" -o "$DISTRO" != "Debian" ]; then
-        echo "feature/non-free: Feature is currently only supported on Debian GNU/Linux." >&2
-        exit 1
-    fi
     maybe apt-get update
     # This install provides the apt-add-repository binary.
     maybe apt-get install --yes software-properties-common
