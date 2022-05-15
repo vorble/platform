@@ -19,3 +19,6 @@
 
 task('Bump Copyright Year')
   .step('Bump Copyright Year in All Modified Files')
+  .step('Add New Contributors')
+  .step('Update Contributors\' Years')
+  .done(exit)
