@@ -2,7 +2,7 @@
 
 *Version 0.1.0*
 
-Programmable system configuration process. Define a loadout and set of features for your UNIX-like system and get them set up quickly and consistently. 
+A programmable system configuration process. Define a loadout and set of features for your UNIX-like system and get them set up quickly and consistently.
 
 ## Usage
 
@@ -32,7 +32,7 @@ See [License](#License) and [Customization](#Customization) for information abou
 
 ## Documentation
 
-* [REFERENCE.md](REFERENCE.md)
+Please see [REFERENCE.md](REFERENCE.md) for complete usage details.
 
 ## Target Operating Systems
 

@@ -11,6 +11,7 @@ The following document outlines the API provided by Platform for writing custom 
 * "Features"
   - Loadouts/Features
   - Hooks
+  - `"${@}"`
 * "Includes"
   - Environment/Options
   - Includes
@@ -18,7 +19,7 @@ The following document outlines the API provided by Platform for writing custom 
 
 ## Environment
 
-The following environment variables are determined by platform tools when it runs and are available for use by custom loadouts:
+The following environment variables are determined by Platform when it runs and are available for use by custom loadouts:
 
 * `CPU_VENDOR` - The CPU vendor. Values are `intel` or `amd`.
 * `DISTRO` - The operating system distribution. For Linux, this is the name of the Linux distribution, e.g. `Debian`. Possible values are: `CentOS`, `Debian`, `Fedora`, `OpenBSD`.
