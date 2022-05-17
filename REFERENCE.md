@@ -11,7 +11,7 @@ The following document outlines the API provided by Platform for writing custom 
 * "Features"
   - Loadouts/Features
   - Hooks
-  - `"${@}"`
+  - "${@}"
 * "Includes"
   - Environment/Options
   - Includes
@@ -54,25 +54,88 @@ The general idea of a "feature" applies to several types of scripts used for dif
 
 ### Loadouts/Features
 
-Should be located in a `loadout` or `feature` directory/sub-directory.
+Loadouts and features should be located in a `loadout` or `feature` directory/sub-directory. Here are an example shell script to illustrate the general idea:
 
-* `list_prerequisites`
-* `list_features`
-* `pre_install_hook`
-* `list_packages`
-* `post_install_hook`
-* `list_postrequisites`
+```sh
+#!/bin/sh
+
+set -eu
+
+# This function should output a series of feature names of features which must
+# be FULLY set up BEFORE this feature can be set up.
+list_prerequisites() {
+    echo "feature/test-prerequisite"
+}
+
+# This function should output a series of feature names of features which must
+# additionally be set up along with this feature.
+list_features() {
+    echo "feature/necessary-package"
+}
+
+# This function is called before the system's package manager is run for the
+# feature.
+pre_install_hook() {
+    # You might emplace configuration files or download the source code for a
+    # package.
+    echo "I'm running the pre-install hook!"
+}
+
+# This function should output a series of package names for the system's
+# package manager which should be installed. These will often depend on
+# $KERNEL, $DISTRO, $PACKAGE_MANAGER, and other factors.
+list_packages() {
+    echo "my-favorite-tool"
+}
+
+# This function is called after the system's package manager is run for the
+# feature.
+post_install_hook() {
+    # You might start a service or initialize a database.
+    echo "I'm running the post-install hook!"
+}
+
+"${@}"
+```
+
+Each function is optional, so you can skip clutter that you don't need.
 
 ### Hooks
 
-Hooks Should be located in a `hook` directory/sub-directory. Additional hooks can be added to the setup process with the `PATH_HOOK` option.
+Hooks should be located in a `hook` directory/sub-directory. Additional hooks can be added to the setup process with the `PATH_HOOK` option.
 
-* `on_start`
-* `on_finish`
+```sh
+#!/bin/sh
 
-### `"${@}"`
+set -eu
+
+# This hook is called as the setup.sh process starts, before any features start
+# running.
+on_start() {
+    # You might clear a directory before proceeding with the set up.
+    echo "I'm running the on_start hook!"
+}
+
+# this hook is called as the setup.sh process finishes, after all features are
+# finished being set up.
+on_finish() {
+    # You might send an email to the system administrator with installation
+    # details.
+    echo "I'm running the on_finish hook!"
+}
+
+"${@}"
+```
+
+Each function is optional, so you can skip clutter that you don't need.
+
+### "${@}"
 
 For feature scripts implemented in POSIX or similar shells, the script should execute the command `"${@}"` as its final statement to give the platform tools a way to execute the functions contained within. In addition to the functions outlined in the API, the platform tools will also send the shell command `type xyz` where `xyz` is the name of one of the functions. The script should exit with a successful code if the function `xyz` is defined.
+
+### Tips
+
+* Variables don't propagate out from the feature when they are set, since the feature is a script that is run during the setup process. Use an environment variable or an option instead.
 
 
 ## "Includes"
