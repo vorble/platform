@@ -3,9 +3,6 @@
 set -eu
 
 set +u
-# If LOADOUT is already set to something, append a space then the existing value
-# after the base loadout file.
-export LOADOUT="vorble/loadout/base${LOADOUT+ }${LOADOUT}"
 if [ -d "vorble/env" ]; then
     export PATH_ENV="${PATH_ENV}${PATH_ENV+:}vorble/env"
 fi
@@ -15,12 +12,14 @@ fi
 if [ -d "vorble/option" ]; then
     export PATH_OPTION="${PATH_OPTION}${PATH_OPTION+:}vorble/option"
 fi
-#export PLZHELP=1
 set -u
 
+export LOADOUT="vorble/loadout/base${LOADOUT+ }${LOADOUT}"
 if [ "${USERS+defined}" != "defined" ]; then
     # vorble platform sets up the following users if they are present.
     export USERS="keith root vorble"
 fi
+
+#export PLZHELP=1
 
 `dirname $0`/setup.sh.compatible

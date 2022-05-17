@@ -1,6 +1,8 @@
 #!/bin/sh
 
-export VORBLE_VERSION=0.0.1
+# Lock the versions together since the main source code is packaged with this
+# custom loadout.
+export VORBLE_VERSION="$PLATFORM_VERSION"
 
 if [ "$DEBUG" != "0" ]; then
     echo "VORBLE_VERSION=$VORBLE_VERSION"

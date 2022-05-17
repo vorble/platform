@@ -17,6 +17,8 @@
 
 'use struct'
 
+// These copyrights get bumped on a release. Other file copyrights should be
+// bumped with the patch for the change.
 task('Bump Copyright Year')
   .step('Bump Copyright Year in COPYRIGHT')
   .step('Bump Copyright Year in vorble/COPYRIGHT')
@@ -26,6 +28,7 @@ task('Bump Version')
   .step('Bump Version in setup.sh')
   .step('Bump Version in README.md')
   .step('Bump Version in REFERENCE.md')
+  .step('Bump Version in vorble/README.md')
   .step('Write Release Notes in CHANGELOG.md')
 
 task('Tag and Push')
