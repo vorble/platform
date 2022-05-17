@@ -142,8 +142,61 @@ For feature scripts implemented in POSIX or similar shells, the script should ex
 
 ### Environment/Options
 
-Should be located in a `env` or `option` directory/sub-directory. Additional environment and options can be added to the setup process with the `PATH_ENV` and `PATH_OPTION` options.
+Should be located in a `env` or `option` directory/sub-directory. Additional environment and options can be added to the setup process with the `PATH_ENV` and `PATH_OPTION` options. These script fragments must be written in POSIX shell since they are directly sourced into the setup script.
+
+Example environment:
+
+```sh
+#!/bin/sh
+
+VORBLE_VERSION=0.0.1
+
+if [ "$DEBUG" != "0" ]; then
+    echo "VORBLE_VERSION=$VORBLE_VERSION"
+fi
+
+export VORBLE_VERSION
+```
+
+Example option:
+
+```sh
+#!/bin/sh
+
+# If MYOPT is not defined...
+if [ "${MYOPT+defined}" != "defined" ]; then
+    # ... use some default value. Alternatively, you may want to exit the
+    # script early if the option has no sane default.
+    MYOPT="$( hostname )"
+fi
+
+if [ "$DEBUG" != "0" ]; then
+    echo "MYOPT=$MYOPT"
+fi
+
+export MYOPT
+```
 
 ### Includes
 
-Should be located in a `include` directory/sub-directory.
+Should be located in a `include` directory/sub-directory and must be implemented as a POSIX shell fragment that implement a function. Here is an example include:
+
+```sh
+#!/bin/sh
+
+# Include other functions with . (dot)!
+. include/do_something_else
+
+do_something() {
+    local VALUE
+    for VALUE in "${@}"; do
+        do_something_else "$VALUE"
+    done
+}
+```
+
+The convention is to name the function the same name as the file. The path to include an file is relative to the Platform deployment root, so your custom include file would be included like this:
+
+```sh
+. mycustomloadout/include/my_cool_function
+```
