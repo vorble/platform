@@ -12,9 +12,9 @@ fi
 if [ -d "vorble/option" ]; then
     export PATH_OPTION="${PATH_OPTION}${PATH_OPTION+:}vorble/option"
 fi
+export LOADOUT="vorble/loadout/base${LOADOUT+ }${LOADOUT}"
 set -u
 
-export LOADOUT="vorble/loadout/base${LOADOUT+ }${LOADOUT}"
 if [ "${USERS+defined}" != "defined" ]; then
     # vorble platform sets up the following users if they are present.
     export USERS="keith root vorble"

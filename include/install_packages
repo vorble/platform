@@ -25,6 +25,12 @@ install_packages() {
         maybe apt-get update
         maybe apt-get install --yes "${@}"
     elif [ "$PACKAGE_MANAGER" = "pkg_add" ]; then
+        # A package might be installed. Try to update them all to make sure any
+        # that are already installed are updated. This might say "can't find"
+        # packages.
+        maybe pkg_add -u "${@}"
+        # Try to install all packages. This might say "can't find" packages since
+        # they may already be installed.
         maybe pkg_add "${@}"
     elif [ "$PACKAGE_MANAGER" = "yum" ]; then
         maybe yum install -y "${@}"
