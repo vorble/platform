@@ -16,8 +16,19 @@
 # along with this program.  If not, see <http://www.gnu.org/licenses/>.
 
 if [ -f /proc/cpuinfo ]; then
-    CPU_VENDOR="$( cat /proc/cpuinfo | grep vendor_id | grep -o ':.*' | sed 's/^: //' | uniq | head -1 )"
+    # Linux checks.
+    if grep -q vendor_id /proc/cpuinfo; then
+        CPU_VENDOR="$( cat /proc/cpuinfo | grep vendor_id | grep -o ':.*' | sed 's/^: //' | uniq | head -1 )"
+    elif grep -q 'model name\s\+:\s\+ARM' /proc/cpuinfo; then
+        # My ARM systems don't have a vendor_id.
+        CPU_VENDOR="arm"
+    else
+        echo "Unable to determine CPU vendor!" >&2
+        exit 1
+    fi
 elif [ -x /sbin/sysctl ]; then
+    # OpenBSD check. sysctl is availabe on other systems to too with different
+    # variable names.
     CPU_VENDOR="$( /sbin/sysctl -n machdep.cpuvendor )"
 else
     echo "Unable to determine CPU vendor!" >&2
@@ -28,6 +39,8 @@ if [ "$CPU_VENDOR" = "GenuineIntel" ]; then
     CPU_VENDOR=intel
 elif [ "$CPU_VENDOR" = "AuthenticAMD" ]; then
     CPU_VENDOR=amd
+elif [ "$CPU_VENDOR" = "arm" ]; then
+    :
 else
     echo "Unexpected CPU vendor $CPU_VENDOR!" >&2
     exit 1

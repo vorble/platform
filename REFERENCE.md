@@ -21,7 +21,7 @@ The following document outlines the API provided by Platform for writing custom 
 
 The following environment variables are determined by Platform when it runs and are available for use by custom loadouts:
 
-* `CPU_VENDOR` - The CPU vendor. Values are `intel` or `amd`.
+* `CPU_VENDOR` - The CPU vendor. Values are `amd`, `arm` or `intel`.
 * `DISTRO` - The operating system distribution. For Linux, this is the name of the Linux distribution, e.g. `Debian`. Possible values are: `CentOS`, `Debian`, `Fedora`, `OpenBSD`.
 * `DISTRO_VERSION` - The version of the operating system distribution. Values depend on `DISTRO`.
 * `HAS_AMD_GRAPHICS` - Values are 0 or 1. Value is 0 if an AMD graphics device was not detected. Value is 1 if an AMD graphics device was detected.
