@@ -28,17 +28,16 @@ The following environment variables are determined by Platform when it runs and 
 * `HAS_NVIDIA_GRAPHICS` - Values are 0 or 1. Value is 0 if an Nvidia graphics device was not detected. Value is 1 if an Nvidia graphics device was detected.
 * `IS_METAL` - Values are 0 or 1. Value is 0 if the system is detected as being virtualized. Value is 1 if the system is running on "metal" (not virtualized).
 * `KERNEL` - The kernel name. Values are `Linux` or `OpenBSD`.
-* `PACKAGE_MANAGER` - The system's package manager. Values are `apt` (Debian), `yum` (CentOS/Fedora), and `pkg_add` (OpenBSD).
-TODO: Package manager for CentOS 8/9?
+* `PACKAGE_MANAGER` - The system's package manager. Values are `apt` (Debian), `yum`/`dnf` (CentOS/Fedora), and `pkg_add` (OpenBSD).
 
 
 ## Options
 
 The following options, controllable with environment variables, are available:
 
-* `ALLOW_NONFREE` - Values are 0 or 1. Default 0. Set to 0 to disallow non-free software. Set to 1 to allow non-free software. **If a custom loadout does not support this option, then it should disallow using the features with a guard of some sort.**
+* `ALLOW_NONFREE` - Values are 0 or 1. Default 0. Set to 0 to disallow non-free software. Set to 1 to allow non-free software. **If your loadout or feature does not support this option, then it should disallow using the features with a guard of some sort (i.e. don't install non-free software if the user hasn't opted in).**
 * `DEBUG` - Values are 0 or 1. Default 0. Set to 0 for normal operation. Set to 1 to enable debug logging.
-* `DRY_RUN` - Values are 0 or 1. Default 0. Set to 0 to perform setup commands on the system. Set to 1 to echo the commands to be performed instead of performing them. **If a custom loadout does not support this option, then it should disallow using the features with a guard of some sort.**
+* `DRY_RUN` - Values are 0 or 1. Default 0. Set to 0 to echo and perform setup commands on the system. Set to 1 to just echo the commands instead of performing them. **If your loadout or feature does not support this option, then it should disallow using the features with a guard of some sort (i.e. don't change the user's system if they asked you not to).**
 * `FEATURE_FILE` - Value is a path to a file. Default to a file in `/tmp`. Set this option to control where the feature file, which is used to keep track of the progress of the platform setup and is deleted when finished, is written. The user must have access to write to this file.
 * `LOADOUT` - Value is a **space separated** list of features. Default to blank. Set this option to control which features will be installed.
 * `PATH_ENV` - Value is a **colon separated** list of env directories. Default to blank. Set this option to add additional environment variable scripts for custom loadouts.
