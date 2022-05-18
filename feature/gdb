@@ -22,6 +22,8 @@ list_packages() {
         echo "gdb"
     elif [ "$KERNEL" = "Linux" -a "$DISTRO" = "CentOS" ]; then
         echo "gdb"
+    elif [ "$KERNEL" = "Linux" -a "$DISTRO" = "Fedora" ]; then
+        echo "gdb"
     elif [ "$KERNEL" = "OpenBSD" ]; then
         echo "gdb--"
     else

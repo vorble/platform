@@ -32,6 +32,8 @@ install_packages() {
         # Try to install all packages. This might say "can't find" packages since
         # they may already be installed.
         maybe pkg_add "${@}"
+    elif [ "$PACKAGE_MANAGER" = "dnf" ]; then
+        maybe dnf install -y "${@}"
     elif [ "$PACKAGE_MANAGER" = "yum" ]; then
         maybe yum install -y "${@}"
     else

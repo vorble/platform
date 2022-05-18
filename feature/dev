@@ -21,7 +21,19 @@ set -eu
 
 pre_install_hook() {
     if [ "$KERNEL" = "Linux" -a "$DISTRO" = "CentOS" ]; then
-        maybe yum -y groupinstall 'Development Tools'
+        if [ "$PACKAGE_MANAGER" = "yum" -o "$PACKAGE_MANAGER" = "dnf" ]; then
+            maybe "$PACKAGE_MANAGER" -y groupinstall "Development Tools"
+        else
+            echo "feature/dev: pre_install_hook is not implemented for PACKAGE_MANAGER=$PACKAGE_MANAGER!" >&2
+            exit 1
+        fi
+    elif [ "$KERNEL" = "Linux" -a "$DISTRO" = "Fedora" ]; then
+        if [ "$PACKAGE_MANAGER" = "yum" -o "$PACKAGE_MANAGER" = "dnf" ]; then
+            maybe "$PACKAGE_MANAGER" -y groupinstall "Development Tools"
+        else
+            echo "feature/dev: pre_install_hook is not implemented for PACKAGE_MANAGER=$PACKAGE_MANAGER!" >&2
+            exit 1
+        fi
     fi
 }
 
@@ -29,6 +41,8 @@ list_packages() {
     if [ "$KERNEL" = "Linux" -a "$DISTRO" = "Debian" ]; then
         echo "build-essential"
     elif [ "$KERNEL" = "Linux" -a "$DISTRO" = "CentOS" ]; then
+        : # This is installed in pre_install_hook.
+    elif [ "$KERNEL" = "Linux" -a "$DISTRO" = "Fedora" ]; then
         : # This is installed in pre_install_hook.
     elif [ "$KERNEL" = "OpenBSD" ]; then
         if [ "$PLZHELP" != "0" ]; then

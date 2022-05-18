@@ -22,6 +22,8 @@ if [ -f /etc/os-release ]; then
         DISTRO="Debian"
     elif grep -q 'NAME="CentOS Linux"' /etc/os-release; then
         DISTRO="CentOS"
+    elif grep -q 'NAME="CentOS Stream"' /etc/os-release; then
+        DISTRO="CentOS"
     elif grep -q 'NAME="Fedora Linux"' /etc/os-release; then
         DISTRO="Fedora"
     fi

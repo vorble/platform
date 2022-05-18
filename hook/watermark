@@ -21,7 +21,6 @@ set -eu
 . include/watermark_add
 
 on_start() {
-    echo 'ONSTART'
     if [ -f "$WATERMARK_DIR/platform" ]; then
         maybe rm "$WATERMARK_DIR/platform"
     fi

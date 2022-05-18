@@ -22,6 +22,8 @@ list_packages() {
         echo "rsync"
     elif [ "$KERNEL" = "Linux" -a "$DISTRO" = "CentOS" ]; then
         echo "rsync"
+    elif [ "$KERNEL" = "Linux" -a "$DISTRO" = "Fedora" ]; then
+        echo "rsync"
     elif [ "$KERNEL" = "OpenBSD" ]; then
         echo "rsync--"
     else

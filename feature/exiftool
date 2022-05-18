@@ -27,7 +27,14 @@ list_packages() {
     if [ "$KERNEL" = "Linux" -a "$DISTRO" = "Debian" ]; then
         echo "libimage-exiftool-perl"
     elif [ "$KERNEL" = "Linux" -a "$DISTRO" = "CentOS" ]; then
-        echo "perl-Image-ExifTool"
+        # CentOS Stream 9 does not have this package or an alternative that
+        # I've been able to find in May 2022.
+        if [ "$DISTRO_VERSION" -lt "9" ]; then
+            echo "perl-Image-ExifTool"
+        else
+            echo "feature/exiftool: list_packages() is not implemented for KERNEL=$KERNEL DISTRO=$DISTRO DISTRO_VERSION=$DISTRO_VERSION" >&2
+            exit 1
+        fi
     else
         echo "feature/exiftool: list_packages() is not implemented for KERNEL=$KERNEL DISTRO=$DISTRO" >&2
         exit 1

@@ -22,6 +22,8 @@ list_packages() {
         echo "curl"
     elif [ "$KERNEL" = "Linux" -a "$DISTRO" = "CentOS" ]; then
         echo "curl"
+    elif [ "$KERNEL" = "Linux" -a "$DISTRO" = "Fedora" ]; then
+        echo "curl"
     elif [ "$KERNEL" = "OpenBSD" ]; then
         echo "curl--"
     else
