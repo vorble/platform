@@ -24,6 +24,8 @@ list_packages() {
         echo "ltrace"
     elif [ "$KERNEL" = "Linux" -a "$DISTRO" = "Fedora" ]; then
         echo "ltrace"
+    elif [ "$KERNEL" = "Linux" -a "$DISTRO" = "openSUSE" ]; then
+        echo "ltrace"
     else
         echo "feature/ltrace: list_packages() is not implemented for KERNEL=$KERNEL DISTRO=$DISTRO" >&2
         exit 1

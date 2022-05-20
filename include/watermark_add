@@ -16,8 +16,10 @@
 # along with this program.  If not, see <http://www.gnu.org/licenses/>.
 
 watermark_add() {
-    echo watermark: "${@}"
-    if [ "$DRY_RUN" = "0" ]; then
-        echo "${@}" >> "$WATERMARK_DIR/platform"
+    if [ "$ENABLE_HOOK_WATERMARK" != "0" ]; then
+        echo watermark: "${@}"
+        if [ "$DRY_RUN" = "0" ]; then
+            echo "${@}" >> "$WATERMARK_DIR/platform"
+        fi
     fi
 }

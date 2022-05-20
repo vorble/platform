@@ -2,7 +2,7 @@
 
 *Version 0.1.0*
 
-A programmable system configuration process. Define a loadout and set of features for your UNIX-like system and get them set up quickly and consistently.
+A programmable system configuration framework. Define a loadout and set of features for your UNIX-like system and get them set up quickly and consistently.
 
 ## Usage
 
@@ -39,7 +39,8 @@ Please see [REFERENCE.md](REFERENCE.md) for complete usage details.
 * Linux
   * Debian 10/11
   * CentOS 7/8/9
-  * Fedora 35
+  * Fedora 36
+  * openSUSE Leap 15
 * OpenBSD 7
 
 ## License

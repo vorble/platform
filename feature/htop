@@ -19,15 +19,18 @@ set -eu
 
 list_packages() {
     if [ "$KERNEL" = "Linux" -a "$DISTRO" = "Debian" ]; then
-        if [ "$ALLOW_NONFREE" != "0" ]; then
-            if [ "${CPU_VENDOR}" = "intel" ]; then
-                echo "intel-microcode"
-            elif [ "${CPU_VENDOR}" = "amd" ]; then
-                echo "amd64-microcode"
-            fi
-        fi
+        echo "htop"
     elif [ "$KERNEL" = "Linux" -a "$DISTRO" = "CentOS" ]; then
-        echo "linux-firmware"
+        echo "htop"
+    elif [ "$KERNEL" = "Linux" -a "$DISTRO" = "Fedora" ]; then
+        echo "htop"
+    elif [ "$KERNEL" = "Linux" -a "$DISTRO" = "openSUSE" ]; then
+        echo "htop"
+    elif [ "$KERNEL" = "OpenBSD" ]; then
+        echo "htop"
+    else
+        echo "feature/htop: list_packages() is not implemented for KERNEL=$KERNEL DISTRO=$DISTRO" >&2
+        exit 1
     fi
 }
 

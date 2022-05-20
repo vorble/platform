@@ -17,6 +17,9 @@ post_install_hook() {
             if [ "$USER" = "root" -a "$KERNEL" = "OpenBSD" ]; then
                 GROUP=wheel
             fi
+            if [ "$USER" != "root" -a "$DISTRO" = "openSUSE" ]; then
+                GROUP=users
+            fi
             maybe cp vorble/files/vimrc "$HOMEDIR/.vimrc"
             maybe chown "$USER:$GROUP" "$HOMEDIR/.vimrc"
         fi

@@ -24,6 +24,8 @@ list_packages() {
         echo "screen"
     elif [ "$KERNEL" = "Linux" -a "$DISTRO" = "Fedora" ]; then
         echo "screen"
+    elif [ "$KERNEL" = "Linux" -a "$DISTRO" = "openSUSE" ]; then
+        echo "screen"
     elif [ "$KERNEL" = "OpenBSD" ]; then
         echo "screen--"
     else

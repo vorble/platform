@@ -37,8 +37,8 @@ cd `dirname $0`
 
 # DEBUG must come first.
 . option/DEBUG
-. option/ALLOW_NONFREE
 . option/DRY_RUN
+. option/ENABLE_HOOK_WATERMARK
 . option/FEATURE_FILE
 . option/LOADOUT
 . option/PATH_ENV
@@ -83,9 +83,6 @@ done
 . env/IS_METAL
 . env/KERNEL
 . env/PACKAGE_MANAGER
-# The following envs have dependencies on the previous.
-. env/HAS_AMD_GRAPHICS
-. env/HAS_NVIDIA_GRAPHICS
 
 # Load additional env from PATH_ENV directories. This function checks PATH_ENV
 # to ensure it consists of directories. It outputs a glob pattern suitable for

@@ -2,22 +2,20 @@
 
 set -eu
 
-set +u
-if [ -d "vorble/env" ]; then
-    export PATH_ENV="${PATH_ENV}${PATH_ENV+:}vorble/env"
+# Sets up the various PATH_XXX variables needed for using vorble loadouts.
+. vorble/include/vorble
+
+if [ "${LOADOUT+defined}" != "defined" ]; then
+    export LOADOUT="vorble/loadout/base"
 fi
-if [ -d "vorble/hook" ]; then
-    export PATH_HOOK="${PATH_HOOK}${PATH_HOOK+:}vorble/hook"
-fi
-if [ -d "vorble/option" ]; then
-    export PATH_OPTION="${PATH_OPTION}${PATH_OPTION+:}vorble/option"
-fi
-export LOADOUT="vorble/loadout/base${LOADOUT+ }${LOADOUT}"
-set -u
 
 if [ "${USERS+defined}" != "defined" ]; then
     # vorble platform sets up the following users if they are present.
     export USERS="keith root vorble"
+fi
+
+if [ "${ENABLE_HOOK_WATERMARK+defined}" != "defined" ]; then
+    export ENABLE_HOOK_WATERMARK=1
 fi
 
 #export PLZHELP=1

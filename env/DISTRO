@@ -26,6 +26,8 @@ if [ -f /etc/os-release ]; then
         DISTRO="CentOS"
     elif grep -q 'NAME="Fedora Linux"' /etc/os-release; then
         DISTRO="Fedora"
+    elif grep -q 'NAME="openSUSE Leap"' /etc/os-release; then
+        DISTRO="openSUSE"
     fi
 fi
 

@@ -23,7 +23,7 @@ if [ -f /proc/cpuinfo ]; then
         # My ARM systems don't have a vendor_id.
         CPU_VENDOR="arm"
     else
-        echo "Unable to determine CPU vendor!" >&2
+        echo "env/CPU_VENDOR: Unable to determine CPU vendor!" >&2
         exit 1
     fi
 elif [ -x /sbin/sysctl ]; then
@@ -31,7 +31,7 @@ elif [ -x /sbin/sysctl ]; then
     # variable names.
     CPU_VENDOR="$( /sbin/sysctl -n machdep.cpuvendor )"
 else
-    echo "Unable to determine CPU vendor!" >&2
+    echo "env/CPU_VENDOR: Unable to determine CPU vendor!" >&2
     exit 1
 fi
 
@@ -42,7 +42,7 @@ elif [ "$CPU_VENDOR" = "AuthenticAMD" ]; then
 elif [ "$CPU_VENDOR" = "arm" ]; then
     :
 else
-    echo "Unexpected CPU vendor $CPU_VENDOR!" >&2
+    echo "env/CPU_VENDOR: Unexpected CPU vendor $CPU_VENDOR!" >&2
     exit 1
 fi
 

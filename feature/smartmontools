@@ -24,6 +24,10 @@ list_packages() {
         echo "smartmontools"
     elif [ "$KERNEL" = "Linux" -a "$DISTRO" = "Fedora" ]; then
         echo "smartmontools"
+    elif [ "$KERNEL" = "Linux" -a "$DISTRO" = "openSUSE" ]; then
+        echo "smartmontools"
+    elif [ "$KERNEL" = "OpenBSD" ]; then
+        echo "smartmontools"
     else
         echo "feature/smartmontools: list_packages() is not implemented for KERNEL=$KERNEL DISTRO=$DISTRO" >&2
         exit 1

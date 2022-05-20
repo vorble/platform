@@ -24,6 +24,8 @@ list_packages() {
         echo "vim-enhanced"
     elif [ "$KERNEL" = "Linux" -a "$DISTRO" = "Fedora" ]; then
         echo "vim-enhanced"
+    elif [ "$KERNEL" = "Linux" -a "$DISTRO" = "openSUSE" ]; then
+        echo "vim-enhanced"
     elif [ "$KERNEL" = "OpenBSD" ]; then
         echo "vim--no_x11"
     else

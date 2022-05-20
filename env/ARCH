@@ -15,18 +15,25 @@
 # You should have received a copy of the GNU General Public License
 # along with this program.  If not, see <http://www.gnu.org/licenses/>.
 
-set -eu
+ARCH="$( arch )"
 
-list_packages() {
-    if [ "$KERNEL" = "Linux" -a "$DISTRO" = "Debian" ]; then
-        if [ "$HAS_NVIDIA_GRAPHICS" != "0" -a "$ALLOW_NONFREE" != "0" ]; then
-            echo "nvidia-driver"
-        fi
+if [ "$ARCH" = "x86_64" ]; then
+    ARCH="amd64" # Shorter than x86_64.
+elif [ "$ARCH" = "amd64" ]; then
+    : # Good.
+elif [ "$ARCH" = "OpenBSD.amd64" ]; then
+    ARCH="amd64"
+elif [ "$ARCH" = "armv6l" ]; then
+    : # Good.
+elif [ "$ARCH" = "armv7l" ]; then
+    : # Good.
+else
+    echo "env/ARCH: Unable to determine ARCH! Possible value $ARCH?" >&2
+    exit 1
+fi
 
-        if [ "$HAS_AMD_GRAPHICS" != "0" -a "$ALLOW_NONFREE" != "0" ]; then
-            echo "firmware-amd-graphics"
-        fi
-    fi
-}
+if [ "$DEBUG" != "0" ]; then
+    echo "ARCH=$ARCH"
+fi
 
-"${@}"
+export ARCH

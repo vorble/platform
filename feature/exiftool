@@ -35,6 +35,12 @@ list_packages() {
             echo "feature/exiftool: list_packages() is not implemented for KERNEL=$KERNEL DISTRO=$DISTRO DISTRO_VERSION=$DISTRO_VERSION" >&2
             exit 1
         fi
+    elif [ "$KERNEL" = "Linux" -a "$DISTRO" = "Fedora" ]; then
+        echo "perl-Image-ExifTool"
+    elif [ "$KERNEL" = "Linux" -a "$DISTRO" = "openSUSE" ]; then
+        echo "exiftool"
+    elif [ "$KERNEL" = "OpenBSD" ]; then
+        echo "p5-Image-ExifTool"
     else
         echo "feature/exiftool: list_packages() is not implemented for KERNEL=$KERNEL DISTRO=$DISTRO" >&2
         exit 1

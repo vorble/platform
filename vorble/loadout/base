@@ -14,34 +14,43 @@ list_prerequisites() {
 
 list_features() {
     echo "feature/curl"
-    echo "feature/dev"
-    echo "feature/drivers"
-    echo "feature/firmware"
+    echo "vorble/feature/drivers"
+    echo "vorble/feature/firmware"
     echo "feature/gdb"
+    echo "feature/htop"
+    echo "feature/links"
     echo "feature/rsync"
     echo "feature/screen"
+    echo "feature/silversearcher"
+    echo "feature/smartmontools"
+    echo "vorble/feature/sudo"
     echo "feature/tmux"
+    echo "feature/valgrind"
     echo "vorble/feature/vim"
 
-    # TODO: Find these on OpenBSD if possible!
-    if [ "$KERNEL" = "Linux" ]; then
-        # CentOS Stream 9 does not have this package or an alternative that
-        # I've been able to find in May 2022.
-        if [ "$DISTRO" = "CentOS" -a "$DISTRO_VERSION" -lt "9" ]; then
+    # CentOS Stream 9 does not have this package or an alternative that
+    # I've been able to find in May 2022.
+    if [ "$DISTRO" = "CentOS" ]; then
+        # Not all versions are integers and may not work with -ge, so can't
+        # combine with distro check with -a!
+        if [ "$DISTRO_VERSION" -ge "9" ]; then
+            : # Not available.
+        else
             echo "feature/exiftool"
         fi
+    else
+        echo "feature/exiftool"
+    fi
+
+    if [ "$KERNEL" = "Linux" ]; then
         echo "feature/iotop"
         echo "feature/ltrace"
-        echo "feature/silversearcher"
-        echo "feature/smartmontools"
         echo "feature/strace"
-        echo "vorble/feature/sudo"
-        echo "feature/valgrind"
     fi
 
     if [ "$ALLOW_NONFREE" != "0" ]; then
         if [ "$IS_METAL" != "0" -a "$KERNEL" = "Linux" -a "$DISTRO" = "Debian" ]; then
-            echo "feature/zfs"
+            echo "vorble/feature/zfs"
         fi
     fi
 }

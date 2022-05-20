@@ -1,0 +1,17 @@
+#!/bin/sh
+
+set -eu
+
+list_packages() {
+    if [ "$KERNEL" = "Linux" -a "$DISTRO" = "Debian" ]; then
+        if [ "$HAS_NVIDIA_GRAPHICS" != "0" -a "$ALLOW_NONFREE" != "0" ]; then
+            echo "nvidia-driver"
+        fi
+
+        if [ "$HAS_AMD_GRAPHICS" != "0" -a "$ALLOW_NONFREE" != "0" ]; then
+            echo "firmware-amd-graphics"
+        fi
+    fi
+}
+
+"${@}"

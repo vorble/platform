@@ -1,0 +1,10 @@
+#!/bin/sh
+
+set -eu
+
+list_features() {
+    echo "vorble/loadout/base"
+    echo "feature/dev"
+}
+
+"${@}"

@@ -25,6 +25,8 @@ elif which dnf > /dev/null 2> /dev/null; then
     PACKAGE_MANAGER="dnf"
 elif which yum > /dev/null 2> /dev/null; then
     PACKAGE_MANAGER="yum"
+elif which zypper > /dev/null 2> /dev/null; then
+    PACKAGE_MANAGER="zypper"
 else
     echo "env/PACKAGE_MANAGER: Unable to determine package manager." >&2
     exit 1

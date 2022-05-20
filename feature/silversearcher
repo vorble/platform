@@ -30,6 +30,10 @@ list_packages() {
         echo "the_silver_searcher"
     elif [ "$KERNEL" = "Linux" -a "$DISTRO" = "Fedora" ]; then
         echo "the_silver_searcher"
+    elif [ "$KERNEL" = "Linux" -a "$DISTRO" = "openSUSE" ]; then
+        echo "the_silver_searcher"
+    elif [ "$KERNEL" = "OpenBSD" ]; then
+        echo "the_silver_searcher"
     else
         echo "feature/silversearcher: list_packages() is not implemented for KERNEL=$KERNEL DISTRO=$DISTRO" >&2
         exit 1

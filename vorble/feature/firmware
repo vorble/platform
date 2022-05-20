@@ -1,0 +1,19 @@
+#!/bin/sh
+
+set -eu
+
+list_packages() {
+    if [ "$KERNEL" = "Linux" -a "$DISTRO" = "Debian" ]; then
+        if [ "$ALLOW_NONFREE" != "0" ]; then
+            if [ "${CPU_VENDOR}" = "intel" ]; then
+                echo "intel-microcode"
+            elif [ "${CPU_VENDOR}" = "amd" ]; then
+                echo "amd64-microcode"
+            fi
+        fi
+    elif [ "$KERNEL" = "Linux" -a "$DISTRO" = "CentOS" ]; then
+        echo "linux-firmware"
+    fi
+}
+
+"${@}"

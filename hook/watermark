@@ -21,15 +21,19 @@ set -eu
 . include/watermark_add
 
 on_start() {
-    if [ -f "$WATERMARK_DIR/platform" ]; then
-        maybe rm "$WATERMARK_DIR/platform"
+    if [ "$ENABLE_HOOK_WATERMARK" != "0" ]; then
+        if [ -f "$WATERMARK_DIR/platform" ]; then
+            maybe rm "$WATERMARK_DIR/platform"
+        fi
+        maybe mkdir -p "$WATERMARK_DIR"
+        watermark_add "platform $PLATFORM_VERSION"
     fi
-    maybe mkdir -p "$WATERMARK_DIR"
-    watermark_add "platform $PLATFORM_VERSION"
 }
 
 on_finish() {
-    watermark_add "LOADOUT=\"$LOADOUT\""
+    if [ "$ENABLE_HOOK_WATERMARK" != "0" ]; then
+        watermark_add "LOADOUT=\"$LOADOUT\""
+    fi
 }
 
 "${@}"

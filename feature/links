@@ -15,12 +15,23 @@
 # You should have received a copy of the GNU General Public License
 # along with this program.  If not, see <http://www.gnu.org/licenses/>.
 
-if [ "${EXAMPLE+defined}" != "defined" ]; then
-    EXAMPLE="EXAMPLE"
-fi
+set -eu
 
-if [ "$DEBUG" != "0" ]; then
-    echo "EXAMPLE=$EXAMPLE"
-fi
+list_packages() {
+    if [ "$KERNEL" = "Linux" -a "$DISTRO" = "Debian" ]; then
+        echo "links"
+    elif [ "$KERNEL" = "Linux" -a "$DISTRO" = "CentOS" ]; then
+        echo "links"
+    elif [ "$KERNEL" = "Linux" -a "$DISTRO" = "Fedora" ]; then
+        echo "links"
+    elif [ "$KERNEL" = "Linux" -a "$DISTRO" = "openSUSE" ]; then
+        echo "links"
+    elif [ "$KERNEL" = "OpenBSD" ]; then
+        echo "links"
+    else
+        echo "feature/links: list_packages() is not implemented for KERNEL=$KERNEL DISTRO=$DISTRO" >&2
+        exit 1
+    fi
+}
 
-export EXAMPLE
+"${@}"

@@ -15,7 +15,7 @@
 // You should have received a copy of the GNU General Public License
 // along with this program.  If not, see <http://www.gnu.org/licenses/>.
 
-'use struct'
+'use strict'
 
 // These copyrights get bumped on a release. Other file copyrights should be
 // bumped with the patch for the change.

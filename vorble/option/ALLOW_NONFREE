@@ -1,0 +1,18 @@
+#!/bin/sh
+
+# ALLOW_NONFREE
+#
+# This flag controls whether non-free software may be installed.
+#
+# 0 - Non-free software is NOT allowed (the default).
+# 1 - Non-free software is allowed.
+
+if [ "${ALLOW_NONFREE+defined}" != "defined" ]; then
+    ALLOW_NONFREE=0
+fi
+
+if [ "$DEBUG" != "0" ]; then
+    echo "ALLOW_NONFREE=$ALLOW_NONFREE"
+fi
+
+export ALLOW_NONFREE

@@ -21,11 +21,10 @@ The following document outlines the API provided by Platform for writing custom 
 
 The following environment variables are determined by Platform when it runs and are available for use by custom loadouts:
 
+* `ARCH` - The CPU architecture. Values are `amd64`, `armv6l`, or `armv7l`.
 * `CPU_VENDOR` - The CPU vendor. Values are `amd`, `arm` or `intel`.
-* `DISTRO` - The operating system distribution. For Linux, this is the name of the Linux distribution, e.g. `Debian`. Possible values are: `CentOS`, `Debian`, `Fedora`, `OpenBSD`.
+* `DISTRO` - The operating system distribution. For Linux, this is the name of the Linux distribution, e.g. `Debian`. Possible values are: `CentOS`, `Debian`, `Fedora`, `OpenBSD`, `openSUSE`.
 * `DISTRO_VERSION` - The version of the operating system distribution. Values depend on `DISTRO`.
-* `HAS_AMD_GRAPHICS` - Values are 0 or 1. Value is 0 if an AMD graphics device was not detected. Value is 1 if an AMD graphics device was detected.
-* `HAS_NVIDIA_GRAPHICS` - Values are 0 or 1. Value is 0 if an Nvidia graphics device was not detected. Value is 1 if an Nvidia graphics device was detected.
 * `IS_METAL` - Values are 0 or 1. Value is 0 if the system is detected as being virtualized. Value is 1 if the system is running on "metal" (not virtualized).
 * `KERNEL` - The kernel name. Values are `Linux` or `OpenBSD`.
 * `PACKAGE_MANAGER` - The system's package manager. Values are `apt` (Debian), `yum`/`dnf` (CentOS/Fedora), and `pkg_add` (OpenBSD).
@@ -35,16 +34,16 @@ The following environment variables are determined by Platform when it runs and 
 
 The following options, controllable with environment variables, are available:
 
-* `ALLOW_NONFREE` - Values are 0 or 1. Default 0. Set to 0 to disallow non-free software. Set to 1 to allow non-free software. **If your loadout or feature does not support this option, then it should disallow using the features with a guard of some sort (i.e. don't install non-free software if the user hasn't opted in).**
 * `DEBUG` - Values are 0 or 1. Default 0. Set to 0 for normal operation. Set to 1 to enable debug logging.
 * `DRY_RUN` - Values are 0 or 1. Default 0. Set to 0 to echo and perform setup commands on the system. Set to 1 to just echo the commands instead of performing them. **If your loadout or feature does not support this option, then it should disallow using the features with a guard of some sort (i.e. don't change the user's system if they asked you not to).**
+* `ENABLE_HOOK_WATERMARK` - Values are 0 or 1. Default 0. Set to 1 to enable the `hook/watermark` hook, which makes a record of the setup process. See also `WATERMARK_DIR`.
 * `FEATURE_FILE` - Value is a path to a file. Default to a file in `/tmp`. Set this option to control where the feature file, which is used to keep track of the progress of the platform setup and is deleted when finished, is written. The user must have access to write to this file.
 * `LOADOUT` - Value is a **space separated** list of features. Default to blank. Set this option to control which features will be installed.
 * `PATH_ENV` - Value is a **colon separated** list of env directories. Default to blank. Set this option to add additional environment variable scripts for custom loadouts.
 * `PATH_HOOK` - Value is a **colon separated** list of hook directories. Default to blank. Set this option to add additional hook scripts for custom loadouts.
 * `PATH_OPTION` - Value is a **color separated** list of option directories. Default to blank. Set this option to add additional option scripts for custom loadouts.
 * `PLZHELP` - Value is 0 or 1. Default to 0. Set this option to 0 for normal operation. Set this option to 1 to enable extra logging messages about things that might not be fully tested or finished in the software. Set this option if you would like to help improve the software.
-* `WATERMARK_DIR` - Value is a path to a directory. Default to `/usr/local/etc/platform/`. Set this option to control where watermark files are stored which record the versions and loadouts used.
+* `WATERMARK_DIR` - Value is a path to a directory. Default to `/usr/local/etc/platform/`. Set this option to control where watermark files are stored which record the versions and loadouts used. See also `ENABLE_HOOK_WATERMARK`.
 
 
 ## "Features"

@@ -30,6 +30,8 @@ if [ -f /etc/os-release ]; then
         DISTRO_VERSION="$( grep ^VERSION= /etc/os-release | sed 's/VERSION=//' | sed 's/"//g' )"
     elif grep -q -F 'NAME="Fedora Linux"' /etc/os-release; then
         DISTRO_VERSION="$( grep ^VERSION_ID= /etc/os-release | sed 's/VERSION_ID=//' | sed 's/"//g' )"
+    elif grep -q -F 'NAME="openSUSE Leap"' /etc/os-release; then
+        DISTRO_VERSION="$( grep ^VERSION_ID= /etc/os-release | sed 's/VERSION_ID=//' | sed 's/"//g' )"
     fi
 fi
 

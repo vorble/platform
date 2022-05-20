@@ -1,0 +1,25 @@
+#!/bin/sh
+
+# This include sets up the various PATH_XXX variables needed for using vorble
+# loadouts.
+
+if [ "${PATH_ENV+defined}" != "defined" ]; then
+    PATH_ENV=
+fi
+if [ -d "vorble/env" ]; then
+    export PATH_ENV="${PATH_ENV}${PATH_ENV+:}vorble/env"
+fi
+
+if [ "${PATH_HOOK+defined}" != "defined" ]; then
+    PATH_HOOK=
+fi
+if [ -d "vorble/hook" ]; then
+    export PATH_HOOK="${PATH_HOOK}${PATH_HOOK+:}vorble/hook"
+fi
+
+if [ "${PATH_OPTION+defined}" != "defined" ]; then
+    PATH_OPTION=
+fi
+if [ -d "vorble/option" ]; then
+    export PATH_OPTION="${PATH_OPTION}${PATH_OPTION+:}vorble/option"
+fi

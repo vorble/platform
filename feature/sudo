@@ -24,6 +24,10 @@ list_packages() {
         echo "sudo"
     elif [ "$KERNEL" = "Linux" -a "$DISTRO" = "Fedora" ]; then
         echo "sudo"
+    elif [ "$KERNEL" = "Linux" -a "$DISTRO" = "openSUSE" ]; then
+        echo "sudo"
+    elif [ "$KERNEL" = "OpenBSD" ]; then
+        echo "sudo--"
     else
         echo "feature/sudo: list_packages() is not implemented for KERNEL=$KERNEL DISTRO=$DISTRO" >&2
         exit 1

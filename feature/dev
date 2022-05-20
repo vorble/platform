@@ -34,6 +34,8 @@ pre_install_hook() {
             echo "feature/dev: pre_install_hook is not implemented for PACKAGE_MANAGER=$PACKAGE_MANAGER!" >&2
             exit 1
         fi
+    elif [ "$KERNEL" = "Linux" -a "$DISTRO" = "openSUSE" ]; then
+        maybe zypper install --yes --type pattern devel_basis
     fi
 }
 
@@ -43,6 +45,8 @@ list_packages() {
     elif [ "$KERNEL" = "Linux" -a "$DISTRO" = "CentOS" ]; then
         : # This is installed in pre_install_hook.
     elif [ "$KERNEL" = "Linux" -a "$DISTRO" = "Fedora" ]; then
+        : # This is installed in pre_install_hook.
+    elif [ "$KERNEL" = "Linux" -a "$DISTRO" = "openSUSE" ]; then
         : # This is installed in pre_install_hook.
     elif [ "$KERNEL" = "OpenBSD" ]; then
         if [ "$PLZHELP" != "0" ]; then

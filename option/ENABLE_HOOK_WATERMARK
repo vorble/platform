@@ -15,19 +15,12 @@
 # You should have received a copy of the GNU General Public License
 # along with this program.  If not, see <http://www.gnu.org/licenses/>.
 
-# ALLOW_NONFREE
-#
-# This flag controls whether non-free software may be installed.
-#
-# 0 - Non-free software is NOT allowed (the default).
-# 1 - Non-free software is allowed.
-
-if [ "${ALLOW_NONFREE+defined}" != "defined" ]; then
-    ALLOW_NONFREE=0
+if [ "${ENABLE_HOOK_WATERMARK+defined}" != "defined" ]; then
+    ENABLE_HOOK_WATERMARK=0
 fi
 
 if [ "$DEBUG" != "0" ]; then
-    echo "ALLOW_NONFREE=$ALLOW_NONFREE"
+    echo "ENABLE_HOOK_WATERMARK=$ENABLE_HOOK_WATERMARK"
 fi
 
-export ALLOW_NONFREE
+export ENABLE_HOOK_WATERMARK
