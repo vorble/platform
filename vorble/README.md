@@ -2,16 +2,14 @@
 
 *Version 0.1.0*
 
-This sub-directory holds some custom loadouts for Platform. You can run these loadouts with this example script (put it in the Platform root directory):
+This sub-directory holds the `vorble` custom loadout for Platform.
+
+## Usage
+
+Try it out:
 
 ```sh
-#!/bin/sh
-
-set -eu
-
-export USERS="keith root vorble"
-
-`dirname $0`/setup.sh.compatible
+DRY_RUN=1 ./platform vorble/loadout/base
 ```
 
-See [setup.vorble](../setup.vorble) for a more featureful custom setup script.
+See the [loadout](loadout) and [feature](feature) directories for a list of features and loadouts built into the `vorble` custom loadout.

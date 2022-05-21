@@ -25,7 +25,7 @@ task('Bump Copyright Year')
   .step('Bump Copyright Year in vorble/LICENSE')
 
 task('Bump Version')
-  .step('Bump Version in setup.sh')
+  .step('Bump Version in platform')
   .step('Bump Version in README.md')
   .step('Bump Version in REFERENCE.md')
   .step('Bump Version in vorble/README.md')

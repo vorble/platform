@@ -13,3 +13,5 @@ The real power comes from custom loadouts that you write for yourself. You could
 The current supported systems are CentOS 7/8/9, Debian GNU/Linux 10/11, Fedora 36, OpenBSD 7, and openSUSE Leap 15.
 
 See the License section in [README.md](README.md) for information on licensing.
+
+Special thanks to mulethew for testing and checking things over.

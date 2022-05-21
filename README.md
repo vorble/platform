@@ -38,7 +38,7 @@ See the [vorble/loadout](vorble/loadout) and [vorble/feature](vorble/feature) di
   * CentOS 7/8/9
   * Fedora 36
   * openSUSE Leap 15
-* OpenBSD 7
+* OpenBSD 7.1
 
 ## License
 

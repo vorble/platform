@@ -118,14 +118,14 @@ Hooks should be located in a `hook` directory/sub-directory. Hooks are included 
 
 set -eu
 
-# This hook is called as the setup.sh process starts, before any features start
+# This hook is called as the platform process starts, before any features start
 # running.
 on_start() {
     # You might clear a directory before proceeding with the set up.
     echo "I'm running the on_start hook!"
 }
 
-# this hook is called as the setup.sh process finishes, after all features are
+# this hook is called as the platform process finishes, after all features are
 # finished being set up.
 on_finish() {
     # You might send an email to the system administrator with installation
