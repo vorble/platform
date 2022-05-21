@@ -26,6 +26,11 @@ See [REFERENCE.md](REFERENCE.md) for complete usage details.
 
 See [License](#License) and [Customization](#Customization) for information about packaging and distributing your changes with this software.
 
+### Built-Ins
+
+See the [loadout](loadout) and [feature](feature) directories for a list of built-in features and loadouts.
+See the [vorble/loadout](vorble/loadout) and [vorble/feature](vorble/feature) directories for a list of features and loadouts built into the `vorble` custom loadout.
+
 ## Target Operating Systems
 
 * Linux
