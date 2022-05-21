@@ -56,18 +56,18 @@ Loadouts and features should be located in a `loadout` or `feature` directory/su
 set -eu
 
 # This function should output a series of feature names of features which must
-# additionally be set up along with this feature.
-list_features() {
-    echo "feature/necessary-package"
-}
-
-# This function should output a series of feature names of features which must
 # be FULLY set up BEFORE this feature can be set up.
 list_prerequisites() {
     echo "feature/test-prerequisite"
 }
 
-# This function should unpack or acquire somehow the feature.
+# This function should output a series of feature names of features which must
+# additionally be set up along with this feature.
+list_features() {
+    echo "feature/necessary-package"
+}
+
+# This function should acquire or unpack the feature.
 unpack() {
 }
 
@@ -75,8 +75,8 @@ unpack() {
 build() {
 }
 
-# This function is called before the system's package manager is run for the
-# feature.
+# This function is called before do_install is called and before the system's
+# package manager is run for the feature's packages.
 pre_install_hook() {
     # You might emplace configuration files or download the source code for a
     # package.
@@ -109,7 +109,7 @@ Each function is optional, so you can skip clutter that you don't need.
 
 ### Hooks
 
-Hooks should be located in a `hook` directory/sub-directory. Additional hooks can be added to the setup process with the `PATH_HOOK` option.
+Hooks should be located in a `hook` directory/sub-directory. Hooks are included automatically when a loadout or feature from your custom loadout is used.
 
 ```sh
 #!/bin/sh
@@ -149,7 +149,7 @@ For feature scripts implemented in POSIX or similar shells, the script should ex
 
 ### Environment/Options
 
-Should be located in a `env` or `option` directory/sub-directory. Additional environment and options can be added to the setup process with the `PATH_ENV` and `PATH_OPTION` options. These script fragments must be written in POSIX shell since they are directly sourced into the setup script.
+Should be located in a `env` or `option` directory/sub-directory. Environment and option script fragments are included automatically when a loadout or feature from your custom loadout is used. These script fragments must be written in POSIX shell since they are directly sourced into the setup script.
 
 Example environment:
 
