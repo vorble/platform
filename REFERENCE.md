@@ -74,6 +74,7 @@ unpack() {
 
 # This function should build the feature.
 build() {
+    echo "I'm running the build function!"
 }
 
 # This function is called before do_install is called and before the system's
