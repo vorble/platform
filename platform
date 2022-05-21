@@ -138,8 +138,23 @@ setup_features() {
         fi
     done
     for FEATURE in $INCOMPLETE_FEATURES; do
+        if feature_has_function "$FEATURE" unpack; then
+            "$FEATURE" unpack
+        fi
+    done
+    for FEATURE in $INCOMPLETE_FEATURES; do
+        if feature_has_function "$FEATURE" build; then
+            "$FEATURE" build
+        fi
+    done
+    for FEATURE in $INCOMPLETE_FEATURES; do
         if feature_has_function "$FEATURE" pre_install_hook; then
             "$FEATURE" pre_install_hook
+        fi
+    done
+    for FEATURE in $INCOMPLETE_FEATURES; do
+        if feature_has_function "$FEATURE" do_install; then
+            "$FEATURE" do_install
         fi
     done
     TEMP="$( list_packages $INCOMPLETE_FEATURES )"
