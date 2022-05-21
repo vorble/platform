@@ -2,6 +2,8 @@
 
 set -eu
 
+. vorble/option/ALLOW_NONFREE
+
 . include/watermark_add
 
 list_prerequisites() {

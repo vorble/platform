@@ -11,8 +11,6 @@ if [ "${ALLOW_NONFREE+defined}" != "defined" ]; then
     ALLOW_NONFREE=0
 fi
 
-if [ "$DEBUG" != "0" ]; then
-    echo "ALLOW_NONFREE=$ALLOW_NONFREE"
-fi
+# NO DEBUG! This option is pre-included in vorble/loadout/base which can't make any output!
 
 export ALLOW_NONFREE

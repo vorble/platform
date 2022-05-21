@@ -25,14 +25,13 @@ list_hooks_with_function() {
             fi
         fi
     done
-
     for CUSTOM in $CUSTOMS; do
-        if [ -d "$CUSTOM/hook" ]; then
-            for HOOK in $CUSTOM/hook/*; do
-                if [ -f "$HOOK" ]; then
+        for HOOK in $CUSTOM/hook/*; do
+            if [ -f "$HOOK" ]; then
+                if feature_has_function "$HOOK" "$1"; then
                     echo "$HOOK"
                 fi
-            done
-        fi
+            fi
+        done
     done
 }
