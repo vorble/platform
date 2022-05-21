@@ -9,7 +9,7 @@ A programmable system configuration framework. Define a loadout and set of featu
 Try it out:
 
 ```sh
-:~# DRY_RUN=1 ./platform vorble/loadout/base
+DRY_RUN=1 ./platform vorble/loadout/base
 ```
 
 * `DRY_RUN` can be set to disable modifying the system.
@@ -19,7 +19,7 @@ Try it out:
 You are invited to create your own custom loadouts! Do so by creating a new directory in the root of this source package. For example, create the directory `example` (copy `vorble` as a template and remove what you don't need) and run the loadout by using the name as a prefix:
 
 ```sh
-:~# ./platform example/loadout/base
+./platform example/loadout/base
 ```
 
 See [REFERENCE.md](REFERENCE.md) for complete usage details.
