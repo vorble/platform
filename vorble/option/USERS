@@ -1,8 +1,10 @@
 #!/bin/sh
 
 if [ "${USERS+defined}" != "defined" ]; then
-    echo "Please set the USERS environment variable to specify the users to be configured." >&2
-    exit 1
+    echo -n "WARNING: vorble custom loadouts work on a set of users given in the USERS environment variable. " >&2
+    echo -n "USERS is undefined, so no users will be set up. " >&2
+    echo "You may set USERS=\"\" to suppress this message or specify one or more users spearated by space." >&2
+    USERS=
 fi
 
 if [ "$DEBUG" != "0" ]; then
