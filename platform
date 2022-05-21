@@ -106,6 +106,9 @@ list_setup_features() {
             list_setup_features $TEMP # Recursive
         fi
     done
+
+    # Get the feature file ready for setup_features().
+    hook/features on_finish_list_setup_features
 }
 
 setup_features() {
@@ -160,14 +163,18 @@ setup_features() {
 }
 
 export LOADOUT="$( echo ${@} )"
+
+# Find all features in the dependency tree.
 ALL_FEATURES=`list_setup_features $LOADOUT`
 
-# TODO: Move this! or do something else with it
-rm "$FEATURE_FILE"
-touch "$FEATURE_FILE"
+# DON'T CALL list_hooks_with_function BEFORE HERE!
+# CUSTOMS will be a list of the custom loadout names used. It's a custom if it's not
+# loadout or feature. E.g. feature/dev asdf/loadout/base vorble/loadout/base -> asdf vorble
+# Since it considers all features in the dependency tree, any referenced custom
+# is found.
+export CUSTOMS="$( echo $ALL_FEATURES | tr ' ' '\n' | grep -v -e '^loadout\/' -e '^feature\/' | sed 's/\/.*//' | sort -u | tr '\n' ' ' )"
 
-export CUSTOMS="$( echo $LOADOUT | tr ' ' '\n' | grep -v -e '^loadout\/' -e '^feature\/' | sed 's/\/.*//' | sort -u | tr '\n' ' ' )"
-
+# Then for the customs, include their options and env scripts.
 for CUSTOM in $CUSTOMS; do
     if [ -d "$CUSTOM" ]; then
         if [ -d "$CUSTOM/option" ]; then

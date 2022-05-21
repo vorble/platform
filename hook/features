@@ -24,6 +24,13 @@ on_start() {
     touch "$FEATURE_FILE"
 }
 
+on_finish_list_setup_features() {
+    if [ -f "$FEATURE_FILE" ]; then
+        rm "$FEATURE_FILE"
+    fi
+    touch "$FEATURE_FILE"
+}
+
 on_finish() {
     if [ -f "$FEATURE_FILE" ]; then
         rm "$FEATURE_FILE"
