@@ -56,15 +56,23 @@ Loadouts and features should be located in a `loadout` or `feature` directory/su
 set -eu
 
 # This function should output a series of feature names of features which must
+# additionally be set up along with this feature.
+list_features() {
+    echo "feature/necessary-package"
+}
+
+# This function should output a series of feature names of features which must
 # be FULLY set up BEFORE this feature can be set up.
 list_prerequisites() {
     echo "feature/test-prerequisite"
 }
 
-# This function should output a series of feature names of features which must
-# additionally be set up along with this feature.
-list_features() {
-    echo "feature/necessary-package"
+# This function should unpack or acquire somehow the feature.
+unpack() {
+}
+
+# This function should build the feature.
+build() {
 }
 
 # This function is called before the system's package manager is run for the
@@ -72,7 +80,12 @@ list_features() {
 pre_install_hook() {
     # You might emplace configuration files or download the source code for a
     # package.
-    echo "I'm running the pre-install hook!"
+    echo "I'm running the pre_install_hook!"
+}
+
+# This function should install the feature.
+do_install() {
+    echo "I'm running the do_install hook!"
 }
 
 # This function should output a series of package names for the system's
@@ -86,7 +99,7 @@ list_packages() {
 # feature.
 post_install_hook() {
     # You might start a service or initialize a database.
-    echo "I'm running the post-install hook!"
+    echo "I'm running the post_install_hook!"
 }
 
 "${@}"
