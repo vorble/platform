@@ -10,7 +10,7 @@ fi
 . include/debian
 . include/maybe
 
-pre_install_hook() {
+pre_install() {
     # TODO: CentOS?
     if [ "$KERNEL" != "Linux" -o "$DISTRO" != "Debian" ]; then
         echo "vorble/feature/zfs: Feature is currently only supported on Debian GNU/Linux." >&2
@@ -34,7 +34,7 @@ list_packages() {
     echo "linux-headers-amd64"
 }
 
-post_install_hook() {
+post_install() {
     maybe apt-get update
     maybe apt-get install --yes "--target-release=${DEBIAN_CODENAME}-backports" zfsutils-linux
     maybe modprobe zfs

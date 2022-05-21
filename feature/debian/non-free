@@ -19,7 +19,7 @@ set -eu
 
 . include/maybe
 
-pre_install_hook() {
+pre_install() {
     maybe apt-get update
     # This install provides the apt-add-repository binary.
     maybe apt-get install --yes software-properties-common

@@ -25,7 +25,19 @@ list_features() {
     :
 }
 
-pre_install_hook() {
+unpack() {
+    :
+}
+
+build() {
+    :
+}
+
+pre_install() {
+    :
+}
+
+do_install() {
     :
 }
 
@@ -33,7 +45,7 @@ list_packages() {
     :
 }
 
-post_install_hook() {
+post_install() {
     :
 }
 

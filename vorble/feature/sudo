@@ -9,7 +9,7 @@ list_features() {
     echo "feature/sudo"
 }
 
-post_install_hook() {
+post_install() {
     for USER in $USERS; do
         if user_exists "$USER"; then
             if [ "$USER" != "root" ]; then

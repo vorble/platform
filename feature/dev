@@ -19,19 +19,19 @@ set -eu
 
 . include/maybe
 
-pre_install_hook() {
+pre_install() {
     if [ "$KERNEL" = "Linux" -a "$DISTRO" = "CentOS" ]; then
         if [ "$PACKAGE_MANAGER" = "yum" -o "$PACKAGE_MANAGER" = "dnf" ]; then
             maybe "$PACKAGE_MANAGER" -y groupinstall "Development Tools"
         else
-            echo "feature/dev: pre_install_hook is not implemented for PACKAGE_MANAGER=$PACKAGE_MANAGER!" >&2
+            echo "feature/dev: pre_install is not implemented for PACKAGE_MANAGER=$PACKAGE_MANAGER!" >&2
             exit 1
         fi
     elif [ "$KERNEL" = "Linux" -a "$DISTRO" = "Fedora" ]; then
         if [ "$PACKAGE_MANAGER" = "yum" -o "$PACKAGE_MANAGER" = "dnf" ]; then
             maybe "$PACKAGE_MANAGER" -y groupinstall "Development Tools"
         else
-            echo "feature/dev: pre_install_hook is not implemented for PACKAGE_MANAGER=$PACKAGE_MANAGER!" >&2
+            echo "feature/dev: pre_install is not implemented for PACKAGE_MANAGER=$PACKAGE_MANAGER!" >&2
             exit 1
         fi
     elif [ "$KERNEL" = "Linux" -a "$DISTRO" = "openSUSE" ]; then
@@ -43,11 +43,11 @@ list_packages() {
     if [ "$KERNEL" = "Linux" -a "$DISTRO" = "Debian" ]; then
         echo "build-essential"
     elif [ "$KERNEL" = "Linux" -a "$DISTRO" = "CentOS" ]; then
-        : # This is installed in pre_install_hook.
+        : # This is installed in pre_install.
     elif [ "$KERNEL" = "Linux" -a "$DISTRO" = "Fedora" ]; then
-        : # This is installed in pre_install_hook.
+        : # This is installed in pre_install.
     elif [ "$KERNEL" = "Linux" -a "$DISTRO" = "openSUSE" ]; then
-        : # This is installed in pre_install_hook.
+        : # This is installed in pre_install.
     elif [ "$KERNEL" = "OpenBSD" ]; then
         if [ "$PLZHELP" != "0" ]; then
             echo "PLZHELP: feature/dev: list_packages() is implemented for OpenBSD, but no packages listed. Do any make sense?" >&2

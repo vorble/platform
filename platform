@@ -148,6 +148,12 @@ setup_features() {
         fi
     done
     for FEATURE in $INCOMPLETE_FEATURES; do
+        if feature_has_function "$FEATURE" pre_install; then
+            "$FEATURE" pre_install
+        fi
+    done
+    # LEGACY! REMOVE!
+    for FEATURE in $INCOMPLETE_FEATURES; do
         if feature_has_function "$FEATURE" pre_install_hook; then
             "$FEATURE" pre_install_hook
         fi
@@ -160,6 +166,12 @@ setup_features() {
     TEMP="$( list_packages $INCOMPLETE_FEATURES )"
     TEMP="$( echo $TEMP | tr ' ' '\n' | sort -u )"
     install_packages $TEMP
+    for FEATURE in $INCOMPLETE_FEATURES; do
+        if feature_has_function "$FEATURE" post_install; then
+            "$FEATURE" post_install
+        fi
+    done
+    # LEGACY! REMOVE!
     for FEATURE in $INCOMPLETE_FEATURES; do
         if feature_has_function "$FEATURE" post_install_hook; then
             "$FEATURE" post_install_hook

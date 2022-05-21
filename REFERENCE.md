@@ -69,6 +69,7 @@ list_features() {
 
 # This function should acquire or unpack the feature.
 unpack() {
+    echo "I'm running the unpack function!"
 }
 
 # This function should build the feature.
@@ -77,10 +78,10 @@ build() {
 
 # This function is called before do_install is called and before the system's
 # package manager is run for the feature's packages.
-pre_install_hook() {
+pre_install() {
     # You might emplace configuration files or download the source code for a
     # package.
-    echo "I'm running the pre_install_hook!"
+    echo "I'm running the pre_install!"
 }
 
 # This function should install the feature.
@@ -97,9 +98,9 @@ list_packages() {
 
 # This function is called after the system's package manager is run for the
 # feature.
-post_install_hook() {
+post_install() {
     # You might start a service or initialize a database.
-    echo "I'm running the post_install_hook!"
+    echo "I'm running the post_install!"
 }
 
 "${@}"

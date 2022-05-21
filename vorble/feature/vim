@@ -8,7 +8,7 @@ list_features() {
     echo "feature/vim"
 }
 
-post_install_hook() {
+post_install() {
     local USER HOMEDIR GROUP
     for USER in $USERS; do
         HOMEDIR="$( getent passwd "$USER" | cut -d: -f6 )"

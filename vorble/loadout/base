@@ -57,7 +57,7 @@ list_features() {
     fi
 }
 
-post_install_hook() {
+post_install() {
     watermark_add "vorble $VORBLE_VERSION"
 }
 
