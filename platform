@@ -40,37 +40,8 @@ cd `dirname $0`
 . option/DRY_RUN
 . option/ENABLE_HOOK_WATERMARK
 . option/FEATURE_FILE
-. option/LOADOUT
-. option/PATH_ENV
-. option/PATH_HOOK
-. option/PATH_OPTION
 . option/PLZHELP
 . option/WATERMARK_DIR
-
-# Load additional options from PATH_OPTION directories. This function checks
-# PATH_OPTION to ensure it consists of directories. It outputs a glob pattern
-# suitable for matching files in the directory. E.g. PATH_OPTION=a:b produces
-# output:
-# a/*
-# b/*
-list_options_for_glob() {
-    echo $PATH_OPTION | tr ':' '\n' | while read -r PATH_OPTION_PART; do
-        # Since echo always prints a line, it might be blank.
-        if [ -n "$PATH_OPTION_PART" ]; then
-            if [ -d "$PATH_OPTION_PART" ]; then
-                echo "$PATH_OPTION_PART/*"
-            fi
-        fi
-    done
-}
-
-for FNAME in $( list_options_for_glob ); do
-    # An option directory could be empty, so you might get an unmatched glob, so
-    # ensure the listed item is a file before including it.
-    if [ -f "$FNAME" ]; then
-        . "$FNAME"
-    fi
-done
 
 
 # -----------------------------------------------------------------------------
@@ -83,30 +54,6 @@ done
 . env/IS_METAL
 . env/KERNEL
 . env/PACKAGE_MANAGER
-
-# Load additional env from PATH_ENV directories. This function checks PATH_ENV
-# to ensure it consists of directories. It outputs a glob pattern suitable for
-# matching files in the directory. E.g. PATH_ENV=a:b produces output:
-# a/*
-# b/*
-list_envs_for_glob() {
-    echo $PATH_ENV | tr ':' '\n' | while read -r PATH_ENV_PART; do
-        # Since echo always prints a line, it might be blank.
-        if [ -n "$PATH_ENV_PART" ]; then
-            if [ -d "$PATH_ENV_PART" ]; then
-                echo "$PATH_ENV_PART/*"
-            fi
-        fi
-    done
-}
-
-for FNAME in $( list_envs_for_glob ); do
-    # An env directory could be empty, so you might get an unmatched glob, so
-    # ensure the listed item is a file before including it.
-    if [ -f "$FNAME" ]; then
-        . "$FNAME"
-    fi
-done
 
 
 # -----------------------------------------------------------------------------
@@ -124,6 +71,42 @@ done
 . include/list_features
 . include/list_hooks_with_function
 . include/list_packages
+
+list_setup_features() {
+    local FEATURE
+    local FEATURES
+    local INCOMPLETE_FEATURES
+    local TEMP
+    FEATURES="$( list_features "${@}" )"
+    FEATURES="$( echo $FEATURES | tr ' ' '\n' | sort -u )"
+    # Prerequisites are set up first, but each feature with prerequisites is
+    # handled separately. If you have two features being set up, both with
+    # prerequisites, then the first feature will have its prerequisites set up
+    # before the second.
+    for FEATURE in $FEATURES; do
+        if feature_has_function "$FEATURE" list_prerequisites; then
+            TEMP="$( "$FEATURE" list_prerequisites )"
+            list_setup_features $TEMP # Recursive
+        fi
+    done
+    INCOMPLETE_FEATURES=""
+    for FEATURE in $FEATURES; do
+        if ! feature_file_contains "$FEATURE"; then
+            INCOMPLETE_FEATURES="$INCOMPLETE_FEATURES${INCOMPLETE_FEATURES+ }$FEATURE"
+        fi
+    done
+    echo $INCOMPLETE_FEATURES
+    for FEATURE in $INCOMPLETE_FEATURES; do
+        feature_file_add "$FEATURE"
+    done
+    # Same behavior as prerequisite handling above (see commentary).
+    for FEATURE in $FEATURES; do
+        if feature_has_function "$FEATURE" list_postrequisites; then
+            TEMP="$( "$FEATURE" list_postrequisites )"
+            list_setup_features $TEMP # Recursive
+        fi
+    done
+}
 
 setup_features() {
     local FEATURE
@@ -175,6 +158,35 @@ setup_features() {
         fi
     done
 }
+
+export LOADOUT="$( echo ${@} )"
+ALL_FEATURES=`list_setup_features $LOADOUT`
+
+# TODO: Move this! or do something else with it
+rm "$FEATURE_FILE"
+touch "$FEATURE_FILE"
+
+export CUSTOMS="$( echo $LOADOUT | tr ' ' '\n' | grep -v -e '^loadout\/' -e '^feature\/' | sed 's/\/.*//' | sort -u | tr '\n' ' ' )"
+
+for CUSTOM in $CUSTOMS; do
+    if [ -d "$CUSTOM" ]; then
+        if [ -d "$CUSTOM/option" ]; then
+            for FNAME in $CUSTOM/option/*; do
+                if [ -f "$FNAME" ]; then
+                    . "$FNAME"
+                fi
+            done
+        fi
+
+        if [ -d "$CUSTOM/env" ]; then
+            for FNAME in $CUSTOM/env/*; do
+                if [ -f "$FNAME" ]; then
+                    . "$FNAME"
+                fi
+            done
+        fi
+    fi
+done
 
 list_hooks_with_function on_start | while read -r HOOK; do
     "$HOOK" on_start

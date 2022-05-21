@@ -16,8 +16,8 @@
 # along with this program.  If not, see <http://www.gnu.org/licenses/>.
 
 list_hooks_with_function() {
+    local CUSTOM
     local HOOK
-    local PATH_HOOK_PART
     for HOOK in hook/*; do
         if [ -f "$HOOK" ]; then
             if feature_has_function "$HOOK" "$1"; then
@@ -25,18 +25,14 @@ list_hooks_with_function() {
             fi
         fi
     done
-    echo $PATH_HOOK | tr ':' '\n' | while read -r PATH_HOOK_PART; do
-        # Since echo always prints a line, it might be blank.
-        if [ -n "$PATH_HOOK_PART" ]; then
-            if [ -d "$PATH_HOOK_PART" ]; then
-                for HOOK in $PATH_HOOK_PART/*; do
-                    if [ -f "$HOOK" ]; then
-                        if feature_has_function "$HOOK" "$1"; then
-                            echo "$HOOK"
-                        fi
-                    fi
-                done
-            fi
+
+    for CUSTOM in $CUSTOMS; do
+        if [ -d "$CUSTOM/hook" ]; then
+            for HOOK in $CUSTOM/hook/*; do
+                if [ -f "$HOOK" ]; then
+                    echo "$HOOK"
+                fi
+            done
         fi
     done
 }

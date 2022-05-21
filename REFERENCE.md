@@ -38,10 +38,6 @@ The following options, controllable with environment variables, are available:
 * `DRY_RUN` - Values are 0 or 1. Default 0. Set to 0 to echo and perform setup commands on the system. Set to 1 to just echo the commands instead of performing them. **If your loadout or feature does not support this option, then it should disallow using the features with a guard of some sort (i.e. don't change the user's system if they asked you not to).**
 * `ENABLE_HOOK_WATERMARK` - Values are 0 or 1. Default 0. Set to 1 to enable the `hook/watermark` hook, which makes a record of the setup process. See also `WATERMARK_DIR`.
 * `FEATURE_FILE` - Value is a path to a file. Default to a file in `/tmp`. Set this option to control where the feature file, which is used to keep track of the progress of the platform setup and is deleted when finished, is written. The user must have access to write to this file.
-* `LOADOUT` - Value is a **space separated** list of features. Default to blank. Set this option to control which features will be installed.
-* `PATH_ENV` - Value is a **colon separated** list of env directories. Default to blank. Set this option to add additional environment variable scripts for custom loadouts.
-* `PATH_HOOK` - Value is a **colon separated** list of hook directories. Default to blank. Set this option to add additional hook scripts for custom loadouts.
-* `PATH_OPTION` - Value is a **color separated** list of option directories. Default to blank. Set this option to add additional option scripts for custom loadouts.
 * `PLZHELP` - Value is 0 or 1. Default to 0. Set this option to 0 for normal operation. Set this option to 1 to enable extra logging messages about things that might not be fully tested or finished in the software. Set this option if you would like to help improve the software.
 * `WATERMARK_DIR` - Value is a path to a directory. Default to `/usr/local/etc/platform/`. Set this option to control where watermark files are stored which record the versions and loadouts used. See also `ENABLE_HOOK_WATERMARK`.
 

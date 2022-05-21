@@ -13,7 +13,6 @@ The typical usage of this software involves writing a short setup script to set 
 
 export DEBUG=0
 export DRY_RUN=0
-export LOADOUT="loadout/example"
 export PLZHELP=0
 
 `dirname $0`/setup.sh
@@ -21,7 +20,6 @@ export PLZHELP=0
 
 * `DEBUG` can be set to enable debugging output.
 * `DRY_RUN` can be set to disable modifying the system.
-* `LOADOUT` is a space separated list of files from the [loadout](loadout), [feature](feature), or similar in a custom loadout.
 * `PLZHELP` controls whether the software's pleas for help are displayed.
 * See the [option](option) directory for all configurable options.
 

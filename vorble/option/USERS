@@ -1,0 +1,12 @@
+#!/bin/sh
+
+if [ "${USERS+defined}" != "defined" ]; then
+    echo "Please set the USERS environment variable to specify the users to be configured." >&2
+    exit 1
+fi
+
+if [ "$DEBUG" != "0" ]; then
+    echo "USERS=$USERS"
+fi
+
+export USERS
