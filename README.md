@@ -42,17 +42,15 @@ See the [vorble/loadout](vorble/loadout) and [vorble/feature](vorble/feature) di
 
 ## License
 
-This software is licensed under the GPLv3 license. See [LICENSE](LICENSE) for the full license details.
+This software is licensed under the GPLv3 and LGPLv3 licenses so that you may package your custom loadouts with it without any special licensing, copyright, or contribution requirements. This applies as long as the functionality of the software is not altered or its source modified. See [LICENSE.GPLv3](LICENSE.GPLv3) and [LICENSE.LGPLv3](LICENSE.LGPLv3) for the full license details.
 
-### Customization
+### Packaging
 
-Some alterations to the directory structure of this software are required for its normal operation, so some specific kinds of modifications are acceptable and would fall under the modifying party's copyright and license.
-
-Permitted customization:
+Some alterations to the directory structure of this software are required for its normal operation:
 
 * You may create new directories in the project root to hold custom env, feature, hook, loadout, option, and other related files. See directory [vorble](vorble) for an example.
 * You may package and distribute the combined software provided the copyright and license terms for the modifications are clearly indicated.
-  - Please use, for example, files named "LICENSE-custom" and "COPYRIGHT-custom" if your new directory is named "custom".
+  - Please use, for example, files named "LICENSE-custom.XYZ" and "COPYRIGHT-custom" if your license is XYZ and your new directory is named "custom".
 
 ## More Information
 
