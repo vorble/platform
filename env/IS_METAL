@@ -15,6 +15,11 @@
 # You should have received a copy of the GNU General Public License
 # along with this program.  If not, see <http://www.gnu.org/licenses/>.
 
+# IS_METAL
+#
+# Values are 0 or 1. Value is 0 if the system is detected as being virtualized.
+# Value is 1 if the system is running on "metal" (not virtualized).
+
 # Assume we're on metal to start and detect virtualization to unset the flag.
 IS_METAL=1
 

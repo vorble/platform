@@ -17,9 +17,9 @@
 
 # WATERMARK_DIR
 #
-# The directory into which watermark files are placed. Watermark files indicate
-# the versions used or other information depending on the loadout. See the
-# include/watermark function.
+# Value is a path to a directory. Default to `/usr/local/etc/platform/`. Set
+# this option to control where watermark files are stored which record the
+# versions and loadouts used. See also `ENABLE_HOOK_WATERMARK`.
 
 if [ "${WATERMARK_DIR+defined}" != "defined" ]; then
     WATERMARK_DIR=/usr/local/etc/platform

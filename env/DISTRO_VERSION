@@ -15,6 +15,10 @@
 # You should have received a copy of the GNU General Public License
 # along with this program.  If not, see <http://www.gnu.org/licenses/>.
 
+# DISTRO_VERSION
+#
+# The version of the operating system distribution. Values depend on `DISTRO`.
+
 DISTRO_VERSION=""
 
 if [ -f /etc/os-release ]; then

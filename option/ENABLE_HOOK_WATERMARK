@@ -15,6 +15,11 @@
 # You should have received a copy of the GNU General Public License
 # along with this program.  If not, see <http://www.gnu.org/licenses/>.
 
+# ENABLE_HOOK_WATERMARK
+#
+# Values are 0 or 1. Default 0. Set to 1 to enable the `hook/watermark` hook,
+# which makes a record of the setup process. See also `WATERMARK_DIR`.
+
 if [ "${ENABLE_HOOK_WATERMARK+defined}" != "defined" ]; then
     ENABLE_HOOK_WATERMARK=0
 fi

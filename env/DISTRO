@@ -15,6 +15,12 @@
 # You should have received a copy of the GNU General Public License
 # along with this program.  If not, see <http://www.gnu.org/licenses/>.
 
+# DISTRO
+#
+# The operating system distribution. For Linux, this is the name of the Linux
+# distribution, e.g. `Debian`. Possible values are: `CentOS`, `Debian`,
+# `Fedora`, `OpenBSD`, `openSUSE`.
+
 DISTRO=""
 
 if [ -f /etc/os-release ]; then

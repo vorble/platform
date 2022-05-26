@@ -18,8 +18,7 @@
 'use strict'
 
 task('Documentation')
-  .step('Add New/Updated Envs to Reference')
-  .step('Add New/Updated Options to Reference')
+  .step('Generate Environment and Options Sections')
 
 task('Bump Copyright Year')
   .step('Bump Copyright Year in All Modified Files')

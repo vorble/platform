@@ -15,6 +15,10 @@
 # You should have received a copy of the GNU General Public License
 # along with this program.  If not, see <http://www.gnu.org/licenses/>.
 
+# CPU_VENDOR
+#
+# The CPU vendor. Values are `amd`, `arm` or `intel`.
+
 if [ -f /proc/cpuinfo ]; then
     # Linux checks.
     if grep -q vendor_id /proc/cpuinfo; then

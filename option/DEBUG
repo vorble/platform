@@ -15,6 +15,17 @@
 # You should have received a copy of the GNU General Public License
 # along with this program.  If not, see <http://www.gnu.org/licenses/>.
 
+# DEBUG
+#
+# This option controls whether additional debugging output should be generated
+# by platform and the features it sets up. Set `DEBUG=1` to enable debugging
+# output. The default value is `DEBUG=0`.
+
+# There are some things to look out for when using this flag to generate output
+# from your features. The output of some feature script functions are used to
+# make further decisions and debug output can cause errors. Any of the feature
+# functions starting with list_ are ones to look out for.
+
 if [ "${DEBUG+defined}" != "defined" ]; then
     DEBUG=0
 fi

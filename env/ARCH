@@ -15,6 +15,10 @@
 # You should have received a copy of the GNU General Public License
 # along with this program.  If not, see <http://www.gnu.org/licenses/>.
 
+# ARCH
+#
+# The CPU architecture. Values are `amd64`, `armv6l`, or `armv7l`.
+
 ARCH="$( arch )"
 
 if [ "$ARCH" = "x86_64" ]; then

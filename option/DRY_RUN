@@ -15,6 +15,14 @@
 # You should have received a copy of the GNU General Public License
 # along with this program.  If not, see <http://www.gnu.org/licenses/>.
 
+# DRY_RUN
+#
+# Values are 0 or 1. Default 0. Set to 0 to echo and perform setup commands on
+# the system. Set to 1 to just echo the commands instead of performing them.
+# **If your loadout or feature does not support this option, then it should
+# disallow using the features with a guard of some sort (i.e. don't change the
+# user's system if they asked you not to).**
+
 if [ "${DRY_RUN+defined}" != "defined" ]; then
     DRY_RUN=0
 fi

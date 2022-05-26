@@ -13,4 +13,8 @@
 # You should have received a copy of the GNU General Public License
 # along with this program.  If not, see <http://www.gnu.org/licenses/>.
 
+# For testing, I recommend creating a script called platform.local which calls
+# the main platform script with any special options you need. For example, I
+# conditionally set DEBUG=1, DRY_RUN=1, and USERS=me in mine to save me some
+# typing.
 /platform.local
