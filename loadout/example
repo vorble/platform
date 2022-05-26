@@ -1,52 +1,54 @@
 #!/bin/sh
 
-# Copyright (C) 2022 Keith "vorble"
-#
-# This program is free software: you can redistribute it and/or modify
-# it under the terms of the GNU General Public License as published by
-# the Free Software Foundation, either version 3 of the License, or
-# (at your option) any later version.
-#
-# This program is distributed in the hope that it will be useful,
-# but WITHOUT ANY WARRANTY; without even the implied warranty of
-# MERCHANTABILITY or FITNESS FOR A PARTICULAR PURPOSE.  See the
-# GNU General Public License for more details.
-#
-# You should have received a copy of the GNU General Public License
-# along with this program.  If not, see <http://www.gnu.org/licenses/>.
-
 set -eu
 
+# This function should output a series of feature names of features which must
+# be FULLY set up BEFORE this feature can be set up.
 list_prerequisites() {
-    :
+    echo "feature/test-prerequisite"
 }
 
+# This function should output a series of feature names of features which must
+# additionally be set up along with this feature.
 list_features() {
-    :
+    echo "feature/necessary-package"
 }
 
+# This function should acquire or unpack the feature.
 unpack() {
-    :
+    echo "I'm running the unpack function!"
 }
 
+# This function should build the feature.
 build() {
-    :
+    echo "I'm running the build function!"
 }
 
+# This function is called before do_install is called and before the system's
+# package manager is run for the feature's packages.
 pre_install() {
-    :
+    # You might emplace configuration files or download the source code for a
+    # package.
+    echo "I'm running the pre_install!"
 }
 
+# This function should install the feature.
 do_install() {
-    :
+    echo "I'm running the do_install hook!"
 }
 
+# This function should output a series of package names for the system's
+# package manager which should be installed. These will often depend on
+# $KERNEL, $DISTRO, $PACKAGE_MANAGER, and other factors.
 list_packages() {
-    :
+    echo "my-favorite-tool"
 }
 
+# This function is called after the system's package manager is run for the
+# feature.
 post_install() {
-    :
+    # You might start a service or initialize a database.
+    echo "I'm running the post_install!"
 }
 
 "${@}"

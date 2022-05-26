@@ -16,7 +16,6 @@ The following document outlines the API provided by Platform for writing custom 
   - Environment/Options
   - Includes
 
-
 ## Environment
 
 The following environment variables are determined by Platform when it runs and are available for use by custom loadouts:
@@ -29,7 +28,6 @@ The following environment variables are determined by Platform when it runs and 
 * [`KERNEL`](env/KERNEL) - The kernel name. Values are `Linux` or `OpenBSD`.
 * [`PACKAGE_MANAGER`](env/PACKAGE_MANAGER) - The system's package manager. Values are `apt` (Debian), `yum`/`dnf` (CentOS/Fedora), and `pkg_add` (OpenBSD).
 
-
 ## Options
 
 The following options, controllable with environment variables, are available:
@@ -40,7 +38,6 @@ The following options, controllable with environment variables, are available:
 * [`FEATURE_FILE`](option/FEATURE_FILE) - Value is a path to a file. Default to a file in `/tmp`. Set this option to control where the feature file, which is used to keep track of the progress of the platform setup and is deleted when finished, is written. The user must have access to write to this file.
 * [`PLZHELP`](option/PLZHELP) - Value is 0 or 1. Default to 0. Set this option to 0 for normal operation. Set this option to 1 to enable extra logging messages about things that might not be fully tested or finished in the software. Set this option if you would like to help improve the software.
 * [`WATERMARK_DIR`](option/WATERMARK_DIR) - Value is a path to a directory. Default to `/usr/local/etc/platform/`. Set this option to control where watermark files are stored which record the versions and loadouts used. See also `ENABLE_HOOK_WATERMARK`.
-
 
 ## "Features"
 
@@ -122,7 +119,7 @@ set -eu
 # running.
 on_start() {
     # You might clear a directory before proceeding with the set up.
-    echo "I'm running the on_start hook!"
+    :
 }
 
 # this hook is called as the platform process finishes, after all features are
@@ -130,7 +127,7 @@ on_start() {
 on_finish() {
     # You might send an email to the system administrator with installation
     # details.
-    echo "I'm running the on_finish hook!"
+    :
 }
 
 "${@}"
@@ -146,7 +143,6 @@ For feature scripts implemented in POSIX or similar shells, the script should ex
 
 * Variables don't propagate out from the feature when they are set, since the feature is a script that is run during the setup process. Use an environment variable or an option instead.
 
-
 ## "Includes"
 
 ### Environment/Options
@@ -158,13 +154,13 @@ Example environment:
 ```sh
 #!/bin/sh
 
-VORBLE_VERSION=0.0.1
+# Lock the versions together since the main source code is packaged with this
+# custom loadout.
+export VORBLE_VERSION="$PLATFORM_VERSION"
 
 if [ "$DEBUG" != "0" ]; then
     echo "VORBLE_VERSION=$VORBLE_VERSION"
 fi
-
-export VORBLE_VERSION
 ```
 
 Example option:
@@ -172,18 +168,15 @@ Example option:
 ```sh
 #!/bin/sh
 
-# If MYOPT is not defined...
-if [ "${MYOPT+defined}" != "defined" ]; then
-    # ... use some default value. Alternatively, you may want to exit the
-    # script early if the option has no sane default.
-    MYOPT="$( hostname )"
+if [ "${DEBUG+defined}" != "defined" ]; then
+    DEBUG=0
 fi
 
 if [ "$DEBUG" != "0" ]; then
-    echo "MYOPT=$MYOPT"
+    echo "DEBUG=$DEBUG"
 fi
 
-export MYOPT
+export DEBUG
 ```
 
 ### Includes

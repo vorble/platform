@@ -1,0 +1,11 @@
+#!/bin/sh
+
+# Include other functions with . (dot)!
+. include/do_something_else
+
+do_something() {
+    local VALUE
+    for VALUE in "${@}"; do
+        do_something_else "$VALUE"
+    done
+}
