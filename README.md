@@ -14,7 +14,7 @@ DRY_RUN=1 ./platform vorble/loadout/base
 
 * `DRY_RUN` can be set to disable modifying the system.
 * See the [option](option) directory for all configurable options.
-* See the [vorble/option](vorble/option) for all configurable options specific to the `vorble` custom loadouts.
+* See the [vorble/option](vorble/option) directory for all configurable options specific to the `vorble` custom loadouts.
 
 You are invited to create your own custom loadouts! Do so by creating a new directory in the root of this source package. For example, create the directory `example` (copy `vorble` as a template and remove what you don't need) and run the loadout by using the name as a prefix:
 
@@ -24,7 +24,7 @@ You are invited to create your own custom loadouts! Do so by creating a new dire
 
 See [REFERENCE.md](REFERENCE.md) for complete usage details.
 
-See [License](#License) and [Customization](#Customization) for information about packaging and distributing your changes with this software.
+See [License](#License) and [Packaging](#Packaging) for information about packaging and distributing your changes with this software.
 
 ### Built-Ins
 
