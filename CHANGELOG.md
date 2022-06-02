@@ -1,5 +1,11 @@
 # Change Log
 
+## 0.2.0
+
+*Not Released*
+
+* Adds `feature/git` and includes it as part of `feature/dev`.
+
 ## 0.1.0
 
 *Tuesday, May 31, 2022*

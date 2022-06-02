@@ -39,6 +39,10 @@ pre_install() {
     fi
 }
 
+list_features() {
+    echo "feature/git"
+}
+
 list_packages() {
     if [ "$KERNEL" = "Linux" -a "$DISTRO" = "Debian" ]; then
         echo "build-essential"
