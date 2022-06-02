@@ -1,6 +1,6 @@
 # Platform Reference
 
-*Version 0.1.0*
+*Version 0.2.0-dev*
 
 The following document outlines the API provided by Platform for writing custom loadouts.
 

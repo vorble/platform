@@ -1,6 +1,6 @@
 # Platform
 
-*Version 0.1.0*
+*Version 0.2.0-dev*
 
 A programmable system configuration framework. Define a loadout and set of features for your UNIX-like system and get them set up quickly and consistently.
 
