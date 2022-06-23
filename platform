@@ -125,11 +125,14 @@ setup_features() {
     for FEATURE in $FEATURES; do
         if feature_has_function "$FEATURE" list_prerequisites; then
             TEMP="$( "$FEATURE" list_prerequisites )"
-            setup_features $TEMP # Recursive
+            if [ "$TEMP" != "" ]; then
+                setup_features $TEMP # Recursive
+            fi
         fi
     done
     if [ "$DEBUG" != "0" ]; then
-        echo "Setting up features: ${@}"
+        echo "Setting up features: $FEATURES" | tr '\n' ' '
+        echo
     fi
     INCOMPLETE_FEATURES=""
     for FEATURE in $FEATURES; do
