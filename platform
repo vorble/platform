@@ -131,7 +131,10 @@ setup_features() {
         fi
     done
     if [ "$DEBUG" != "0" ]; then
+        # FEATURES contains newlines, so make sure they are turned to spaces on
+        # output.
         echo "Setting up features: $FEATURES" | tr '\n' ' '
+        # tr eats the newline we wanted though.
         echo
     fi
     INCOMPLETE_FEATURES=""
