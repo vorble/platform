@@ -17,6 +17,8 @@
 
 set -eu
 
+. include/maybe
+
 if [ "$DISTRO" != "CentOS" ]; then
     echo "feature/centos/powertools: For use on CentOS 8 and later." >&2
     exit 1
@@ -25,8 +27,8 @@ elif [ "$DISTRO_VERSION" -lt "8" ]; then
     exit 1
 fi
 
-install() {
-    dnf config-manager --set-enabled powertools
+do_install() {
+    maybe dnf config-manager --set-enabled powertools
 }
 
 "${@}"
