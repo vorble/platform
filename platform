@@ -158,12 +158,6 @@ setup_features() {
             "$FEATURE" pre_install
         fi
     done
-    # LEGACY! REMOVE!
-    for FEATURE in $INCOMPLETE_FEATURES; do
-        if feature_has_function "$FEATURE" pre_install_hook; then
-            "$FEATURE" pre_install_hook
-        fi
-    done
     for FEATURE in $INCOMPLETE_FEATURES; do
         if feature_has_function "$FEATURE" do_install; then
             "$FEATURE" do_install
@@ -175,12 +169,6 @@ setup_features() {
     for FEATURE in $INCOMPLETE_FEATURES; do
         if feature_has_function "$FEATURE" post_install; then
             "$FEATURE" post_install
-        fi
-    done
-    # LEGACY! REMOVE!
-    for FEATURE in $INCOMPLETE_FEATURES; do
-        if feature_has_function "$FEATURE" post_install_hook; then
-            "$FEATURE" post_install_hook
         fi
     done
     for FEATURE in $INCOMPLETE_FEATURES; do
