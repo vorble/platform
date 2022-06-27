@@ -5,6 +5,7 @@
 *Not Released*
 
 * Adds `feature/git` and includes it as part of `feature/dev`.
+* Adjusts output when `DEBUG=1` to include the names of all features being set up, prefixed with "Setting up features:".
 
 ## 0.1.0
 
