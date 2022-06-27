@@ -17,6 +17,14 @@
 
 set -eu
 
+list_prerequisites() {
+    if [ "$KERNEL" = "Linux" -a "$DISTRO" = "CentOS" ]; then
+        if [ "$DISTRO_VERSION" -gt "7" ]; then
+            echo "feature/centos/powertools"
+        fi
+    fi
+}
+
 list_packages() {
     if [ "$KERNEL" = "Linux" -a "$DISTRO" = "Debian" ]; then
         echo "links"
