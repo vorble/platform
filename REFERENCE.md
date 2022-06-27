@@ -26,7 +26,7 @@ The following environment variables are determined by Platform when it runs and 
 * [`DISTRO_VERSION`](env/DISTRO_VERSION) - The version of the operating system distribution. Values depend on `DISTRO`. The value of `DISTRO_VERSION` on your target systems may be numeric, but be careful using -gt and related tests since the version is not an integer expression for all values of `DISTRO` (e.g. OpenBSD 7.1).
 * [`IS_METAL`](env/IS_METAL) - Values are 0 or 1. Value is 0 if the system is detected as being virtualized. Value is 1 if the system is running on "metal" (not virtualized).
 * [`KERNEL`](env/KERNEL) - The kernel name. Values are `Linux` or `OpenBSD`.
-* [`PACKAGE_MANAGER`](env/PACKAGE_MANAGER) - The system's package manager. Values are `apt` (Debian), `yum`/`dnf` (CentOS/Fedora), and `pkg_add` (OpenBSD).
+* [`PACKAGE_MANAGER`](env/PACKAGE_MANAGER) - The system's package manager. Values are `apt` (Debian), `yum`/`dnf` (CentOS/Fedora), `pkg_add` (OpenBSD), and `zypper` (openSUSE).
 
 ## Options
 

@@ -18,7 +18,7 @@
 # PACKAGE_MANAGER
 #
 # The system's package manager. Values are `apt` (Debian), `yum`/`dnf`
-# (CentOS/Fedora), and `pkg_add` (OpenBSD).
+# (CentOS/Fedora), `pkg_add` (OpenBSD), and `zypper` (openSUSE).
 
 PACKAGE_MANAGER=""
 
