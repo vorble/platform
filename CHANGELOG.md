@@ -5,6 +5,7 @@
 *Not Released*
 
 * Adds `feature/git` and includes it as part of `feature/dev`.
+* Adds `feature/cryptsetup` and includes it as part of `vorble/feature/base`.
 * Adjusts output when `DEBUG=1` to include the names of all features being set up, prefixed with "Setting up features:".
 * Removes legacy `pre_install_hook` and `post_install_hook` functions for features and loadouts. Use `pre_install` and `post_install` instead.
 

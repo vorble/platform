@@ -15,6 +15,7 @@ list_prerequisites() {
 }
 
 list_features() {
+    echo "feature/cryptsetup"
     echo "feature/curl"
     echo "vorble/feature/drivers"
     echo "vorble/feature/firmware"
