@@ -147,7 +147,7 @@ For feature scripts implemented in POSIX or similar shells, the script should ex
 
 ### Environment/Options
 
-Should be located in a `env` or `option` directory/sub-directory. Environment and option script fragments are included automatically when a loadout or feature from your custom loadout is used. These script fragments must be written in POSIX shell since they are directly sourced into the setup script.
+Should be located in a `env` or `option` directory/sub-directory. Environment and option script fragments are included automatically when a loadout or feature from your custom loadout is used. These script fragments must be written in POSIX shell since they are directly sourced into the platform script.
 
 Example environment:
 
