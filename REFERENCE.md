@@ -154,8 +154,8 @@ Example environment:
 ```sh
 #!/bin/sh
 
-# Lock the versions together since the main source code is packaged with this
-# custom loadout.
+# Make VORBLE_VERSION equal to PLATFORM_VERSION since the main source code is
+# maintained in parallel with this custom loadout.
 export VORBLE_VERSION="$PLATFORM_VERSION"
 
 if [ "$DEBUG" != "0" ]; then
