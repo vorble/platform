@@ -21,7 +21,7 @@ The following document outlines the API provided by Platform for writing custom 
 The following environment variables are determined by Platform when it runs and are available for use by custom loadouts:
 
 * [`ARCH`](env/ARCH) - The CPU architecture. Values are `amd64`, `armv6l`, or `armv7l`.
-* [`CPU_VENDOR`](env/CPU_VENDOR) - The CPU vendor. Values are `amd`, `arm` or `intel`.
+* [`CPU_VENDOR`](env/CPU_VENDOR) - The CPU vendor. Values are blank (if unable to determine), `amd`, or `intel`.
 * [`DISTRO`](env/DISTRO) - The operating system distribution. For Linux, this is the name of the Linux distribution, e.g. `Debian`. Possible values are: `CentOS`, `Debian`, `Fedora`, `OpenBSD`, `openSUSE`.
 * [`DISTRO_VERSION`](env/DISTRO_VERSION) - The version of the operating system distribution. Values depend on `DISTRO`. The value of `DISTRO_VERSION` on your target systems may be numeric, but be careful using -gt and related tests since the version is not an integer expression for all values of `DISTRO` (e.g. OpenBSD 7.1).
 * [`IS_METAL`](env/IS_METAL) - Values are 0 or 1. Value is 0 if the system is detected as being virtualized. Value is 1 if the system is running on "metal" (not virtualized).

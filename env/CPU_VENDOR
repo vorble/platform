@@ -17,23 +17,22 @@
 
 # CPU_VENDOR
 #
-# The CPU vendor. Values are `amd`, `arm` or `intel`.
+# The CPU vendor. Values are blank (if unable to determine), `amd`, or `intel`.
 
 if [ -f /proc/cpuinfo ]; then
-    # Linux checks.
+    # Linux check.
     if grep -q vendor_id /proc/cpuinfo; then
         CPU_VENDOR="$( cat /proc/cpuinfo | grep vendor_id | grep -o ':.*' | sed 's/^: //' | uniq | head -1 )"
-    elif grep -q 'model name\s\+:\s\+ARM' /proc/cpuinfo; then
-        # My ARM systems don't have a vendor_id.
-        CPU_VENDOR="arm"
     else
-        echo "env/CPU_VENDOR: Unable to determine CPU vendor!" >&2
-        exit 1
+        CPU_VENDOR=""
     fi
 elif [ -x /sbin/sysctl ]; then
-    # OpenBSD check. sysctl is availabe on other systems to too with different
-    # variable names.
-    CPU_VENDOR="$( /sbin/sysctl -n machdep.cpuvendor )"
+    # OpenBSD check. sysctl is availabe on other systems too with different
+    # variable names. For some systems that don't have a CPU vendor, you will
+    # get the following message on stdout (suppressed here) and a 0
+    # exit status:
+    #   sysctl: second level name cpuvendor in machdep.cpuvendor is invalid
+    CPU_VENDOR="$( /sbin/sysctl -n machdep.cpuvendor 2> /dev/null )"
 else
     echo "env/CPU_VENDOR: Unable to determine CPU vendor!" >&2
     exit 1
@@ -43,7 +42,7 @@ if [ "$CPU_VENDOR" = "GenuineIntel" ]; then
     CPU_VENDOR=intel
 elif [ "$CPU_VENDOR" = "AuthenticAMD" ]; then
     CPU_VENDOR=amd
-elif [ "$CPU_VENDOR" = "arm" ]; then
+elif [ "$CPU_VENDOR" = "" ]; then
     :
 else
     echo "env/CPU_VENDOR: Unexpected CPU vendor $CPU_VENDOR!" >&2
