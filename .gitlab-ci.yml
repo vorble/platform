@@ -9,7 +9,13 @@ before_script:
 after_script:
   - echo "<<< END >>>"
 
-test1:
+test_dry:
   stage: test
   script:
-    - ls
+    - DRY_RUN=1 USERS="root" ./platform vorble/loadout/base
+
+test:
+  stage: test
+  script:
+    - USERS="root" ./platform vorble/loadout/base
+
