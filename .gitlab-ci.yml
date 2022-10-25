@@ -9,13 +9,26 @@ before_script:
 after_script:
   - echo "<<< END >>>"
 
-test_dry:
+test_vorble_base_dry:
   stage: test
   script:
-    - DRY_RUN=1 USERS="root" ./platform vorble/loadout/base
+    - adduser keith
+    - DRY_RUN=1 USERS="root keith" ./platform vorble/loadout/base
 
-test:
+test_vorble_base:
   stage: test
   script:
-    - USERS="root" ./platform vorble/loadout/base
+    - adduser keith
+    - USERS="root keith" ./platform vorble/loadout/base
 
+test_vorble_dev_dry:
+  stage: test
+  script:
+    - adduser keith
+    - DRY_RUN=1 USERS="root keith" ./platform vorble/loadout/dev
+
+test_vorble_dev:
+  stage: test
+  script:
+    - adduser keith
+    - USERS="root keith" ./platform vorble/loadout/dev
