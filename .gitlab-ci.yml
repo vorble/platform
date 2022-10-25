@@ -12,27 +12,29 @@ after_script:
 test_vorble_base_dry:
   stage: test
   script:
+    # Prevent apt-get from asking for input (setting up the keyboard).
     - export DEBIAN_FRONTEND=noninteractive
-    - adduser keith
+    # --gecos "" prevents interactive asking for user info.
+    - adduser --gecos "" keith
     - DRY_RUN=1 USERS="root keith" ./platform vorble/loadout/base
 
 test_vorble_base:
   stage: test
   script:
     - export DEBIAN_FRONTEND=noninteractive
-    - adduser keith
+    - adduser --gecos "" keith
     - USERS="root keith" ./platform vorble/loadout/base
 
 test_vorble_dev_dry:
   stage: test
   script:
     - export DEBIAN_FRONTEND=noninteractive
-    - adduser keith
+    - adduser --gecos "" keith
     - DRY_RUN=1 USERS="root keith" ./platform vorble/loadout/dev
 
 test_vorble_dev:
   stage: test
   script:
     - export DEBIAN_FRONTEND=noninteractive
-    - adduser keith
+    - adduser --gecos "" keith
     - USERS="root keith" ./platform vorble/loadout/dev
