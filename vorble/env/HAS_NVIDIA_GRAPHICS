@@ -11,9 +11,11 @@ if [ "$KERNEL" = "Linux" ]; then
             HAS_NVIDIA_GRAPHICS=1
         fi
     else
-        # TODO: CentOS. It doesn't come with lspci, so I would have to figure out how to check it from
-        # files in /sys or something.
-        echo "PLZHELP: env/HAS_NVIDIA_GRAPHICS is not implemented for DISTRO=$DISTRO!"
+        if [ "$PLZHELP" != "0" ]; then
+            # TODO: CentOS and Debian docker images. It doesn't come with lspci, so I would have to
+            # figure out how to check it from files in /sys or something. Maybe strace lspci?
+            echo "PLZHELP: env/HAS_NVIDIA_GRAPHICS is not implemented for DISTRO=$DISTRO!"
+        fi
     fi
 else
     if [ "$PLZHELP" != "0" ]; then
