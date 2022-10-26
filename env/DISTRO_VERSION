@@ -18,9 +18,10 @@
 # DISTRO_VERSION
 #
 # The version of the operating system distribution. Values depend on `DISTRO`.
-# The value of `DISTRO_VERSION` on your target systems may be numeric, but be
-# careful using -gt and related tests since the version is not an integer
-# expression for all values of `DISTRO` (e.g. OpenBSD 7.1).
+# The value of `DISTRO_VERSION` on your target systems may not be numeric. Be
+# careful using `-gt` and related tests since the version, even when numeric,
+# may not be an integer expression for all values of `DISTRO` (e.g. OpenBSD
+# 7.1).
 
 DISTRO_VERSION=""
 
