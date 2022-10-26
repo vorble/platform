@@ -18,12 +18,12 @@
 # Print out the action to be performed and perform it. If DRY_RUN is set, the
 # action is not performed.
 #
-# Watch out! This is nice for conditionally executed activities, but it is
+# WATCH OUT! This is nice for conditionally executed activities, but it is
 # problematic when used with pipes since it prints additional text to stdout
-# when it goes and when it does not, it doesn't print any of the expected
-# output from the command.
+# when it goes executes. Then, when it does not, it doesn't print any of the
+# expected output from the command.
 #
-# Watch out! If you pass options to maybe, it could interfere with the echo
+# WATCH OUT! If you pass options to maybe, it could interfere with the echo
 # it perform. E.g. maybe -n go
 
 maybe() {
