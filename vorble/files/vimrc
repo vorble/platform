@@ -1,4 +1,4 @@
-" This configuration is part of a platform setup which may be overwritten by
+" This configuration is part of a Platform setup which may be overwritten by
 " subsequent redeployments. Additional configuration may be added to
 " .vimrc.local which is loaded at the end of this file.
 

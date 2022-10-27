@@ -19,8 +19,8 @@
 #
 # Value is a path to a file. Default to a file in `/tmp`. Set this option to
 # control where the feature file, which is used to keep track of the progress
-# of the platform setup and is deleted when finished, is written. The user must
-# have access to write to this file.
+# of the Platform setup, is written. The file is deleted after the process
+# finishes. The user must have access to write to this file.
 
 if [ "${FEATURE_FILE+defined}" != "defined" ]; then
     FEATURE_FILE="$( mktemp /tmp/platform.features.XXXXXX )"
