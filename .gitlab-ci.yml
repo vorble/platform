@@ -9,6 +9,11 @@ before_script:
 after_script:
   - echo "<<< END >>>"
 
+test_check_reference:
+  stage: test
+  script:
+    - ./tool/check_reference.sh
+
 test_vorble_base_dry:
   stage: test
   script:
