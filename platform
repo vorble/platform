@@ -148,6 +148,11 @@ setup_features() {
         fi
     done
     for FEATURE in $INCOMPLETE_FEATURES; do
+        if feature_has_function "$FEATURE" download; then
+            "$FEATURE" download
+        fi
+    done
+    for FEATURE in $INCOMPLETE_FEATURES; do
         if feature_has_function "$FEATURE" unpack; then
             "$FEATURE" unpack
         fi

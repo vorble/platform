@@ -55,16 +55,23 @@ set -eu
 # This function should output a series of feature names of features which must
 # be FULLY set up BEFORE this feature can be set up.
 list_prerequisites() {
-    echo "feature/test-prerequisite"
+    # Output to stderr since there are no prerequisites.
+    echo "I'm running the list_prerequisites function!" 1>&2
 }
 
 # This function should output a series of feature names of features which must
 # additionally be set up along with this feature.
 list_features() {
-    echo "feature/necessary-package"
+    # Output to stderr since there are no features to run.
+    echo "I'm running the list_features function!" 1>&2
 }
 
 # This function should acquire or unpack the feature.
+download() {
+    echo "I'm running the download function!"
+}
+
+# This function should unpack the feature.
 unpack() {
     echo "I'm running the unpack function!"
 }
@@ -79,26 +86,34 @@ build() {
 pre_install() {
     # You might emplace configuration files or download the source code for a
     # package.
-    echo "I'm running the pre_install!"
+    echo "I'm running the pre_install function!"
 }
 
 # This function should install the feature.
 do_install() {
-    echo "I'm running the do_install hook!"
+    echo "I'm running the do_install function!"
 }
 
 # This function should output a series of package names for the system's
 # package manager which should be installed. These will often depend on
 # $KERNEL, $DISTRO, $PACKAGE_MANAGER, and other factors.
 list_packages() {
-    echo "my-favorite-tool"
+    # Output to stderr since no packages will be installed.
+    echo "I'm running the list_packages function!" 1>&2
 }
 
 # This function is called after the system's package manager is run for the
 # feature.
 post_install() {
     # You might start a service or initialize a database.
-    echo "I'm running the post_install!"
+    echo "I'm running the post_install function!"
+}
+
+# This function should output a series of feature names of features which must
+# be set up AFTER this feature is FULLY set up.
+list_postrequisites() {
+    # Output to stderr since there are no prerequisites.
+    echo "I'm running the list_postrequisites function!" 1>&2
 }
 
 "${@}"
