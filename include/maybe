@@ -19,15 +19,15 @@
 # action is not performed.
 #
 # WATCH OUT! This is nice for conditionally executed activities, but it is
-# problematic when used with pipes since it prints additional text to stdout
-# when it goes executes. Then, when it does not, it doesn't print any of the
-# expected output from the command.
+# problematic in several cases:
 #
-# WATCH OUT! If you pass options to maybe, it could interfere with the echo
-# it perform. E.g. maybe -n go
+# * Don't use this in a pipe since it prints additional text to stdout when
+#   is is run AND it does not print expected output when DRY_RUN is enabled.
+# * Don't rely on the output to be properly quoted since the shell swallows
+#   the quotes when it is called.
 
 maybe() {
-    echo "${@}"
+    printf '%s\n' "$*"
     if [ "$DRY_RUN" = "0" ]; then
         "${@}"
     fi
