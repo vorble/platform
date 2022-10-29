@@ -86,7 +86,9 @@ list_setup_features() {
     for FEATURE in $FEATURES; do
         if feature_has_function "$FEATURE" list_prerequisites; then
             TEMP="$( "$FEATURE" list_prerequisites )"
-            list_setup_features $TEMP # Recursive
+            if [ "$TEMP" != "" ]; then
+                list_setup_features $TEMP # Recursive
+            fi
         fi
     done
     INCOMPLETE_FEATURES=""
@@ -103,7 +105,9 @@ list_setup_features() {
     for FEATURE in $FEATURES; do
         if feature_has_function "$FEATURE" list_postrequisites; then
             TEMP="$( "$FEATURE" list_postrequisites )"
-            list_setup_features $TEMP # Recursive
+            if [ "$TEMP" != "" ]; then
+                list_setup_features $TEMP # Recursive
+            fi
         fi
     done
 
