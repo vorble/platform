@@ -15,7 +15,7 @@ test_check_reference:
     - apt-get update && apt-get install -y python3
     - ./tool/check_reference.sh
 
-test_vorble_base_dry:
+test_vorble_base:
   stage: test
   script:
     # Prevent apt-get from asking for input (setting up the keyboard).
@@ -23,24 +23,12 @@ test_vorble_base_dry:
     # --gecos "" prevents interactive asking for user info.
     - adduser --gecos "" keith
     - DRY_RUN=1 USERS="root keith" ./platform vorble/loadout/base
-
-test_vorble_base:
-  stage: test
-  script:
-    - export DEBIAN_FRONTEND=noninteractive
-    - adduser --gecos "" keith
     - USERS="root keith" ./platform vorble/loadout/base
-
-test_vorble_dev_dry:
-  stage: test
-  script:
-    - export DEBIAN_FRONTEND=noninteractive
-    - adduser --gecos "" keith
-    - DRY_RUN=1 USERS="root keith" ./platform vorble/loadout/dev
 
 test_vorble_dev:
   stage: test
   script:
     - export DEBIAN_FRONTEND=noninteractive
     - adduser --gecos "" keith
+    - DRY_RUN=1 USERS="root keith" ./platform vorble/loadout/dev
     - USERS="root keith" ./platform vorble/loadout/dev
