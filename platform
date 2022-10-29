@@ -187,7 +187,9 @@ setup_features() {
     for FEATURE in $FEATURES; do
         if feature_has_function "$FEATURE" list_postrequisites; then
             TEMP="$( "$FEATURE" list_postrequisites )"
-            setup_features $TEMP # Recursive
+            if [ "$TEMP" != "" ]; then
+                setup_features $TEMP # Recursive
+            fi
         fi
     done
 }
