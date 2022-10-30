@@ -1,0 +1,35 @@
+#!/bin/sh
+
+# Copyright (C) 2022 Keith "vorble"
+#
+# This program is free software: you can redistribute it and/or modify
+# it under the terms of the GNU General Public License as published by
+# the Free Software Foundation, either version 3 of the License, or
+# (at your option) any later version.
+#
+# This program is distributed in the hope that it will be useful,
+# but WITHOUT ANY WARRANTY; without even the implied warranty of
+# MERCHANTABILITY or FITNESS FOR A PARTICULAR PURPOSE.  See the
+# GNU General Public License for more details.
+#
+# You should have received a copy of the GNU General Public License
+# along with this program.  If not, see <http://www.gnu.org/licenses/>.
+
+# VAR_FILE
+#
+# Value is a path to a file. Default to a file in `/tmp`. Set this option to
+# control where the variables file, which is used to keep track of variables
+# set by custom features, is stored. The file is deleted after the process
+# finishes. The user must have access to write to this file. See
+# [include/var_set](include/var_set) and [include/var_get](include/var_get)
+# include functions.
+
+if [ "${VAR_FILE+defined}" != "defined" ]; then
+    VAR_FILE="$( mktemp /tmp/platform.variables.XXXXXX )"
+fi
+
+if [ "$DEBUG" != "0" ]; then
+    echo "VAR_FILE=$VAR_FILE"
+fi
+
+export VAR_FILE

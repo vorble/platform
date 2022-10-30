@@ -41,6 +41,7 @@ cd `dirname $0`
 . option/ENABLE_HOOK_WATERMARK
 . option/FEATURE_FILE
 . option/PLZHELP
+. option/VAR_FILE
 . option/WATERMARK_DIR
 
 
