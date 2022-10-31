@@ -19,7 +19,7 @@ watermark_add() {
     if [ "$ENABLE_HOOK_WATERMARK" != "0" ]; then
         echo watermark: "${@}"
         if [ "$DRY_RUN" = "0" ]; then
-            echo "${@}" >> "$WATERMARK_DIR/platform"
+            printf '%s\n' "$*" >> "$WATERMARK_DIR/platform"
         fi
     fi
 }

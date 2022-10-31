@@ -195,7 +195,7 @@ setup_features() {
     done
 }
 
-export LOADOUT="$( echo ${@} )"
+export LOADOUT="$( printf '%s\n' "$*" )"
 
 # Find all features in the dependency tree.
 ALL_FEATURES=`list_setup_features $LOADOUT`
