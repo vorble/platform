@@ -17,5 +17,5 @@
 
 # Returns 0 if user exists, non-zero if the user does not exist.
 user_exists() {
-    getent passwd "$0" > /dev/null
+    getent passwd "$1" > /dev/null
 }
