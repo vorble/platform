@@ -26,6 +26,9 @@ on_start() {
             maybe rm "$WATERMARK_DIR/platform"
         fi
         maybe mkdir -p "$WATERMARK_DIR"
+        if [ "$DEBUG" != "0" ]; then
+            echo "watermark: saving to $WATERMARK_DIR/platform"
+        fi
         watermark_add "platform $PLATFORM_VERSION"
     fi
 }
