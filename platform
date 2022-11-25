@@ -54,7 +54,7 @@ cd `dirname $0`
 . env/DISTRO_VERSION
 . env/IS_METAL
 . env/KERNEL
-. env/PACKAGE_MANAGER
+. env/PACKAGE_MANAGER # depends on KERNEL, DISTRO, and DISTRO_VERSION
 
 
 # -----------------------------------------------------------------------------

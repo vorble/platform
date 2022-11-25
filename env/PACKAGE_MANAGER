@@ -22,17 +22,25 @@
 
 PACKAGE_MANAGER=""
 
-if which apt-get > /dev/null 2> /dev/null; then
-    PACKAGE_MANAGER="apt"
-elif which pkg_add > /dev/null 2> /dev/null; then
+if [ "$KERNEL" = "OpenBSD" ]; then
     PACKAGE_MANAGER="pkg_add"
-elif which dnf > /dev/null 2> /dev/null; then
-    PACKAGE_MANAGER="dnf"
-elif which yum > /dev/null 2> /dev/null; then
-    PACKAGE_MANAGER="yum"
-elif which zypper > /dev/null 2> /dev/null; then
-    PACKAGE_MANAGER="zypper"
-else
+elif [ "$KERNEL" = "Linux" ]; then
+    if [ "$DISTRO" = "CentOS" ]; then
+        if [ "$DISTRO_VERSION" -lt "8" ]; then
+            PACKAGE_MANAGER="yum"
+        else
+            PACKAGE_MANAGER="dnf"
+        fi
+    elif [ "$DISTRO" = "Debian" ]; then
+        PACKAGE_MANAGER="apt"
+    elif [ "$DISTRO" = "Fedora" ]; then
+        PACKAGE_MANAGER="dnf"
+    elif [ "$DISTRO" = "openSUSE" ]; then
+        PACKAGE_MANAGER="zypper"
+    fi
+fi
+
+if [ "$PACKAGE_MANAGER" = "" ]; then
     echo "env/PACKAGE_MANAGER: Unable to determine package manager." >&2
     exit 1
 fi

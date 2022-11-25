@@ -11,6 +11,7 @@
 * `CPU_VENDOR` is adjusted to remove `arm` case and allow a blank value to be produced after checks. Use the `ARCH` variable for architecture detection instead. Additional CPU vendors can be added as they become relevant.
 * Adds a `download` function for features and loadouts.
 * Adds a `VAR_FILE` option, which is automatically set to a file in `/tmp` and a pair of include functions `var_set` and `var_get` for setting and getting variables usable throughout Platform's execution, most importantly between invocations of the functions for a feature/loadout.
+* Rework `PACKAGE_MANAGER` to determine the package manager based on the kernel and distro.
 
 ## 0.1.0
 
